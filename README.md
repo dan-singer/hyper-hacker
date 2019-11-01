@@ -11,6 +11,10 @@ Hyper Hacker is a puzzle-game web application which features HTML, CSS, and Java
 - profilePic (???)
 - completionTimes (Array<Number>) <-- Defaults to -1 if not completed
 
-
 ## API
+**/login**
+- GET
+    - Returns the login page
+- POST
+    - 
 
