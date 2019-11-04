@@ -30,6 +30,7 @@ Hyper Hacker is a puzzle-game web application which features HTML, CSS, and Java
     "key1",
     //...
 ]
+```
 
 ## Views
 - signup
