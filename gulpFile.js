@@ -4,6 +4,8 @@ const eslint = require('gulp-eslint');
 const webpack = require('webpack-stream');
 const named = require('vinyl-named');
 
+/* Basic template acquired from IGME-430 class */
+
 const bundleTask = (done) => {
 
     gulp.src('./src/js/*.js')

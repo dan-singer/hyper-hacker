@@ -1,14 +1,14 @@
-const requiresLogin = (req, res, next) => {
+const redirectHomeIfLoggedOut = (req, res, next) => {
   if (!req.session.account) {
     return res.redirect('/');
   }
   return next();
 };
 
-const requiresLogout = (req, res, next) => {
-  // if (req.session.account) {
-  //   return res.redirect('/'); // TODO change this to level-select
-  // }
+const bypassIfLoggedIn = (req, res, next) => {
+  if (req.session.account) {
+    return res.redirect('/level-select'); 
+  }
   return next();
 };
 
@@ -22,8 +22,8 @@ const bypassSecure = (req, res, next) => {
   next();
 };
 
-module.exports.requiresLogin = requiresLogin;
-module.exports.requiresLogout = requiresLogout;
+module.exports.redirectHomeIfLoggedOut = redirectHomeIfLoggedOut;
+module.exports.bypassIfLoggedIn = bypassIfLoggedIn;
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.requiresSecure = requiresSecure;

@@ -75,6 +75,11 @@ const signup = (request, response) => {
   });
 };
 
+const levelSelectPage = (request, response) => {
+  // TODO determine what needs to be passed in to this page
+  response.render('level-select', { csrfToken: request.csrfToken() });
+};
+
 module.exports = {
-  loginPage, login, logout, signupPage, signup,
+  loginPage, login, logout, signupPage, signup, levelSelectPage
 };
