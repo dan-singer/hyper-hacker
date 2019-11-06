@@ -95,11 +95,14 @@ const levelSelectPage = (request, response) => {
   
     });
   });
-
-
-
 };
 
+const tutorialPage = (request, response) => {
+  const req = request;
+  const res = response;
+  res.render('tutorial', { csrfToken: req.csrfToken() });
+}
+
 module.exports = {
-  loginPage, login, logout, signupPage, signup, levelSelectPage
+  loginPage, login, logout, signupPage, signup, levelSelectPage, tutorialPage
 };
