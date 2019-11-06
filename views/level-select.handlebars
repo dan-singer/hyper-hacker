@@ -3,9 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hyper Hacker</title>
+    <title>Level Select: Hyper Hacker</title>
 </head>
 <body>
-    <h1>Level Select</h1>
+    <div id="profile">
+        <div id="profileContent">
+            <img src="defaultProfile.png" alt="profile">
+            <h1>{Username}</h1>
+            <h3>Joined On: {dateJoined}</h3>
+
+            <div id="buttons">
+                <button>Change Username</button>
+                <button>Change Password</button>
+                <button>Change Picture</button>
+            </div>
+
+            <div id="subscription">
+                <h3>Upgrade To Hacker Status</h3>
+                <p></p>
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <nav>
+        <h2>Welcome Back, {username}</h2>
+        <img src="defaultProfile.png" alt="profile picture" onclick="toggleProfile()">
+    </nav>
+
+    <div id="levelContainer">
+        <div id="levelGrid">
+            <div class="levelSelect">
+                <div class="highscore">
+                    <h5>{highscore}</h5>
+                    <img src="medal.png" alt="high score">
+                </div>
+                <div class="levelText">
+                    <h3>Level {levelNumber}</h3>
+                    <h4>{Level Name}</h4>
+                </div>
+            </div>
+
+            <div class="levelSelect">
+                <div class="highscore">
+                    <h5>{highscore}</h5>
+                    <img src="medal.png" alt="high score">
+                </div>
+                <div class="levelText">
+                    <h3>Level {levelNumber}</h3>
+                    <h4>{Level Name}</h4>
+                </div>
+            </div>
+
+            <div class="levelSelect">
+                <div class="highscore">
+                    <h5>{highscore}</h5>
+                    <img src="medal.png" alt="high score">
+                </div>
+                <div class="levelText">
+                    <h3>Level {levelNumber}</h3>
+                    <h4>{Level Name}</h4>
+                </div>
+            </div>
+
+            <div class="levelSelect">
+                <div class="highscore">
+                    <h5>{highscore}</h5>
+                    <img src="medal.png" alt="high score">
+                </div>
+                <div class="levelText">
+                    <h3>Level {levelNumber}</h3>
+                    <h4>{Level Name}</h4>
+                </div>
+            </div>
+
+            <div class="levelSelect">
+                <div class="exclusive">
+                    <img src="exclusive.png" alt="subscription needed">
+                </div>
+                <div class="highscore">
+                    <h5>{highscore}</h5>
+                    <img src="medal.png" alt="high score">
+                </div>
+                <div class="levelText">
+                    <h3>Level {levelNumber}</h3>
+                    <h4>{Level Name}</h4>
+                </div>
+            </div>
+
+            <div class="levelSelect">
+                <div class="exclusive">
+                    <img src="exclusive.png" alt="subscription needed">
+                </div>
+                <div class="highscore">
+                    <h5>{highscore}</h5>
+                    <img src="medal.png" alt="high score">
+                </div>
+                <div class="levelText">
+                    <h3>Level {levelNumber}</h3>
+                    <h4>{Level Name}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<script>
+
+
+function toggleProfile() {
+    let navBar = document.querySelector('nav');
+    let profile = document.querySelector('#profile');
+    let container = document.querySelector('#levelContainer');
+    if(profile.style.width == "0px" || profile.style.width == ""){
+        profile.style.width = "300px";
+        container.style.marginLeft = "300px";
+        container.style.transition = "0.2s";
+        navBar.style.width = "81vw";
+        navBar.style.left = "350px";
+        container.style.borderColor = "#33ff00";
+        
+    } else{
+        profile.style.width = "0px";
+        container.style.marginLeft = "0px";
+        container.style.transition = "0.3s";
+        navBar.style.width = "100vw";
+        navBar.style.left = "0px";
+        container.style.borderColor = "#111";
+    }
+}
+
+</script>
 </body>
 </html>
