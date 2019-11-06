@@ -4,18 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hyper Hacker</title>
+    <script src="assets/js/signup.js"></script>
 </head>
 <body>
     <div id="login">
         <div id="loginDiv">
-            <h1>Hyper Hacker Signup</h1>
+            <h1>Sign Up</h1>
             <form id="loginForm" name="loginForm" action="/signup" method="POST" class="mainForm">
                 <input id="user" type="text" name="username" placeholder="username"/>
                 <input id="pass" type="password" name="pass" placeholder="password"/>
                 <input id="pass" type="password" name="pass2" placeholder="retype password"/>
                 <input type="hidden" name="_csrf" value={{csrfToken}} />
-                <input class="formSubmit" type="image" value="Sign Up" src="submit.png" />
+                <input class="formSubmit" type="image" value="Sign Up" src="assets/media/submit.png" />
             </form>
+            <p>Returning Hacker? Log in <a href="/">here</a></p>
         </div>
     </div>
 </body>
