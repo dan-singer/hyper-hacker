@@ -7,6 +7,16 @@
     <script src="assets/js/login.js"></script>
 </head>
 <body>
-    <h1>Login Page</h1>
+    <div id="login">
+        <div id="loginDiv">
+            <h1>Hyper Hacker</h1>
+            <form id="loginForm" name="loginForm" action="/login" method="POST" class="mainForm">
+                <input id="user" type="text" name="username" placeholder="username"/>
+                <input id="pass" type="password" name="pass" placeholder="password"/>
+                <input class="formSubmit" type="image" value="Sign In" src="submit.png" />
+            </form>
+            <p>New? Sign up <a href="">here</a></p>
+        </div>
+    </div>
 </body>
 </html>
