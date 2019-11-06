@@ -6,9 +6,9 @@ const requiresLogin = (req, res, next) => {
 };
 
 const requiresLogout = (req, res, next) => {
-  if (req.session.account) {
-    return res.redirect('/maker');
-  }
+  // if (req.session.account) {
+  //   return res.redirect('/'); // TODO change this to level-select
+  // }
   return next();
 };
 

@@ -48,8 +48,18 @@ Hyper Hacker is a puzzle-game web application which features HTML, CSS, and Java
 - POST
     - Returns a status code depending on the status of the login
     - If the login was successful, returns a 200 status code.
-    - If the login is missing payload data, return 400 status code
-    - If the login info is invalid, return 401 status code
+    - If the login is missing payload data, return 400 status code with an error code.
+    ```js
+    {
+        "error": "missing-data"
+    }  
+    ```
+    - If the login info is invalid, return 401 status code with an error code.
+    ```js
+    {
+        "error": "invalid-credentials"
+    }
+    ```
 ```js
 // Example request body
 {

@@ -2,7 +2,7 @@
 const path = require('path');
 const express = require('express');
 const compression = require('compression');
-const favicon = require('serve-favicon');
+// const favicon = require('serve-favicon');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -35,7 +35,8 @@ if (process.env.REDISCLOUD_URL) {
 const router = require('./router.js');
 const app = express();
 app.use('/assets', express.static(path.resolve(`${__dirname}/../dist/`)));
-app.use(favicon(`${__dirname}/../dist/img/favicon.png`));
+// TODO get a favicon image
+// app.use(favicon(`${__dirname}/../dist/img/favicon.png`));
 app.disable('x-powered-by');
 app.use(compression());
 app.use(bodyParser.urlencoded({
