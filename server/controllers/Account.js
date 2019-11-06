@@ -34,7 +34,7 @@ const login = (request, response) => {
 
     req.session.account = Account.AccountModel.toAPI(account);
 
-    res.status(200);
+    res.status(200).send();
   });
 };
 
@@ -65,7 +65,7 @@ const signup = (request, response) => {
     const savePromise = newAccount.save();
     savePromise.then(() => {
       req.session.account = Account.AccountModel.toAPI(newAccount);
-      res.status(200);
+      res.status(200).send();
     });
     savePromise.catch((err) => {
       if (err.code === 11000) {
@@ -76,8 +76,12 @@ const signup = (request, response) => {
 };
 
 const levelSelectPage = (request, response) => {
-  // TODO determine what needs to be passed in to this page
-  response.render('level-select', { csrfToken: request.csrfToken() });
+  Account.AccountModel.findByUsername(request.session.account.username, (user) => {
+    console.dir(user);
+    response.render('level-select', { csrfToken: request.csrfToken() });
+
+  });
+
 };
 
 module.exports = {

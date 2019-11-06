@@ -48,6 +48,14 @@ AccountSchema.statics.toAPI = doc => ({
   _id: doc._id,
 });
 
+AccountSchema.statics.canAccessLevel = (user, level) => {
+  return (level < 4 || user.isPremium);
+};
+
+AccountSchema.statics.completeLevel = (user, key, level, endTime) => {
+  //TODO
+};
+
 const validatePassword = (doc, password, callback) => {
   const pass = doc.password;
 
