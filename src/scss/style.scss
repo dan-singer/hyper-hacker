@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
+
 /* SASS Variables */
 $defaultColor: #33ff00;
 $defaultColorTransparent: rgba(51,255,0,0.5);
@@ -71,12 +73,40 @@ h3{
         right:10px;
         font-size: 21pt;
     }
+
+    a{
+      color: $defaultColor;
+    }
 }
 
 #loginForm{
     text-align: center;
 
-    input[name="username"], #loginForm input[name="pass"]{
+    input[name="username"]{
+        text-align: center;
+        display:block;
+        background-color: $defaultBackground;
+        border-radius: 40px;
+        color: $defaultColor;
+        border: 2px solid $defaultColor;
+        font-family: $defaultFont;
+        font-size: 42pt;
+        width:80%;
+        margin:0px auto 30px auto;
+    }
+    input[name="pass"]{
+        text-align: center;
+        display:block;
+        background-color: $defaultBackground;
+        border-radius: 40px;
+        color: $defaultColor;
+        border: 2px solid $defaultColor;
+        font-family: $defaultFont;
+        font-size: 42pt;
+        width:80%;
+        margin:0px auto 30px auto;
+    }
+    input[name="pass2"]{
         text-align: center;
         display:block;
         background-color: $defaultBackground;
