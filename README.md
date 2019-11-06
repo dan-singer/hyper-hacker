@@ -15,11 +15,14 @@ Hyper Hacker is a puzzle-game web application which features HTML, CSS, and Java
     - Each elements should be initialized to zero, to indicate an incomplete level.
 - startTime (Number)
     - Represents the time the user started a level
+- completedTutorial (bool)
 - `canAccessLevel(user, level)`
     - static function used to determine if a user is able to access the provided level. For now, we'll say if level is less than 4, return true. If level is >= 4 and the user isPremium, return true. If level is >= 4 and the user is not premium, return false. 
 - `completeLevel(user, key, level, endTime)`
     - static function that will mark a time in the completionTimes array using level as an index.
     - This should compare the key against the data in `levels.json` and only complete the level if the provided key matches.
+- `completeTutorial(user)`
+    - Marks off that the tutorial is now complete
 
 ## Data Files
 **levels.json**
@@ -118,6 +121,9 @@ Hyper Hacker is a puzzle-game web application which features HTML, CSS, and Java
 - GET
     - If the user is logged in, returns the tutorial page pre-filled with user data using Handlebars.
     - If the user is logged out, redirects to the login page
+- POST
+    - If the user is logged in, marks the tutorial off as being completed and returns a 200 status code.
+    - Otherwise, redirects to the login page
 
 **/level**
 - GET

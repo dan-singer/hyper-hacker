@@ -39,6 +39,10 @@ const AccountSchema = new mongoose.Schema({
   startTime: {
     type: Number,
     default: 0
+  },
+  completedTutorial: {
+    type: Boolean,
+    default: false
   }
 });
 
@@ -55,6 +59,11 @@ AccountSchema.statics.canAccessLevel = (user, level) => {
 AccountSchema.statics.completeLevel = (user, key, level, endTime) => {
   //TODO
 };
+
+AccountSchema.statics.completeTutorial = (user) => {
+  user.completedTutorial = true;
+  return user.save();
+}
 
 const validatePassword = (doc, password, callback) => {
   const pass = doc.password;
