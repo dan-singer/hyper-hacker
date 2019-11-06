@@ -28,6 +28,18 @@ const AccountSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  isPremium: {
+    type: Boolean,
+    default: false,
+  },
+  completionTimes: {
+    type: [Number],
+    default: [0, 0, 0, 0, 0, 0]
+  },
+  startTime: {
+    type: Number,
+    default: 0
+  }
 });
 
 AccountSchema.statics.toAPI = doc => ({

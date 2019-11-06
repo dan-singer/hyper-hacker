@@ -64,7 +64,7 @@ Hyper Hacker is a puzzle-game web application which features HTML, CSS, and Java
 // Example request body
 {
     "username": "abc123",
-    "password": "example"
+    "pass": "example"
 }
 ```
 
@@ -98,8 +98,8 @@ Hyper Hacker is a puzzle-game web application which features HTML, CSS, and Java
 // Example Request Body
 {
     "username": "abc123",
-    "password": "example",
-    "password2": "example"
+    "pass": "example",
+    "pass2": "example"
 }
 ```
 
