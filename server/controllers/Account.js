@@ -1,4 +1,7 @@
 const models = require('../models');
+const fs = require("fs");
+const path = require('path');
+
 const Account = models.Account;
 
 const loginPage = (req, res) => {
@@ -76,10 +79,24 @@ const signup = (request, response) => {
 };
 
 const levelSelectPage = (request, response) => {
-  Account.AccountModel.findByUsername(request.session.account.username, (err, user) => {
-    response.render('level-select', { csrfToken: request.csrfToken() });
 
+  const levelData = fs.readFile(`${__dirname}/../../data/levels.json`, (err, data) => {
+    console.log(err);
+    const levels = JSON.parse(data);
+    Account.AccountModel.findByUsername(request.session.account.username, (err, user) => {
+      const levelDetails = {
+        username: user.username,
+        highscores: user.completionTimes,
+        csrfToken: request.csrfToken(),
+        levelNames: levels.map(level => level.name)
+      };
+      console.dir(levelDetails);
+      response.render('level-select', levelDetails);
+  
+    });
   });
+
+
 
 };
 

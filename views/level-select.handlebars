@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Level Select: Hyper Hacker</title>
+    <script src="assets/js/level-select.js"></script>
 </head>
 <body>
     <div id="profile">
@@ -34,78 +35,18 @@
 
     <div id="levelContainer">
         <div id="levelGrid">
-            <div class="levelSelect">
-                <div class="highscore">
-                    <h5>{{highscore[0]}}</h5>
-                    <img src="medal.png" alt="high score">
+            {{#each levelNames}}
+                <div class="levelSelect">
+                    <div class="highscore">
+                        <h5>{{highscores.[{{@index}}]}}</h5>
+                        <img src="medal.png" alt="high score">
+                    </div>
+                    <div class="levelText">
+                        <h3>Level {{@index}}</h3>
+                        <h4>{{this}}</h4>
+                    </div>
                 </div>
-                <div class="levelText">
-                    <h3>Level 0</h3>
-                    <h4>{{Level Name}}</h4>
-                </div>
-            </div>
-
-            <div class="levelSelect">
-                <div class="highscore">
-                    <h5>{{highscore}}</h5>
-                    <img src="medal.png" alt="high score">
-                </div>
-                <div class="levelText">
-                    <h3>Level {{levelNumber}}</h3>
-                    <h4>{{Level Name}}</h4>
-                </div>
-            </div>
-
-            <div class="levelSelect">
-                <div class="highscore">
-                    <h5>{{highscore}}</h5>
-                    <img src="medal.png" alt="high score">
-                </div>
-                <div class="levelText">
-                    <h3>Level {{levelNumber}}</h3>
-                    <h4>{{Level Name}}</h4>
-                </div>
-            </div>
-
-            <div class="levelSelect">
-                <div class="highscore">
-                    <h5>{{highscore}}</h5>
-                    <img src="medal.png" alt="high score">
-                </div>
-                <div class="levelText">
-                    <h3>Level {{levelNumber}}</h3>
-                    <h4>{{Level Name}}</h4>
-                </div>
-            </div>
-
-
-            <div class="levelSelect">
-                <div class="exclusive">
-                    <img src="exclusive.png" alt="subscription needed">
-                </div>
-                <div class="highscore">
-                    <h5>{{highscore}}</h5>
-                    <img src="medal.png" alt="high score">
-                </div>
-                <div class="levelText">
-                    <h3>Level {{levelNumber}}</h3>
-                    <h4>{{Level Name}}</h4>
-                </div>
-            </div>
-
-            <div class="levelSelect">
-                <div class="exclusive">
-                    <img src="exclusive.png" alt="subscription needed">
-                </div>
-                <div class="highscore">
-                    <h5>{{highscore}}</h5>
-                    <img src="medal.png" alt="high score">
-                </div>
-                <div class="levelText">
-                    <h3>Level {{levelNumber}}</h3>
-                    <h4>{{Level Name}}</h4>
-                </div>
-            </div>
+            {{/each}}
         </div>
     </div>
     

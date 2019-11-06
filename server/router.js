@@ -7,7 +7,7 @@ const router = (app) => {
   app.post('/signup', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.signup);
   app.get('/logout', mid.redirectHomeIfLoggedOut, controllers.Account.logout);
 
-  app.get('/level-select', mid.requiresSecure, /*mid.redirectHomeIfLoggedOut,*/ controllers.Account.levelSelectPage);
+  app.get('/level-select', mid.requiresSecure, mid.redirectHomeIfLoggedOut, controllers.Account.levelSelectPage);
 
   app.get('/', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);
 };

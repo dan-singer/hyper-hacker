@@ -1,0 +1,26 @@
+[
+    {
+        "name": "level-0-name",
+        "key": "key0"
+    },
+    {
+        "name": "level-1-name",
+        "key": "key1"
+    },
+    {
+        "name": "level-2-name",
+        "key": "key2"
+    },
+    {
+        "name": "level-3-name",
+        "key": "key3"
+    },
+    {
+        "name": "level-4-name",
+        "key": "key4"
+    },
+    {
+        "name": "level-5-name",
+        "key": "key5"
+    }
+]
