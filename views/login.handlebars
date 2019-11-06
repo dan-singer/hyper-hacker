@@ -13,9 +13,10 @@
             <form id="loginForm" name="loginForm" action="/login" method="POST" class="mainForm">
                 <input id="user" type="text" name="username" placeholder="username"/>
                 <input id="pass" type="password" name="pass" placeholder="password"/>
+                <input type="hidden" name="_csrf" value={{csrfToken}} />
                 <input class="formSubmit" type="image" value="Sign In" src="submit.png" />
             </form>
-            <p>New? Sign up <a href="">here</a></p>
+            <p>New? Sign up <a href="signup.handlebars">here</a></p>
         </div>
     </div>
 </body>
