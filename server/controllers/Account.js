@@ -76,8 +76,7 @@ const signup = (request, response) => {
 };
 
 const levelSelectPage = (request, response) => {
-  Account.AccountModel.findByUsername(request.session.account.username, (user) => {
-    console.dir(user);
+  Account.AccountModel.findByUsername(request.session.account.username, (err, user) => {
     response.render('level-select', { csrfToken: request.csrfToken() });
 
   });
