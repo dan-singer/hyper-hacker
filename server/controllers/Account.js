@@ -81,20 +81,18 @@ const signup = (request, response) => {
 const levelSelectPage = (request, response) => {
 
   const levelData = fs.readFile(`${__dirname}/../../data/levels.json`, (err, data) => {
-    console.log(err);
     const levels = JSON.parse(data);
-    Account.AccountModel.findByUsername(request.session.account.username, (err, user) => {
-      const levelDetails = {
-        username: user.username,
-        highscores: user.completionTimes,
-        csrfToken: request.csrfToken(),
-        levelNames: levels.map(level => level.name)
-      };
-      console.dir(levelDetails);
-      response.render('level-select', levelDetails);
-  
+    Account.AccountModel.findByUsername(request.session.account.username)
+      .then((user) => {
+        const levelDetails = {
+          username: user.username,
+          highscores: user.completionTimes,
+          csrfToken: request.csrfToken(),
+          levelNames: levels.map(level => level.name)
+        };
+        response.render('level-select', levelDetails);
+      });
     });
-  });
 };
 
 const tutorialPage = (request, response) => {
@@ -103,6 +101,19 @@ const tutorialPage = (request, response) => {
   res.render('tutorial', { csrfToken: req.csrfToken() });
 }
 
+const completeTutorial = (request, response) => {
+  Account.AccountModel.findByUsername(request.session.account.username)
+    .then(user => {
+      return Account.AccountModel.completeTutorial(user);
+    })
+    .then(user => {
+      response.status(200).send();
+    })
+    .catch(err => {
+      response.status(400).send(err);
+    })
+};
+
 module.exports = {
-  loginPage, login, logout, signupPage, signup, levelSelectPage, tutorialPage
+  loginPage, login, logout, signupPage, signup, levelSelectPage, tutorialPage, completeTutorial
 };

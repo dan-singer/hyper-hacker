@@ -32,6 +32,26 @@ function loadTutorial(){
     document.querySelector("#tutorial").style.display="none";
 }
 
+function init() {
+    runTypeWriter();
+    const finish = document.querySelector("#finish-link");
+    const _csrf = document.querySelector("#_csrf");
+    finish.onclick = e => {
+        e.preventDefault();
+        fetch(`/tutorial?_csrf=${_csrf.value}`, {
+            method: 'POST',
+        })
+        .then(res => {
+            if (res.status === 200) {
+                window.location.href = '/level-select';
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
+}
+
 document.onkeypress = runTypeWriter;
 
-window.onload = runTypeWriter;
+window.onload = init;
