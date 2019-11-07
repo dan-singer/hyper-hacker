@@ -7,6 +7,8 @@
     <script src="assets/js/tutorial.js"></script>
 </head>
 <body>
+    <input type="hidden" name="_csrf" id="_csrf" value={{csrfToken}} />
+
     <div id="tutorial">
         <h1 id="text"></h1>
     </div>
@@ -16,7 +18,7 @@
         <h2>Delete the div</h2>
 
         <div id="coverDiv">
-            <a href="level-select">Click here!</a>
+            <a id="finish-link">Click here!</a>
             <div id="cover"></div>
         </div>
 

@@ -108,7 +108,10 @@ const completeTutorial = (request, response) => {
     })
     .then(user => {
       response.status(200).send();
-    });
+    })
+    .catch(err => {
+      response.status(400).send(err);
+    })
 };
 
 module.exports = {
