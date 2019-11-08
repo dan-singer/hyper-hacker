@@ -12,6 +12,9 @@ const router = (app) => {
   app.get('/level-select', mid.requiresSecure,
     mid.redirectHomeIfLoggedOut, controllers.Account.levelSelectPage);
 
+  app.get('/level', mid.requiresSecure, mid.redirectHomeIfLoggedOut, controllers.Account.getLevel);
+  app.post('/level', mid.requiresSecure, mid.redirectHomeIfLoggedOut, controllers.Account.completeLevel);
+
   app.get('/', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);
 };
 module.exports = router;

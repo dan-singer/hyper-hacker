@@ -18,9 +18,8 @@ Hyper Hacker is a puzzle-game web application which features HTML, CSS, and Java
 - completedTutorial (bool)
 - `canAccessLevel(user, level)`
     - static function used to determine if a user is able to access the provided level. For now, we'll say if level is less than 4, return true. If level is >= 4 and the user isPremium, return true. If level is >= 4 and the user is not premium, return false. 
-- `completeLevel(user, key, level, endTime)`
+- `completeLevel(user, level, endTime)`
     - static function that will mark a time in the completionTimes array using level as an index.
-    - This should compare the key against the data in `levels.json` and only complete the level if the provided key matches.
 - `completeTutorial(user)`
     - Marks off that the tutorial is now complete
 
@@ -142,12 +141,4 @@ Hyper Hacker is a puzzle-game web application which features HTML, CSS, and Java
     ``` 
     /level?num=0
     ```
-    - The body should look as follows:
-    ```js
-    {
-        "key": "value"
-    }
-    ```
     - When the server receives the request, it should compare the current time with the startTime cached in the user's Account model. The delta can be stored in the completionTimes array for this level. 
-    - If the key is correct, return a `200` response and update completionTimes.
-    - If the key is incorrect, return a `401` response. 

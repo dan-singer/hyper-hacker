@@ -56,8 +56,10 @@ AccountSchema.statics.canAccessLevel = (user, level) => {
   return (level < 4 || user.isPremium);
 };
 
-AccountSchema.statics.completeLevel = (user, key, level, endTime) => {
-  //TODO
+AccountSchema.statics.completeLevel = (user, level) => {
+  const delta = Date.now() - user.startTime;
+  user.completionTimes[level] = delta;
+  return user.save();
 };
 
 AccountSchema.statics.completeTutorial = (user) => {

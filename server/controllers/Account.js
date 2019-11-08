@@ -114,6 +114,46 @@ const completeTutorial = (request, response) => {
     })
 };
 
+const getLevel = (request, response) => {
+  if (!request.query.num || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
+    response.redirect('/level-select');
+    return;
+  }
+
+  Account.AccountModel.findByUsername(request.session.account.username) 
+  .then(user => {
+    user.startTime = Date.now();
+    return user.save();
+  })
+  .then(() => {
+    response.render(`levels/${request.query.num}`);
+  })
+  .catch((err) => {
+    response.status(400).json({error: err});
+  })
+
+};
+
+const completeLevel = (request, response) => {
+  if (!request.query.num || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
+    response.redirect('/level-select');
+    return;
+  }
+  
+  Account.AccountModel.findByUsername(request.session.account.username) 
+  .then(user => {
+    return Account.AccountModel.completeLevel(user, request.query.num)
+  })
+  .then(() => {
+    response.status(200).send();
+  })
+  .catch((err) => {
+    response.status(400).json({error: err});
+  })
+}
+
 module.exports = {
-  loginPage, login, logout, signupPage, signup, levelSelectPage, tutorialPage, completeTutorial
+  loginPage, login, logout, signupPage, signup, 
+  levelSelectPage, tutorialPage, completeTutorial,
+  getLevel, completeLevel
 };
