@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Level Select: Hyper Hacker</title>
     <script src="assets/js/level-select.js"></script>
 </head>
+
 <body>
     <div id="profile">
         <div id="profileContent">
@@ -24,8 +26,8 @@
                 <p></p>
             </div>
         </div>
-        
-        
+
+
     </div>
 
     <nav>
@@ -36,46 +38,47 @@
     <div id="levelContainer">
         <div id="levelGrid">
             {{#each levelNames}}
-                <div class="levelSelect">
-                    <div class="highscore">
-                        <h5>{{highscores.[{{@index}}]}}</h5>
-                        <img src="assets/media/medal.png" alt="high score">
-                    </div>
-                    <a href='/level?num={{@index}}'>
+                <a href='/level?num={{@index}}'>
+                    <div class="levelSelect">
+                        <div class="highscore">
+                            <h5>{{highscores.[{{@index}}]}}</h5>
+                            <img src="assets/media/medal.png" alt="high score">
+                        </div>
                         <div class="levelText">
                             <h3>Level {{@index}}</h3>
                             <h4>{{this}}</h4>
                         </div>
-                    </a>
-                </div>
+                    </div>
+                </a>
             {{/each}}
         </div>
     </div>
-    
-<script>
 
-function toggleProfile() {
-    let navBar = document.querySelector('nav');
-    let profile = document.querySelector('#profile');
-    let container = document.querySelector('#levelContainer');
-    if(profile.style.width == "0px" || profile.style.width == ""){
-        profile.style.width = "300px";
-        container.style.marginLeft = "300px";
-        container.style.transition = "0.2s";
-        navBar.style.width = "81vw";
-        navBar.style.left = "350px";
-        container.style.borderColor = "#33ff00";
-        
-    } else{
-        profile.style.width = "0px";
-        container.style.marginLeft = "0px";
-        container.style.transition = "0.3s";
-        navBar.style.width = "100vw";
-        navBar.style.left = "0px";
-        container.style.borderColor = "#111";
-    }
-}
+    <script>
 
-</script>
+        function toggleProfile() {
+            let navBar = document.querySelector('nav');
+            let profile = document.querySelector('#profile');
+            let container = document.querySelector('#levelContainer');
+            if (profile.style.width == "0px" || profile.style.width == "") {
+                profile.style.width = "300px";
+                container.style.marginLeft = "300px";
+                container.style.transition = "0.2s";
+                navBar.style.width = "81vw";
+                navBar.style.left = "350px";
+                container.style.borderColor = "#33ff00";
+
+            } else {
+                profile.style.width = "0px";
+                container.style.marginLeft = "0px";
+                container.style.transition = "0.3s";
+                navBar.style.width = "100vw";
+                navBar.style.left = "0px";
+                container.style.borderColor = "#111";
+            }
+        }
+
+    </script>
 </body>
+
 </html>
