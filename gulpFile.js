@@ -8,7 +8,7 @@ const named = require('vinyl-named');
 
 const bundleTask = (done) => {
 
-    gulp.src('./src/js/*.js')
+    gulp.src(['./src/js/*.js', './src/js/levels/*.js'])
         .pipe(named())
         .pipe(webpack(require('./webpack.config.js')))
         .pipe(gulp.dest('./dist/js/'));

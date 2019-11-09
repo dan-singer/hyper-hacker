@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -121,15 +121,15 @@ eval("\n\nvar stylesInDom = {};\n\nvar isOldIE = function isOldIE() {\n  var mem
 
 /***/ }),
 
-/***/ "./src/js/login.js":
-/*!*************************!*\
-  !*** ./src/js/login.js ***!
-  \*************************/
+/***/ "./src/js/levels/0.js":
+/*!****************************!*\
+  !*** ./src/js/levels/0.js ***!
+  \****************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _support_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./support/utils.js */ \"./src/js/support/utils.js\");\n\n\nObject(_support_utils_js__WEBPACK_IMPORTED_MODULE_1__[\"test\"])();\n\n//# sourceURL=webpack:///./src/js/login.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _support_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../support/utils.js */ \"./src/js/support/utils.js\");\n\n\n\nfunction init() {\n  document.querySelector('#profile-toggle').onclick = _support_utils_js__WEBPACK_IMPORTED_MODULE_1__[\"toggleProfile\"];\n  var csrf = document.querySelector('#_csrf').value;\n  var urlParams = new URLSearchParams(window.location.search);\n  var levelNum = parseInt(urlParams.get('num'));\n\n  document.querySelector('#complete').onclick = function (e) {\n    fetch(\"/level?num=\".concat(levelNum, \"&_csrf=\").concat(csrf), {\n      method: 'POST',\n      headers: {\n        'Content-Type': 'application/json'\n      }\n    }).then(function () {\n      console.log('Got the OK.');\n    })[\"catch\"](function (err) {\n      console.log(err);\n    });\n  };\n}\n\nwindow.onload = init;\n\n//# sourceURL=webpack:///./src/js/levels/0.js?");
 
 /***/ }),
 
@@ -156,14 +156,14 @@ eval("var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/
 
 /***/ }),
 
-/***/ 7:
-/*!*******************************!*\
-  !*** multi ./src/js/login.js ***!
-  \*******************************/
+/***/ 0:
+/*!**********************************!*\
+  !*** multi ./src/js/levels/0.js ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! C:\\Users\\dsing\\source\\repos\\430\\hyper-hacker\\src\\js\\login.js */\"./src/js/login.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/login.js?");
+eval("module.exports = __webpack_require__(/*! C:\\Users\\dsing\\source\\repos\\430\\hyper-hacker\\src\\js\\levels\\0.js */\"./src/js/levels/0.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/levels/0.js?");
 
 /***/ })
 

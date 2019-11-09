@@ -59,6 +59,7 @@ AccountSchema.statics.canAccessLevel = (user, level) => {
 AccountSchema.statics.completeLevel = (user, level) => {
   const delta = Date.now() - user.startTime;
   user.completionTimes[level] = delta;
+  user.markModified('completionTimes'); // Force the database to be updated
   return user.save();
 };
 

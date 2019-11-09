@@ -32,7 +32,7 @@
 
     <nav>
         <h2>Welcome Back, {{username}}</h2>
-        <img src="assets/media/defaultProfile.png" alt="profile picture" onclick="toggleProfile()">
+        <img id="profile-toggle" src="assets/media/defaultProfile.png" alt="profile picture">
     </nav>
 
     <div id="levelContainer">
@@ -41,7 +41,9 @@
                 <a href='/level?num={{@index}}'>
                     <div class="levelSelect">
                         <div class="highscore">
-                            <h5>{{highscores.[{{@index}}]}}</h5>
+                            <h5>
+                                {{lookup ../highscores @index}}
+                            </h5>
                             <img src="assets/media/medal.png" alt="high score">
                         </div>
                         <div class="levelText">
@@ -53,32 +55,6 @@
             {{/each}}
         </div>
     </div>
-
-    <script>
-
-        function toggleProfile() {
-            let navBar = document.querySelector('nav');
-            let profile = document.querySelector('#profile');
-            let container = document.querySelector('#levelContainer');
-            if (profile.style.width == "0px" || profile.style.width == "") {
-                profile.style.width = "300px";
-                container.style.marginLeft = "300px";
-                container.style.transition = "0.2s";
-                navBar.style.width = "81vw";
-                navBar.style.left = "350px";
-                container.style.borderColor = "#33ff00";
-
-            } else {
-                profile.style.width = "0px";
-                container.style.marginLeft = "0px";
-                container.style.transition = "0.3s";
-                navBar.style.width = "100vw";
-                navBar.style.left = "0px";
-                container.style.borderColor = "#111";
-            }
-        }
-
-    </script>
 </body>
 
 </html>

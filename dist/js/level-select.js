@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -129,7 +129,19 @@ eval("\n\nvar stylesInDom = {};\n\nvar isOldIE = function isOldIE() {\n  var mem
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n\n\nfunction toggleProfile() {\n  var navBar = document.querySelector('nav');\n  var profile = document.querySelector('#profile');\n  var container = document.querySelector('#levelContainer');\n\n  if (profile.style.width == \"0px\" || profile.style.width == \"\") {\n    profile.style.width = \"300px\";\n    container.style.marginLeft = \"300px\";\n    container.style.transition = \"0.2s\";\n    navBar.style.width = \"81vw\";\n    navBar.style.left = \"350px\";\n    container.style.borderColor = \"#33ff00\";\n  } else {\n    profile.style.width = \"0px\";\n    container.style.marginLeft = \"0px\";\n    container.style.transition = \"0.3s\";\n    navBar.style.width = \"100vw\";\n    navBar.style.left = \"0px\";\n    container.style.borderColor = \"#111\";\n  }\n}\n\n//# sourceURL=webpack:///./src/js/level-select.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _support_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./support/utils.js */ \"./src/js/support/utils.js\");\n\n\n\nfunction init() {\n  document.querySelector('#profile-toggle').onclick = _support_utils_js__WEBPACK_IMPORTED_MODULE_1__[\"toggleProfile\"];\n}\n\nwindow.onload = init;\n\n//# sourceURL=webpack:///./src/js/level-select.js?");
+
+/***/ }),
+
+/***/ "./src/js/support/utils.js":
+/*!*********************************!*\
+  !*** ./src/js/support/utils.js ***!
+  \*********************************/
+/*! exports provided: toggleProfile */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"toggleProfile\", function() { return toggleProfile; });\n/**\r\n * Various utility functions used for the front end of hyper-hacker\r\n */\nvar test = function test() {\n  console.log('test');\n};\n\nfunction toggleProfile() {\n  var navBar = document.querySelector('nav');\n  var profile = document.querySelector('#profile');\n  var container = document.querySelector('#levelContainer');\n\n  if (profile.style.width == \"0px\" || profile.style.width == \"\") {\n    profile.style.width = \"300px\";\n    container.style.marginLeft = \"300px\";\n    container.style.transition = \"0.2s\";\n    navBar.style.width = \"81vw\";\n    navBar.style.left = \"350px\";\n    container.style.borderColor = \"#33ff00\";\n  } else {\n    profile.style.width = \"0px\";\n    container.style.marginLeft = \"0px\";\n    container.style.transition = \"0.3s\";\n    navBar.style.width = \"100vw\";\n    navBar.style.left = \"0px\";\n    container.style.borderColor = \"#111\";\n  }\n}\n\n\n\n//# sourceURL=webpack:///./src/js/support/utils.js?");
 
 /***/ }),
 
@@ -144,14 +156,14 @@ eval("var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/
 
 /***/ }),
 
-/***/ 0:
+/***/ 6:
 /*!**************************************!*\
   !*** multi ./src/js/level-select.js ***!
   \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! D:\\Profiles\\djs5435\\Documents\\hyper-hacker\\src\\js\\level-select.js */\"./src/js/level-select.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/level-select.js?");
+eval("module.exports = __webpack_require__(/*! C:\\Users\\dsing\\source\\repos\\430\\hyper-hacker\\src\\js\\level-select.js */\"./src/js/level-select.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/level-select.js?");
 
 /***/ })
 

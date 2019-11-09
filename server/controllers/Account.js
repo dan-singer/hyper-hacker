@@ -80,15 +80,18 @@ const signup = (request, response) => {
 
 const levelSelectPage = (request, response) => {
 
-  const levelData = fs.readFile(`${__dirname}/../../data/levels.json`, (err, data) => {
+  fs.readFile(`${__dirname}/../../data/levels.json`, (err, data) => {
     const levels = JSON.parse(data);
     Account.AccountModel.findByUsername(request.session.account.username)
       .then((user) => {
+        const date = new Date(user.createdDate);
+        const dateJoined = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
         const levelDetails = {
           username: user.username,
           highscores: user.completionTimes,
           csrfToken: request.csrfToken(),
-          levelNames: levels.map(level => level.name)
+          levelNames: levels.map(level => level.name),
+          dateJoined
         };
         response.render('level-select', levelDetails);
       });
@@ -125,8 +128,15 @@ const getLevel = (request, response) => {
     user.startTime = Date.now();
     return user.save();
   })
-  .then(() => {
-    response.render(`levels/${request.query.num}`);
+  .then((user) => {
+    const date = new Date(user.createdDate);
+    const dateJoined = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+    const levelDetails = {
+      username: user.username,
+      csrfToken: request.csrfToken(),
+      dateJoined
+    };
+    response.render(`levels/${request.query.num}`, levelDetails);
   })
   .catch((err) => {
     response.status(400).json({error: err});
@@ -142,9 +152,9 @@ const completeLevel = (request, response) => {
   
   Account.AccountModel.findByUsername(request.session.account.username) 
   .then(user => {
-    return Account.AccountModel.completeLevel(user, request.query.num)
+    return Account.AccountModel.completeLevel(user, parseInt(request.query.num))
   })
-  .then(() => {
+  .then((user) => {
     response.status(200).send();
   })
   .catch((err) => {
