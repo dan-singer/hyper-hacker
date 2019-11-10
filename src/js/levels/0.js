@@ -1,4 +1,5 @@
 import '../../scss/style.scss';
+import '../../scss/level0.scss';
 import {toggleProfile} from '../support/utils.js'
 
 function init() {

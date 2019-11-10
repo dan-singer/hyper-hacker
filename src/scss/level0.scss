@@ -1,0 +1,22 @@
+/* LEVEL 0 STYLINGS */
+
+#overhead{
+  position: fixed;
+  width:99vw;
+  height:100vh;
+  text-align: center;
+  h1{
+    margin-top: 35vh;
+    font-size: 4rem;
+  }
+
+  h2{
+    font-size: 3rem;
+    width:50%;
+    margin:auto;
+  }
+}
+
+body{
+    overflow: hidden;
+}
