@@ -41,6 +41,7 @@ a{
 a:hover{
     color: white;
     background-color: $defaultColorTransparent;
+    cursor: pointer;
 }
 
 .button1{
@@ -66,10 +67,6 @@ a:hover{
     display: none;
 }
 
-.button5{
-
-}
-
 .button6{
     position: relative;
     top:-300%;
@@ -81,4 +78,9 @@ a:hover{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.reset{
+    border: 10px solid $defaultColor;
+    
 }
