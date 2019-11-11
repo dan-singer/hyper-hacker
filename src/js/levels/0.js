@@ -7,27 +7,11 @@ function init() {
     const csrf = document.querySelector('#_csrf').value;
     const urlParams = new URLSearchParams(window.location.search);
     const levelNum = parseInt(urlParams.get('num'));
-    document.querySelector('#complete').onclick = e => {
-        fetch(`/level?num=${levelNum}&_csrf=${csrf}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
-        .then(() => {
-            console.log('Got the OK.');
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    };
-
     const links = document.querySelectorAll(".finish-link");
-    const _csrf = document.querySelector("#_csrf");
     for(let finish of links){
         finish.onclick = e => {
             e.preventDefault();
-            fetch(`/tutorial?_csrf=${_csrf.value}`, {
+            fetch(`/level?num=${levelNum}&_csrf=${csrf}`, {
                 method: 'POST',
             })
             .then(res => {
