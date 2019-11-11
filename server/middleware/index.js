@@ -14,17 +14,14 @@ const bypassIfLoggedIn = (req, res, next) => {
     .then((user) => {
       if (user.completedTutorial) {
         return res.redirect('/level-select');
-      } else {
-        return res.redirect('/tutorial');
       }
+      return res.redirect('/tutorial');
     })
-    .catch((err) => {
-      return res.json({error: err});
-    });
-  }
-  else {
+    .catch((err) => res.json({ error: err }));
+  } else {
     return next();
   }
+  return next();
 };
 
 const requiresSecure = (req, res, next) => {
