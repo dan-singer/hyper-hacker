@@ -37,9 +37,7 @@ const login = (request, response) => {
 
     req.session.account = Account.AccountModel.toAPI(account);
 
-    res.render('level-select', { csrfToken: req.csrfToken() });
-
-    res.status(200).send();
+    res.redirect('/level-select');
   });
 };
 
@@ -71,9 +69,7 @@ const signup = (request, response) => {
     savePromise.then(() => {
       req.session.account = Account.AccountModel.toAPI(newAccount);
 
-      res.render('tutorial', { csrfToken: req.csrfToken() });
-
-      res.status(200).send();
+      res.redirect('/tutorial');
     });
     savePromise.catch((err) => {
       if (err.code === 11000) {

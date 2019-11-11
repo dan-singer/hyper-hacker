@@ -1,3 +1,6 @@
+const Models = require('../models');
+const Account = Models.Account;
+
 const redirectHomeIfLoggedOut = (req, res, next) => {
   if (!req.session.account) {
     return res.redirect('/');
@@ -7,9 +10,21 @@ const redirectHomeIfLoggedOut = (req, res, next) => {
 
 const bypassIfLoggedIn = (req, res, next) => {
   if (req.session.account) {
-    return res.redirect('/level-select');
+    Account.AccountModel.findByUsername(req.session.account.username)
+    .then((user) => {
+      if (user.completedTutorial) {
+        return res.redirect('/level-select');
+      } else {
+        return res.redirect('/tutorial');
+      }
+    })
+    .catch((err) => {
+      return res.json({error: err});
+    });
   }
-  return next();
+  else {
+    return next();
+  }
 };
 
 const requiresSecure = (req, res, next) => {
