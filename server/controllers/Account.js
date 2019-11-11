@@ -1,6 +1,6 @@
 const models = require('../models');
-const fs = require("fs");
-const path = require('path');
+const fs = require('fs');
+// const path = require('path');
 
 const Account = models.Account;
 
@@ -25,17 +25,19 @@ const login = (request, response) => {
   const password = `${req.body.pass}`;
 
   if (!username || !password) {
-    res.status(400).json({'error': 'missing-data'});
+    res.status(400).json({ error: 'missing-data' });
     return;
   }
 
   Account.AccountModel.authenticate(username, password, (err, account) => {
     if (err || !account) {
-      res.status(401).json({'error': 'invalid-credentials'});
+      res.status(401).json({ error: 'invalid-credentials' });
       return;
     }
 
     req.session.account = Account.AccountModel.toAPI(account);
+
+    res.render('level-select', { csrfToken: req.csrfToken() });
 
     res.status(200).send();
   });
@@ -68,6 +70,9 @@ const signup = (request, response) => {
     const savePromise = newAccount.save();
     savePromise.then(() => {
       req.session.account = Account.AccountModel.toAPI(newAccount);
+
+      res.render('tutorial', { csrfToken: req.csrfToken() });
+
       res.status(200).send();
     });
     savePromise.catch((err) => {
@@ -79,7 +84,6 @@ const signup = (request, response) => {
 };
 
 const levelSelectPage = (request, response) => {
-
   fs.readFile(`${__dirname}/../../data/levels.json`, (err, data) => {
     const levels = JSON.parse(data);
     Account.AccountModel.findByUsername(request.session.account.username)
@@ -91,39 +95,38 @@ const levelSelectPage = (request, response) => {
           highscores: user.completionTimes,
           csrfToken: request.csrfToken(),
           levelNames: levels.map(level => level.name),
-          dateJoined
+          dateJoined,
         };
         response.render('level-select', levelDetails);
       });
-    });
+  });
 };
 
 const tutorialPage = (request, response) => {
   const req = request;
   const res = response;
   res.render('tutorial', { csrfToken: req.csrfToken() });
-}
+};
 
 const completeTutorial = (request, response) => {
   Account.AccountModel.findByUsername(request.session.account.username)
-    .then(user => {
-      return Account.AccountModel.completeTutorial(user);
-    })
+    .then(user => Account.AccountModel.completeTutorial(user))
     .then(user => {
       response.status(200).send();
     })
     .catch(err => {
       response.status(400).send(err);
-    })
+    });
 };
 
 const getLevel = (request, response) => {
-  if (!request.query.num || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
+  if (!request.query.num
+    || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
     response.redirect('/level-select');
     return;
   }
 
-  Account.AccountModel.findByUsername(request.session.account.username) 
+  Account.AccountModel.findByUsername(request.session.account.username)
   .then(user => {
     user.startTime = Date.now();
     return user.save();
@@ -134,36 +137,34 @@ const getLevel = (request, response) => {
     const levelDetails = {
       username: user.username,
       csrfToken: request.csrfToken(),
-      dateJoined
+      dateJoined,
     };
     response.render(`levels/${request.query.num}`, levelDetails);
   })
   .catch((err) => {
-    response.status(400).json({error: err});
-  })
-
+    response.status(400).json({ error: err });
+  });
 };
 
 const completeLevel = (request, response) => {
-  if (!request.query.num || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
+  if (!request.query.num
+    || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
     response.redirect('/level-select');
     return;
   }
-  
-  Account.AccountModel.findByUsername(request.session.account.username) 
-  .then(user => {
-    return Account.AccountModel.completeLevel(user, parseInt(request.query.num))
-  })
+
+  Account.AccountModel.findByUsername(request.session.account.username)
+  .then(user => Account.AccountModel.completeLevel(user, parseInt(request.query.num)))
   .then((user) => {
     response.status(200).send();
   })
   .catch((err) => {
-    response.status(400).json({error: err});
-  })
-}
+    response.status(400).json({ error: err });
+  });
+};
 
 module.exports = {
-  loginPage, login, logout, signupPage, signup, 
+  loginPage, login, logout, signupPage, signup,
   levelSelectPage, tutorialPage, completeTutorial,
-  getLevel, completeLevel
+  getLevel, completeLevel,
 };

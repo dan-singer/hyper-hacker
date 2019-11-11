@@ -339,7 +339,7 @@ nav{
   width:600px;
   height:400px;
   border-radius: 5px;
-  border: 3px solid #33ff00;
+  border: 3px solid $defaultColor;
   text-align: center;
   margin:auto;
   position: relative;
@@ -348,16 +348,16 @@ nav{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #111;
-    color: #33ff00;
-    font-family: 'VT323', monospace;
+    background-color: $defaultBackground;
+    color: $defaultColor;
+    font-family: $defaultFont;
     font-size: 2rem;
     padding: 20px;
     border-radius: 60px;
-    border: 2px solid #33ff00;
+    border: 2px solid $defaultColor;
     text-decoration: none;
     :hover{
-      background-color: #33ff00;
+      background-color: $defaultColor;
       color:black;
       cursor: pointer;
     }
@@ -371,7 +371,7 @@ nav{
   left: 0;
   width:600px;
   height:400px;
-  background-color: #33ff00;
+  background-color: $defaultColor;
 }
 
 #hint{

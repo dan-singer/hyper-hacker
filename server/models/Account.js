@@ -34,16 +34,16 @@ const AccountSchema = new mongoose.Schema({
   },
   completionTimes: {
     type: [Number],
-    default: [0, 0, 0, 0, 0, 0]
+    default: [0, 0, 0, 0, 0, 0],
   },
   startTime: {
     type: Number,
-    default: 0
+    default: 0,
   },
   completedTutorial: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 AccountSchema.statics.toAPI = doc => ({
@@ -52,9 +52,7 @@ AccountSchema.statics.toAPI = doc => ({
   _id: doc._id,
 });
 
-AccountSchema.statics.canAccessLevel = (user, level) => {
-  return (level < 4 || user.isPremium);
-};
+AccountSchema.statics.canAccessLevel = (user, level) => (level < 4 || user.isPremium);
 
 AccountSchema.statics.completeLevel = (user, level) => {
   const delta = Date.now() - user.startTime;
@@ -66,7 +64,7 @@ AccountSchema.statics.completeLevel = (user, level) => {
 AccountSchema.statics.completeTutorial = (user) => {
   user.completedTutorial = true;
   return user.save();
-}
+};
 
 const validatePassword = (doc, password, callback) => {
   const pass = doc.password;
@@ -112,7 +110,7 @@ AccountSchema.statics.authenticate = (username, password, callback) =>
 
       return callback();
     });
-});
+  });
 
 AccountModel = mongoose.model('Account', AccountSchema);
 

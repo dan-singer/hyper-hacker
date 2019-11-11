@@ -7,7 +7,7 @@ const redirectHomeIfLoggedOut = (req, res, next) => {
 
 const bypassIfLoggedIn = (req, res, next) => {
   if (req.session.account) {
-    return res.redirect('/level-select'); 
+    return res.redirect('/level-select');
   }
   return next();
 };
