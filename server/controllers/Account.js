@@ -111,7 +111,7 @@ const tutorialPage = (request, response) => {
 const completeTutorial = (request, response) => {
   Account.AccountModel.findByUsername(request.session.account.username)
     .then(user => Account.AccountModel.completeTutorial(user))
-    .then(user => {
+    .then(() => {
       response.status(200).send();
     })
     .catch(err => {
@@ -128,8 +128,9 @@ const getLevel = (request, response) => {
 
   Account.AccountModel.findByUsername(request.session.account.username)
   .then(user => {
-    user.startTime = Date.now();
-    return user.save();
+    const userCopy = user;
+    userCopy.startTime = Date.now();
+    return userCopy.save();
   })
   .then((user) => {
     const date = new Date(user.createdDate);
@@ -154,8 +155,8 @@ const completeLevel = (request, response) => {
   }
 
   Account.AccountModel.findByUsername(request.session.account.username)
-  .then(user => Account.AccountModel.completeLevel(user, parseInt(request.query.num)))
-  .then((user) => {
+  .then(user => Account.AccountModel.completeLevel(user, request.query.num))
+  .then(() => {
     response.status(200).send();
   })
   .catch((err) => {

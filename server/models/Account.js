@@ -55,15 +55,17 @@ AccountSchema.statics.toAPI = doc => ({
 AccountSchema.statics.canAccessLevel = (user, level) => (level < 4 || user.isPremium);
 
 AccountSchema.statics.completeLevel = (user, level) => {
-  const delta = Date.now() - user.startTime;
-  user.completionTimes[level] = delta;
-  user.markModified('completionTimes'); // Force the database to be updated
-  return user.save();
+  const userCopy = user;
+  const delta = Date.now() - userCopy.startTime;
+  userCopy.completionTimes[level] = delta;
+  userCopy.markModified('completionTimes'); // Force the database to be updated
+  return userCopy.save();
 };
 
 AccountSchema.statics.completeTutorial = (user) => {
-  user.completedTutorial = true;
-  return user.save();
+  const userCopy = user;
+  userCopy.completedTutorial = true;
+  return userCopy.save();
 };
 
 const validatePassword = (doc, password, callback) => {
