@@ -39,7 +39,19 @@ Hyper Hacker is a puzzle-game web application which features HTML, CSS, and Java
 - login (home page)
 - level select
 - tutorial
-- levels 1-6
+- levels 0-5
+    - Level 0: Overflowing with Secrets
+        - All of the page's overflow is hidden, try to find the buttons outside of your normal range.
+    - Level 1: No Context
+        - Bully Canvas elements into giving you their secrets.
+    - Level 2: You've Been Reinstated
+        - It's hard to move stuff around when your work keeps getting reset.
+    - Level 3: I get by with a little /help from my friends
+        - Sometimes you need to reach out to other pages to succeed.
+    - Level 4: JS Console Adventures
+        - You have my sword, and my bow, and my axe.
+    - Level 5: Gotta Go Fast
+        - Oh wait, you wanted to be able to CLICK these elements?
 
 ## API
 **/login**
