@@ -6,6 +6,35 @@
     <title>Hyper Hacker</title>
 </head>
 <body>
-    <h1>Level 5</h1>
+    <div id="profile">
+        <div id="profileContent">
+            <img src="assets/media/defaultProfile.png" alt="profile">
+            <h1>{{username}}</h1>
+            <h3>Joined On: {{dateJoined}}</h3>
+
+            <div id="buttons">
+                <button>Change Username</button>
+                <button>Change Password</button>
+                <button>Change Picture</button>
+            </div>
+
+            <div id="subscription">
+                <h3>Upgrade To Hacker Status</h3>
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+    <nav>
+        <h2></h2>
+        <img id="profile-toggle" src="assets/media/defaultProfile.png" alt="profile picture">
+    </nav>
+
+    <input id="_csrf" type="hidden" name="_csrf" value={{csrfToken}} />
+
+        <h1>Level 5: Gotta Go Fast</h1>
+
+        <h2>Oh wait, you wanted to be able to CLICK these elements?</h2>
+        
 </body>
 </html>

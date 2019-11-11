@@ -82,5 +82,12 @@ a:hover{
 
 .reset{
     border: 10px solid $defaultColor;
-    
+}
+
+.boid{
+    font-size: 2rem;
+    padding:10px;
+    border-radius: 20px;
+    border: 2px solid $defaultColor;
+    position: absolute;
 }

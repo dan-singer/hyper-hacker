@@ -68,7 +68,6 @@ function setUpDivs(){
         let content = document.createElement('h2');
         content.innerHTML= "You are on annoying element #" + (10-i) + " out of 10";
         annoyingDiv.appendChild(content);
-
         document.body.appendChild(annoyingDiv);
     }
 }
