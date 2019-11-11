@@ -21,7 +21,7 @@ const bypassIfLoggedIn = (req, res, next) => {
   } else {
     return next();
   }
-  return next();
+  return null;
 };
 
 const requiresSecure = (req, res, next) => {
