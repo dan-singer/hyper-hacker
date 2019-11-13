@@ -1,0 +1,59 @@
+{
+    "rooms": [
+        {
+            "name": "Winter Wonderland",
+            "description": "You enter a cold, barren winter wonderland. There doesn't seem to be much here",
+            "pickups": ["snow"]
+        },
+        {
+            "name": "Space Station",
+            "description": "Suddenly you arrive in a space station. You see aliens around you.",
+            "pickups": ["alien"]
+        },
+        {
+            "name": "Castle",
+            "description": "A large castle appears in the distance in front of you.",
+            "pickups": []
+        },
+        {
+            "name": "Tundra",
+            "description": "You walk on to a barren tundra.",
+            "pickups": []
+        },
+        {
+            "name": "Forest",
+            "description": "You sprint through a lush forest filled with all kinds of wildlife.",
+            "pickups": ["leaf"]
+        },
+        {
+            "name": "Village",
+            "description": "You walk into a bustling village. You spot something shiny out of the corner of your eye.",
+            "pickups": ["key"]
+        },
+        {
+            "name": "Dry Desert",
+            "description": "You stumble into a really dry desert. It's so hot here.",
+            "pickups": ["hot sand"]
+        },
+        {
+            "name": "Desert",
+            "description": "You stumble into a desert. It's pretty hot here.",
+            "pickups": ["sand"]
+        },
+        {
+            "name": "Treasure Room",
+            "description": "You found the treasure! Your reward is being able to complete this level. Simply type the magical function, win(8675309) to complete this level!",
+            "pickups": []
+        }
+    ],
+    "adjacenyList": [
+        [1],
+        [2, 3],
+        [8, 4],
+        [1, 4],
+        [2, 3],
+        [6],
+        [5, 7],
+        [6, 4]
+    ]
+}
