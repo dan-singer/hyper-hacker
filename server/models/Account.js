@@ -52,7 +52,7 @@ AccountSchema.statics.toAPI = doc => ({
   _id: doc._id,
 });
 
-AccountSchema.statics.canAccessLevel = (user, level) => (level < 7 || user.isPremium);
+AccountSchema.statics.canAccessLevel = (user, level) => (level < 4 || user.isPremium);
 
 AccountSchema.statics.completeLevel = (user, level) => {
   const userCopy = user;
