@@ -116,6 +116,7 @@ const completeTutorial = (request, response) => {
 };
 
 const getLevel = (request, response) => {
+  
   if (!request.query.num
     || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
     response.redirect('/level-select');

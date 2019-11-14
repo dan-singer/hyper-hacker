@@ -1,5 +1,5 @@
 import '../../scss/style.scss';
-import '../../scss/level0.scss';
+import '../../scss/levels.scss';
 import {toggleProfile} from '../support/utils.js'
 
 function init() {
@@ -38,7 +38,6 @@ function reset() {
             overhead.style.display = 'block';
         }
     } else{
-        console.log('HERE');
         let overhead = document.createElement('div');
         overhead.style.position = 'fixed';
         overhead.style.width = '99vw';
@@ -48,7 +47,7 @@ function reset() {
         overhead.setAttribute("id", "overhead");
 
         let title = document.createElement('h1');
-        title.innerHTML = 'Level 1: Overflowing with Secrets';
+        title.innerHTML = 'Level 0: Overflowing with Secrets';
         let subTitle = document.createElement('h2');
         subTitle.innerHTML= 'There are six buttons hiding in the space outside of your reach. One of them completes the level. Find it.<br><br>And if you think you can get rid of the overlay that easy, you are in for a nasty surprise.';
 
@@ -59,7 +58,7 @@ function reset() {
     
 
 
-    setTimeout(reset, 2000);
+    setTimeout(reset, 1000);
 }
 
 window.onload = init;

@@ -145,6 +145,12 @@ h3{
   margin: 100px auto 0px auto;
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  a{
+    color:$defaultColor;
+    :hover{
+      cursor: pointer;
+    }
+  }
 }
 
 .levelSelect{
