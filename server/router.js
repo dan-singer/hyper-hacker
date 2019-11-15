@@ -14,6 +14,9 @@ const router = (app) => {
   app.post('/update-username', mid.requiresSecure,
     mid.redirectHomeIfLoggedOut, controllers.Account.changeUsername);
 
+  app.post('/update-password', mid.requiresSecure,
+    mid.redirectHomeIfLoggedOut, controllers.Account.changePassword);
+
   app.get('/level-select', mid.requiresSecure,
     mid.redirectHomeIfLoggedOut, controllers.Account.levelSelectPage);
 

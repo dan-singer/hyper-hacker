@@ -116,11 +116,11 @@ const completeTutorial = (request, response) => {
 };
 
 const getLevel = (request, response) => {
-  if (!request.query.num
-    || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
-    response.redirect('/level-select');
-    return;
-  }
+  // if (!request.query.num
+  //   || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
+  //   response.redirect('/level-select');
+  //   return;
+  // }
 
   Account.AccountModel.findByUsername(request.session.account.username)
   .then(user => {
@@ -197,8 +197,30 @@ const changeUsername = (request, response) => {
     });
 };
 
-const changePassword = () => {
+const changePassword = (request, response) => {
+  const req = request;
+  const res = response;
+  console.log(req.session.account.username);
+  Account.AccountModel.authenticate(req.session.account.username, req.body.oldPassword, (err, account) => {
+    if (err || !account) {
+      response.status(401).json({ error: 'invalid-credentials' });
+      return;
+    }
+    Account.AccountModel.generateHash(req.body.newPassword, (salt, hash) => {
+      const accountCopy = account;
+      accountCopy.salt = salt;
+      accountCopy.password = hash;
 
+      accountCopy.save()
+      .then(() => {
+        req.session.account = Account.AccountModel.toAPI(accountCopy);
+        res.status(200).send();
+      })
+      .catch((doc, err) => {
+        res.status(400).json({error: err});
+      });
+    });
+  });
 };
 
 module.exports = {

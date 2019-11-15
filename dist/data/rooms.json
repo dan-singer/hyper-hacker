@@ -33,7 +33,7 @@
         {
             "name": "Dry Desert",
             "description": "You stumble into a really dry desert. It's so hot here.",
-            "pickups": ["hot sand"]
+            "pickups": ["sand", "hot sand"]
         },
         {
             "name": "Desert",
