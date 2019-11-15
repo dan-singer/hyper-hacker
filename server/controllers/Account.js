@@ -177,8 +177,33 @@ const getHelp = (request, response) => {
   })
 };
 
+const changeUsername = (request, response) => {
+  Account.AccountModel.authenticate(request.session.account.username, request.body.password, (err, account) => {
+    if (err || !account) {
+      response.status(401).json({ error: 'invalid-credentials' });
+      return;
+    }
+    const accountCopy = account;
+    accountCopy.username = request.body.newUsername;
+    accountCopy.save()
+    .then(() => {
+      request.session.account = Account.AccountModel.toAPI(accountCopy);
+      response.redirect('/level-select');
+    })
+    .catch(err => {
+      response.status(400).json({error: err});
+    });
+
+  });
+};
+
+const changePassword = (request, response) => {
+
+}
+
 module.exports = {
   loginPage, login, logout, signupPage, signup,
   levelSelectPage, tutorialPage, completeTutorial,
-  getLevel, completeLevel, getHelp
+  getLevel, completeLevel, getHelp,
+  changeUsername, changePassword
 };

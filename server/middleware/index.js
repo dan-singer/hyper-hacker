@@ -9,7 +9,7 @@ const redirectHomeIfLoggedOut = (req, res, next) => {
 };
 
 const bypassIfLoggedIn = (req, res, next) => {
-  if (req.session.account) {
+  if (req.session.account) {  
     Account.AccountModel.findByUsername(req.session.account.username)
     .then((user) => {
       if (user.completedTutorial) {

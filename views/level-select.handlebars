@@ -16,7 +16,7 @@
             <h3>Joined On: {{dateJoined}}</h3>
 
             <div id="buttons">
-                <button>Change Username</button>
+                <button id="change-username">Change Username</button>
                 <button>Change Password</button>
                 <button>Change Picture</button>
             </div>
@@ -26,9 +26,10 @@
                 <p></p>
             </div>
         </div>
-
-
     </div>
+
+    <input id="_csrf" type="hidden" name="_csrf" value={{csrfToken}} />
+
 
     <nav>
         <div>
