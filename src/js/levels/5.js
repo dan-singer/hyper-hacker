@@ -15,6 +15,8 @@ function outputMouse(event){
 }
 
 let boidArray = []; //array of beautiful boids
+let numLinks = 2;
+let counter=0;
 
 function init() {
     document.querySelector('#profile-toggle').onclick = toggleProfile;
@@ -39,11 +41,23 @@ function init() {
         };
     }
 
-    makeFlock();
+    setTimeout(makeFlock, 5000);
+}
+
+function updateBoids(){
+    destroyBoids();
+    makeBoids();
+    for(let boid of boidArray){
+        //calcCentroid();
+        boid.Update();
+    }
+
+    setTimeout(updateBoids, 30);
+    
 }
 
 function makeBoids(){
-    for(let i=0; i<boidArray.length; i++){
+    for(let i=numLinks; i<boidArray.length; i++){
         let boid = document.createElement('div');
         boid.style.top = boidArray[i].position.y +'px';
         boid.style.left= boidArray[i].position.x + 'px';
@@ -53,18 +67,49 @@ function makeBoids(){
         boid.appendChild(content);
         document.body.appendChild(boid);
     }
+
+    for(let i = 0; i<numLinks; i++){
+        let finalBoid = document.createElement('a');
+        finalBoid.style.top = boidArray[i].position.y +'px';
+        finalBoid.style.left= boidArray[i].position.x + 'px';
+        finalBoid.setAttribute("class", "finish-link linkBoid");
+        finalBoid.innerHTML= "Click Here";
+        document.body.appendChild(finalBoid);
+    }
+
+    if(counter> 100){
+        numLinks++;
+        counter=0;
+    }
+
+    counter++
+
+}
+
+function destroyBoids(){
+    let boids = document.querySelectorAll(".boid");
+    if(boids.length>0){
+        for(let boid of boids){
+            boid.parentNode.removeChild(boid);
+        }
+    }
+
+    let links = document.querySelectorAll('.finish-link');
+    for(let link of links){
+        link.parentNode.removeChild(link);
+    }
+    
+
 }
 
 function makeFlock(){
 
-    for(let i=0; i< 100; i++){
+    for(let i=0; i<50; i++){
         let newBoid = new Boid();
         boidArray.push(newBoid);
     }
 
-    console.log(boidArray);
-
-    makeBoids();
+    updateBoids();
 }
 
 //credit to past Emily Turner for doing her IMD project good
@@ -76,11 +121,21 @@ class Boid{
         this.direction = {x:0, y:0};
         this.velocity = {x:0, y:0};
         this.acceleration = {x:0, y:0};
-        this.maxSpeed = 10;
-        this.maxForce = 10;
+        this.maxSpeed = 5;
+        this.maxForce = 2;
         this.centroid = {x: 0, y:0};
         this.alignment = {x:0, y:0};
         this.target = {x:(screen.width/2), y:(screen.height/2)};
+        this.neighbors= [];
+    }
+    CalcNeighbors(){
+        this.neighbors=[];
+        for(let boid of boidArray){
+            if(this.Distance(boid.position, this.position) < 30){
+                Console.log("true");
+                this.neighbors.push(boid);
+            }
+        }
     }
 
     ApplyForce(force){
@@ -88,7 +143,7 @@ class Boid{
         this.acceleration.y += force.y;
     }
 
-    CalcMagnitude(vec1, vec2){ //https://stackoverflow.com/questions/20916953/get-distance-between-two-points-in-canvas
+    Distance(vec1, vec2){ //https://stackoverflow.com/questions/20916953/get-distance-between-two-points-in-canvas
         let a = vec1.x - vec2.y;
         let b = vec1.y - vec2.y;
 
@@ -99,8 +154,8 @@ class Boid{
 
     Normalize(vec2){
         let newVec = {x:0, y:0};
-        newVec.x = vec2.x / this.CalcMagnitude({x:0, y:0}, vec2);
-        newVec.y = vec2.y / this.CalcMagnitude({x:0, y:0}, vec2);
+        newVec.x = vec2.x / this.Distance({x:0, y:0}, vec2);
+        newVec.y = vec2.y / this.Distance({x:0, y:0}, vec2);
         
         return newVec;
     }
@@ -122,22 +177,17 @@ class Boid{
     CalcSteeringForce(){
         let ultForce = {x:0, y:0};
 
-        let seekForce = Seek(this.centroid);
+        //let seekForce = this.Seek(this.centroid);
+
+        //ultForce.x += seekForce.x;
+        //ultForce.y += seekForce.y;
+
+        let seekForce = this.Seek(this.target);
 
         ultForce.x += seekForce.x;
         ultForce.y += seekForce.y;
 
-        seekForce = Seek(this.alignment);
-
-        ultForce.x += seekForce.x;
-        ultForce.y += seekForce.y;
-
-        seekForce = Seek(this.target);
-
-        ultForce.x += seekForce.x;
-        ultForce.y += seekForce.y;
-
-        if((this.CalcMagnitude(ultForce, 0)) > this.maxForce){
+        if((this.Distance(ultForce, 0)) > this.maxForce){
             ultForce.x /= 2;
             ultForce.y /= 2;
         }
@@ -147,10 +197,13 @@ class Boid{
 
     UpdatePosition(){
         //adds acceleration to velocity
-        this.velocity += this.acceleration;
+        this.velocity.x += this.acceleration.x;
+        this.velocity.y += this.acceleration.y;
 
         //adds velocity to position
-        this.position += this.velocity;
+        this.position.x += this.velocity.x;
+        this.position.y += this.velocity.y;
+
 
         //normalizes the direction
         this.direction = this.Normalize(this.velocity);
@@ -162,8 +215,8 @@ class Boid{
     }
 
     Update(){
-        CalcSteeringForces();
-        UpdatePosition();
+        this.CalcSteeringForce();
+        this.UpdatePosition();
     }
 }
 
