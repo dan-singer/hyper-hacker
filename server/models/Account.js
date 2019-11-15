@@ -46,8 +46,8 @@ const AccountSchema = new mongoose.Schema({
   },
   visitedHelp: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 AccountSchema.statics.toAPI = doc => ({

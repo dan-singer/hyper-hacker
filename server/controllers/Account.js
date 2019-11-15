@@ -116,7 +116,6 @@ const completeTutorial = (request, response) => {
 };
 
 const getLevel = (request, response) => {
-  
   if (!request.query.num
     || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
     response.redirect('/level-select');
@@ -136,7 +135,7 @@ const getLevel = (request, response) => {
       username: user.username,
       csrfToken: request.csrfToken(),
       dateJoined,
-      visitedHelp: user.visitedHelp
+      visitedHelp: user.visitedHelp,
     };
     response.render(`levels/${request.query.num}`, levelDetails);
   })
@@ -173,37 +172,38 @@ const getHelp = (request, response) => {
     response.render('help', { csrfToken: request.csrfToken() });
   })
   .catch(err => {
-    response.status(400).json({error: err});
-  })
-};
-
-const changeUsername = (request, response) => {
-  Account.AccountModel.authenticate(request.session.account.username, request.body.password, (err, account) => {
-    if (err || !account) {
-      response.status(401).json({ error: 'invalid-credentials' });
-      return;
-    }
-    const accountCopy = account;
-    accountCopy.username = request.body.newUsername;
-    accountCopy.save()
-    .then(() => {
-      request.session.account = Account.AccountModel.toAPI(accountCopy);
-      response.redirect('/level-select');
-    })
-    .catch(err => {
-      response.status(400).json({error: err});
-    });
-
+    response.status(400).json({ error: err });
   });
 };
 
-const changePassword = (request, response) => {
+const changeUsername = (request, response) => {
+  Account.AccountModel.authenticate(request.session.account.username,
+    request.body.password, (err, account) => {
+      if (err || !account) {
+        response.status(401).json({ error: 'invalid-credentials' });
+        return;
+      }
+      const accountCopy = account;
+      accountCopy.username = request.body.newUsername;
+      accountCopy.save()
+    .then(() => {
+      const req = request;
+      req.session.account = Account.AccountModel.toAPI(accountCopy);
+      response.redirect('/level-select');
+    })
+    .catch(error => {
+      response.status(400).json({ error });
+    });
+    });
+};
 
-}
+const changePassword = () => {
+
+};
 
 module.exports = {
   loginPage, login, logout, signupPage, signup,
   levelSelectPage, tutorialPage, completeTutorial,
   getLevel, completeLevel, getHelp,
-  changeUsername, changePassword
+  changeUsername, changePassword,
 };
