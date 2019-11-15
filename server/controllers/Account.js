@@ -136,6 +136,7 @@ const getLevel = (request, response) => {
       username: user.username,
       csrfToken: request.csrfToken(),
       dateJoined,
+      visitedHelp: user.visitedHelp
     };
     response.render(`levels/${request.query.num}`, levelDetails);
   })
@@ -161,8 +162,23 @@ const completeLevel = (request, response) => {
   });
 };
 
+const getHelp = (request, response) => {
+  Account.AccountModel.findByUsername(request.session.account.username)
+  .then(user => {
+    const userCopy = user;
+    userCopy.visitedHelp = true;
+    return userCopy.save();
+  })
+  .then(() => {
+    response.render('help', { csrfToken: request.csrfToken() });
+  })
+  .catch(err => {
+    response.status(400).json({error: err});
+  })
+};
+
 module.exports = {
   loginPage, login, logout, signupPage, signup,
   levelSelectPage, tutorialPage, completeTutorial,
-  getLevel, completeLevel,
+  getLevel, completeLevel, getHelp
 };

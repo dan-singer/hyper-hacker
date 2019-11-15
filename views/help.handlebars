@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hyper Hacker: Level 2</title>
-    <script src="assets/js/3.js"></script>
+    <title>Hyper Hacker: Help</title>
+    <script src="assets/js/help.js"></script>
 </head>
+
 <body>
     <div id="profile">
         <div id="profileContent">
@@ -31,21 +33,13 @@
         <img id="profile-toggle" src="assets/media/defaultProfile.png" alt="profile picture">
     </nav>
 
-    
-    <div id="overhead">
-        <h1>Level 3: I get by with a little <em>/help</em> from my friends.</h1>
-        <h2>You might need to go somewhere else first.</h2>
-        <br />
-        {{#if visitedHelp}}
-            <a id="complete">Click here!</a>
-        {{/if}}
-
-    </div>
-
     <input id="_csrf" type="hidden" name="_csrf" value={{csrfToken}} />
 
-
-
+    <div id="overhead">
+        <h1>Help?</h1>
+        <h2>This isn't really a help page. But maybe it saved something for use in a different level...</h2>
+    </div>
     
 </body>
+
 </html>

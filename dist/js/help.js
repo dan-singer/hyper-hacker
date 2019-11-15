@@ -81,10 +81,21 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/scss/levels.scss":
+/*!***********************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/scss/levels.scss ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"/* LEVEL 0 STYLINGS */\\n/* SASS Variables */\\n#overhead {\\n  position: fixed;\\n  width: 99vw;\\n  height: 100vh;\\n  text-align: center;\\n  background-color: #111;\\n  top: 0px;\\n  left: 0px; }\\n  #overhead h1 {\\n    margin-top: 35vh;\\n    font-size: 4rem; }\\n  #overhead h1.tight {\\n    margin-top: 7.5vh; }\\n  #overhead h2 {\\n    font-size: 3rem;\\n    width: 50%;\\n    margin: auto; }\\n\\nbody {\\n  height: 100vh;\\n  overflow: hidden; }\\n\\na {\\n  font-size: 2rem;\\n  padding: 10px;\\n  border-radius: 20px;\\n  border: 2px solid #33ff00; }\\n\\na:hover {\\n  color: white;\\n  background-color: rgba(51, 255, 0, 0.5);\\n  cursor: pointer; }\\n\\n.button1 {\\n  position: absolute;\\n  top: -300px;\\n  left: 50%; }\\n\\n.button2 {\\n  margin: 250vw;\\n  text-align: right; }\\n\\n#float {\\n  width: 3000vw; }\\n\\n#float * {\\n  float: right; }\\n\\n.button4 {\\n  display: none; }\\n\\n.button6 {\\n  position: relative;\\n  top: -300%; }\\n\\n#cheat {\\n  width: 100vw;\\n  height: 100vh;\\n  display: flex;\\n  justify-content: center;\\n  align-items: center; }\\n\\n.reset {\\n  border: 10px solid #33ff00; }\\n\\n.boid {\\n  font-size: 1.5rem;\\n  padding: 0px 15px;\\n  border-radius: 20px;\\n  border: 2px solid #33ff00;\\n  position: absolute; }\\n\\n#instructions {\\n  margin-top: 35vh;\\n  width: 100vw;\\n  height: 100vh;\\n  text-align: center;\\n  font-size: 2.5rem; }\\n\", \"\"]);\n\n\n//# sourceURL=webpack:///./src/scss/levels.scss?./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js");
+
+/***/ }),
 
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/scss/style.scss":
 /*!**********************************************************************************************************!*\
@@ -121,15 +132,38 @@ eval("\n\nvar stylesInDom = {};\n\nvar isOldIE = function isOldIE() {\n  var mem
 
 /***/ }),
 
-/***/ "./src/js/tutorial.js":
-/*!****************************!*\
-  !*** ./src/js/tutorial.js ***!
-  \****************************/
+/***/ "./src/js/help.js":
+/*!************************!*\
+  !*** ./src/js/help.js ***!
+  \************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n\n/*Taken from: https://www.w3schools.com/howto/howto_js_typewriter.asp*/\n\nvar i = 0;\nvar tutorialText = [\"Welcome to Hyper Hacker\", \"The goal is simple. Click the green button to win.\", \"In order to click the green button, you have to access it first.\", \"You must manipulate elements of the page in order to access the button.\", \"The faster you get to the button, the better your score.\", \"Let's try an example.\"];\nvar tutorialIndex = -1;\n\nfunction runTypeWriter() {\n  document.querySelector(\"#text\").innerHTML = \"\";\n\n  if (tutorialIndex == tutorialText.length - 1) {\n    loadTutorial();\n  } else {\n    tutorialIndex++;\n    i = 0;\n    setTimeout(typeWriter, 200);\n  }\n}\n\nfunction typeWriter() {\n  if (i < tutorialText[tutorialIndex].length) {\n    document.querySelector(\"#text\").innerHTML += tutorialText[tutorialIndex].charAt(i);\n    i++;\n    setTimeout(typeWriter, 40);\n  }\n}\n\nfunction loadTutorial() {\n  document.querySelector(\"#example\").style.display = 'block';\n  document.querySelector(\"#tutorial\").style.display = \"none\";\n}\n\nfunction init() {\n  runTypeWriter();\n  var finish = document.querySelector(\"#finish-link\");\n\n  var _csrf = document.querySelector(\"#_csrf\");\n\n  finish.onclick = function (e) {\n    e.preventDefault();\n    fetch(\"/tutorial?_csrf=\".concat(_csrf.value), {\n      method: 'POST'\n    }).then(function (res) {\n      if (res.status === 200) {\n        window.location.href = '/level-select';\n      }\n    })[\"catch\"](function (err) {\n      console.log(err);\n    });\n  };\n}\n\ndocument.onkeypress = runTypeWriter;\nwindow.onload = init;\n\n//# sourceURL=webpack:///./src/js/tutorial.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../scss/levels.scss */ \"./src/scss/levels.scss\");\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _support_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./support/utils.js */ \"./src/js/support/utils.js\");\n\n\n\n\nvar init = function init() {\n  document.querySelector('#profile-toggle').onclick = _support_utils_js__WEBPACK_IMPORTED_MODULE_2__[\"toggleProfile\"];\n};\n\nwindow.onload = init;\n\n//# sourceURL=webpack:///./src/js/help.js?");
+
+/***/ }),
+
+/***/ "./src/js/support/utils.js":
+/*!*********************************!*\
+  !*** ./src/js/support/utils.js ***!
+  \*********************************/
+/*! exports provided: toggleProfile */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"toggleProfile\", function() { return toggleProfile; });\n/**\r\n * Various utility functions used for the front end of hyper-hacker\r\n */\nvar test = function test() {\n  console.log('test');\n};\n\nfunction toggleProfile() {\n  var navBar = document.querySelector('nav');\n  var profile = document.querySelector('#profile');\n  var container = document.querySelector('#levelContainer');\n\n  if (profile.style.width == \"0px\" || profile.style.width == \"\") {\n    profile.style.width = \"300px\";\n    container.style.marginLeft = \"300px\";\n    container.style.transition = \"0.2s\";\n    navBar.style.width = \"81vw\";\n    navBar.style.left = \"350px\";\n    container.style.borderColor = \"#33ff00\";\n  } else {\n    profile.style.width = \"0px\";\n    container.style.marginLeft = \"0px\";\n    container.style.transition = \"0.3s\";\n    navBar.style.width = \"100vw\";\n    navBar.style.left = \"0px\";\n    container.style.borderColor = \"#111\";\n  }\n}\n\n\n\n//# sourceURL=webpack:///./src/js/support/utils.js?");
+
+/***/ }),
+
+/***/ "./src/scss/levels.scss":
+/*!******************************!*\
+  !*** ./src/scss/levels.scss ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!./levels.scss */ \"./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/scss/levels.scss\");\n\nif (typeof content === 'string') {\n  content = [[module.i, content, '']];\n}\n\nvar options = {}\n\noptions.insert = \"head\";\noptions.singleton = false;\n\nvar update = __webpack_require__(/*! ../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ \"./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js\")(content, options);\n\nif (content.locals) {\n  module.exports = content.locals;\n}\n\n\n//# sourceURL=webpack:///./src/scss/levels.scss?");
 
 /***/ }),
 
@@ -144,14 +178,14 @@ eval("var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/
 
 /***/ }),
 
-/***/ 10:
-/*!**********************************!*\
-  !*** multi ./src/js/tutorial.js ***!
-  \**********************************/
+/***/ 6:
+/*!******************************!*\
+  !*** multi ./src/js/help.js ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! C:\\Users\\dsing\\source\\repos\\430\\hyper-hacker\\src\\js\\tutorial.js */\"./src/js/tutorial.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/tutorial.js?");
+eval("module.exports = __webpack_require__(/*! C:\\Users\\dsing\\source\\repos\\430\\hyper-hacker\\src\\js\\help.js */\"./src/js/help.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/help.js?");
 
 /***/ })
 
