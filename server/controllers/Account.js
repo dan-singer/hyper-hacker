@@ -116,11 +116,11 @@ const completeTutorial = (request, response) => {
 };
 
 const getLevel = (request, response) => {
-  // if (!request.query.num
-  //   || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
-  //   response.redirect('/level-select');
-  //   return;
-  // }
+  if (!request.query.num
+    || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
+    response.redirect('/level-select');
+    return;
+  }
 
   Account.AccountModel.findByUsername(request.session.account.username)
   .then(user => {
@@ -200,7 +200,6 @@ const changeUsername = (request, response) => {
 const changePassword = (request, response) => {
   const req = request;
   const res = response;
-  console.log(req.session.account.username);
   Account.AccountModel.authenticate(req.session.account.username, req.body.oldPassword, (err, account) => {
     if (err || !account) {
       response.status(401).json({ error: 'invalid-credentials' });
@@ -216,7 +215,7 @@ const changePassword = (request, response) => {
         req.session.account = Account.AccountModel.toAPI(accountCopy);
         res.status(200).send();
       })
-      .catch((doc, err) => {
+      .catch((err) => {
         res.status(400).json({error: err});
       });
     });

@@ -1,6 +1,7 @@
 import '../../scss/style.scss';
 import '../../scss/levels.scss';
 import {toggleProfile} from '../support/utils.js'
+import { request } from 'https';
 
 document.onmousemove = outputMouse;
 
@@ -17,6 +18,7 @@ function outputMouse(event){
 let boidArray = []; //array of beautiful boids
 let numLinks = 2;
 let counter=0;
+let timeCounter = 0;
 
 function init() {
     document.querySelector('#profile-toggle').onclick = toggleProfile;
@@ -41,18 +43,27 @@ function init() {
         };
     }
 
-    setTimeout(makeFlock, 5000);
+    setTimeout(makeFlock, 2000);
 }
 
-function updateBoids(){
+function updateBoids(timestamp){
     destroyBoids();
     makeBoids();
-    for(let boid of boidArray){
-        //calcCentroid();
-        boid.Update();
+
+    let elapsedtime = 0.1;
+
+    if(timeCounter >0){
+        elapsedtime = timestamp-timeCounter;
     }
 
-    setTimeout(updateBoids, 30);
+    for(let boid of boidArray){
+        //calcCentroid();
+        boid.Update(elapsedtime);
+    }
+
+    timeCounter = timestamp;
+
+    requestAnimationFrame(updateBoids);
     
 }
 
@@ -77,7 +88,7 @@ function makeBoids(){
         document.body.appendChild(finalBoid);
     }
 
-    if(counter> 100){
+    if(counter> 400){
         numLinks++;
         counter=0;
     }
@@ -109,7 +120,13 @@ function makeFlock(){
         boidArray.push(newBoid);
     }
 
-    updateBoids();
+    requestAnimationFrame(updateBoids);
+}
+
+window.slow = slowBoids();
+
+function slowBoids(){
+
 }
 
 //credit to past Emily Turner for doing her IMD project good
@@ -121,21 +138,12 @@ class Boid{
         this.direction = {x:0, y:0};
         this.velocity = {x:0, y:0};
         this.acceleration = {x:0, y:0};
-        this.maxSpeed = 5;
-        this.maxForce = 2;
+        this.maxSpeed = 50;
+        this.maxForce = 8;
         this.centroid = {x: 0, y:0};
         this.alignment = {x:0, y:0};
         this.target = {x:(screen.width/2), y:(screen.height/2)};
         this.neighbors= [];
-    }
-    CalcNeighbors(){
-        this.neighbors=[];
-        for(let boid of boidArray){
-            if(this.Distance(boid.position, this.position) < 30){
-                Console.log("true");
-                this.neighbors.push(boid);
-            }
-        }
     }
 
     ApplyForce(force){
@@ -150,6 +158,16 @@ class Boid{
         let c = Math.sqrt( a*a + b*b);
 
         return c;
+    }
+
+    CalcNeighbors(){
+        this.neighbors=[];
+        for(let boid of boidArray){
+            if(this.Distance(boid.position, this.position) < 30){
+                let position = {x: boid.x, y: boid.y};
+                this.neighbors.push(position);
+            }
+        }
     }
 
     Normalize(vec2){
@@ -174,35 +192,70 @@ class Boid{
         return seekingForce;
     }
 
+    //returns fleeing force towards a given target vector
+    Flee(aim){
+        let desiredVelocity = {x:this.position.x-aim.x, y:this.position.y-aim.y};
+
+        desiredVelocity = this.Normalize(desiredVelocity);
+
+        desiredVelocity.x *= this.maxSpeed;
+        desiredVelocity.y *= this.maxSpeed;
+
+        let seekingForce = {x:desiredVelocity.x-this.velocity.x, y:desiredVelocity.y-this.velocity.y};
+
+        return seekingForce;
+
+    }
+
+    ClampVector(vec2, max){
+        //if it needs to be clamped
+        if(this.Distance(vec2, {x:0, y:0})>max){
+            let newVec2 = this.Normalize(vec2);
+            newVec2.x *= max;
+            newVec2.y *= max;
+
+            return newVec2;
+        }
+
+        return vec2;
+
+    }
+
     CalcSteeringForce(){
         let ultForce = {x:0, y:0};
 
-        //let seekForce = this.Seek(this.centroid);
-
-        //ultForce.x += seekForce.x;
-        //ultForce.y += seekForce.y;
-
         let seekForce = this.Seek(this.target);
+
+
+        this.CalcNeighbors();
+
+        if(this.neighbors.length>0){
+            for(let i=0; i<this.neighbors.length; i++){
+                let flee = this.Flee({x:this.neighbors[i].x, y:this.neighbors[i].y});
+                seekForce.x += flee.x;
+                seekForce.y += flee.y;
+            }
+        }
 
         ultForce.x += seekForce.x;
         ultForce.y += seekForce.y;
 
-        if((this.Distance(ultForce, 0)) > this.maxForce){
-            ultForce.x /= 2;
-            ultForce.y /= 2;
-        }
+        let clampedForce = this.ClampVector(ultForce, this.maxForce);
 
-        this.ApplyForce(ultForce);
+        this.ApplyForce(clampedForce);
     }
 
-    UpdatePosition(){
+    UpdatePosition(et){
+
+        et /=1000;
+
         //adds acceleration to velocity
-        this.velocity.x += this.acceleration.x;
-        this.velocity.y += this.acceleration.y;
+        this.velocity.x += this.acceleration.x * et;
+        this.velocity.y += this.acceleration.y *et;
 
         //adds velocity to position
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
+        this.position.x += this.velocity.x * et;
+        this.position.y += this.velocity.y * et;
 
 
         //normalizes the direction
@@ -214,9 +267,9 @@ class Boid{
 
     }
 
-    Update(){
+    Update(et){
         this.CalcSteeringForce();
-        this.UpdatePosition();
+        this.UpdatePosition(et);
     }
 }
 

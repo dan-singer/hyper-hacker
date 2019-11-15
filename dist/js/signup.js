@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -144,14 +144,18 @@ eval("var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/
 
 /***/ }),
 
-/***/ 9:
+/***/ 11:
 /*!********************************!*\
   !*** multi ./src/js/signup.js ***!
   \********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 eval("module.exports = __webpack_require__(/*! D:\\Profiles\\djs5435\\Documents\\430\\hyper-hacker\\src\\js\\signup.js */\"./src/js/signup.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/signup.js?");
+=======
+eval("module.exports = __webpack_require__(/*! D:\\Profiles\\ekt6170\\Desktop\\hyper-hacker\\src\\js\\signup.js */\"./src/js/signup.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/signup.js?");
+>>>>>>> 91f94957637c411d9cf611c57d94d6cdb945d847
 
 /***/ })
 
