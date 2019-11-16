@@ -90,8 +90,9 @@ const levelSelectPage = (request, response) => {
           username: user.username,
           highscores: user.completionTimes,
           csrfToken: request.csrfToken(),
-          levelNames: levels.map(level => level.name),
+          levels,
           dateJoined,
+          isPremium: user.isPremium
         };
         response.render('level-select', levelDetails);
       });
@@ -116,15 +117,16 @@ const completeTutorial = (request, response) => {
 };
 
 const getLevel = (request, response) => {
-  if (!request.query.num
-    || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
-    response.redirect('/level-select');
-    return;
-  }
-
   Account.AccountModel.findByUsername(request.session.account.username)
   .then(user => {
     const userCopy = user;
+
+    if (!request.query.num
+      || !Account.AccountModel.canAccessLevel(userCopy, request.query.num)) {
+      response.redirect('/level-select');
+      return Promise.reject(0);
+    }
+
     userCopy.startTime = Date.now();
     return userCopy.save();
   })
@@ -140,24 +142,29 @@ const getLevel = (request, response) => {
     response.render(`levels/${request.query.num}`, levelDetails);
   })
   .catch((err) => {
-    response.status(400).json({ error: err });
+    if (err !== 0) {
+      response.status(400).json({ error: err });
+    }
   });
 };
 
 const completeLevel = (request, response) => {
-  if (!request.query.num
-    || !Account.AccountModel.canAccessLevel(request.session.account._id, request.query.num)) {
-    response.redirect('/level-select');
-    return;
-  }
-
   Account.AccountModel.findByUsername(request.session.account.username)
-  .then(user => Account.AccountModel.completeLevel(user, request.query.num))
+  .then(user => {
+    if (!request.query.num
+      || !Account.AccountModel.canAccessLevel(user, request.query.num)) {
+      response.redirect('/level-select');
+      return Promise.reject(0);
+    }
+    return Account.AccountModel.completeLevel(user, request.query.num);
+  })
   .then(() => {
     response.status(200).send();
   })
   .catch((err) => {
-    response.status(400).json({ error: err });
+    if (err !== 0) {
+      response.status(400).json({ error: err });
+    }
   });
 };
 
@@ -222,9 +229,28 @@ const changePassword = (request, response) => {
   });
 };
 
+const upgrade = (request, response) => {
+  const req = request;
+  const res = response;
+
+  Account.AccountModel.findByUsername(req.session.account.username)
+  .then(user => {
+    const userCopy = user;
+    userCopy.isPremium = true;
+    return userCopy.save();
+  })
+  .then(() => {
+    res.status(200).send();
+  })
+  .catch(err => {
+    res.status(400).json({error: err});
+  });
+};
+
 module.exports = {
   loginPage, login, logout, signupPage, signup,
   levelSelectPage, tutorialPage, completeTutorial,
   getLevel, completeLevel, getHelp,
   changeUsername, changePassword,
+  upgrade
 };

@@ -50,7 +50,7 @@ app.use(session({
     port: redisURL.port,
     pass: redisPASS,
   }),
-  secret: 'Domo Arigato',
+  secret: 'Hacker Hacker Hacker',
   resave: true,
   saveUninitialized: true,
   cookie: {

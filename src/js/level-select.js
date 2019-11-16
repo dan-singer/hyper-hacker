@@ -87,8 +87,34 @@ function init() {
                 });
             }
 
-        })
+        });
     };
+    const upgrade = document.querySelector('#upgrade');
+    if (upgrade) {
+        upgrade.onclick = e => {
+            e.preventDefault();
+            fetch(`/upgrade?_csrf=${csrf}`, {
+                method: 'POST'
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    Swal.fire('Congrats, you now have Hacker Status and can access levels 4 & 5')
+                    .then(() => {
+                        window.location.href = '/level-select';
+                    });
+                } else {
+                    Swal.fire('Sorry, something went wrong');
+                }
+            });
+        }
+    }
+
+    document.querySelectorAll('.locked-level').forEach(el => {
+        el.onclick = e => {
+            e.preventDefault();
+            Swal.fire('This level is locked. Upgrade to Hacker Status to access it!');
+        };
+    })
 }
 
 window.onload = init;

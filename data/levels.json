@@ -1,20 +1,26 @@
 [
     {
-        "name": "Overflowing with Secrets"
+        "name": "Overflowing with Secrets",
+        "isPremium": false
     },
     {
-        "name": "No Context"
+        "name": "No Context",
+        "isPremium": false
     },
     {
-        "name": "You've Been Reinstated"
+        "name": "You've Been Reinstated",
+        "isPremium": false
     },
     {
-        "name": "I get by with a little /help from my friends"
+        "name": "I get by with a little /help from my friends",
+        "isPremium": false
     },
     {
-        "name": "JS Console Adventures"
+        "name": "JS Console Adventures",
+        "isPremium": true
     },
     {
-        "name": "Gotta Go Fast"
+        "name": "Gotta Go Fast",
+        "isPremium": true
     }
 ]

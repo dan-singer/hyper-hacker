@@ -21,10 +21,9 @@
                 <button>Change Picture</button>
             </div>
 
-            <div id="subscription">
-                <h3>Upgrade To Hacker Status</h3>
-                <p></p>
-            </div>
+            {{#unless isPremium}}
+                <button id="upgrade">Upgrade To Hacker Status</button>
+            {{/unless}}
         </div>
     </div>
 
@@ -41,8 +40,16 @@
 
     <div id="levelContainer">
         <div id="levelGrid">
-            {{#each levelNames}}
+            {{#each levels}}
+                {{#if this.isPremium }}
+                    {{#if ../isPremium }}
                 <a href='/level?num={{@index}}'>
+                    {{else}}
+                <a class="locked-level" />
+                    {{/if}}
+                {{else}}
+                <a href='/level?num={{@index}}'>
+                {{/if}}
                     <div class="levelSelect">
                         <div class="highscore">
                             <h5>
@@ -52,7 +59,7 @@
                         </div>
                         <div class="levelText">
                             <h3>Level {{@index}}</h3>
-                            <h4>{{this}}</h4>
+                            <h4>{{this.name}}</h4>
                         </div>
                     </div>
                 </a>

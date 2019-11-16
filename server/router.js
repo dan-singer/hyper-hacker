@@ -28,6 +28,9 @@ const router = (app) => {
   app.get('/help', mid.requiresSecure, mid.redirectHomeIfLoggedOut,
     controllers.Account.getHelp);
 
+  app.post('/upgrade', mid.requiresSecure, mid.redirectHomeIfLoggedOut,
+    controllers.Account.upgrade);
+
   app.get('/', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);
 
   app.get('*', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);
