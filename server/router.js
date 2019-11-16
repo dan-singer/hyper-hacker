@@ -29,5 +29,7 @@ const router = (app) => {
     controllers.Account.getHelp);
 
   app.get('/', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);
+
+  app.get('*', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);
 };
 module.exports = router;
