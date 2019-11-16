@@ -92,7 +92,7 @@ const levelSelectPage = (request, response) => {
           csrfToken: request.csrfToken(),
           levels,
           dateJoined,
-          isPremium: user.isPremium
+          isPremium: user.isPremium,
         };
         response.render('level-select', levelDetails);
       });
@@ -207,26 +207,27 @@ const changeUsername = (request, response) => {
 const changePassword = (request, response) => {
   const req = request;
   const res = response;
-  Account.AccountModel.authenticate(req.session.account.username, req.body.oldPassword, (err, account) => {
-    if (err || !account) {
-      response.status(401).json({ error: 'invalid-credentials' });
-      return;
-    }
-    Account.AccountModel.generateHash(req.body.newPassword, (salt, hash) => {
-      const accountCopy = account;
-      accountCopy.salt = salt;
-      accountCopy.password = hash;
+  Account.AccountModel.authenticate(req.session.account.username, req.body.oldPassword,
+    (err, account) => {
+      if (err || !account) {
+        response.status(401).json({ error: 'invalid-credentials' });
+        return;
+      }
+      Account.AccountModel.generateHash(req.body.newPassword, (salt, hash) => {
+        const accountCopy = account;
+        accountCopy.salt = salt;
+        accountCopy.password = hash;
 
-      accountCopy.save()
+        accountCopy.save()
       .then(() => {
         req.session.account = Account.AccountModel.toAPI(accountCopy);
         res.status(200).send();
       })
-      .catch((err) => {
-        res.status(400).json({error: err});
+      .catch((errMsg) => {
+        res.status(400).json({ error: errMsg });
+      });
       });
     });
-  });
 };
 
 const upgrade = (request, response) => {
@@ -243,7 +244,7 @@ const upgrade = (request, response) => {
     res.status(200).send();
   })
   .catch(err => {
-    res.status(400).json({error: err});
+    res.status(400).json({ error: err });
   });
 };
 
@@ -252,5 +253,5 @@ module.exports = {
   levelSelectPage, tutorialPage, completeTutorial,
   getLevel, completeLevel, getHelp,
   changeUsername, changePassword,
-  upgrade
+  upgrade,
 };
