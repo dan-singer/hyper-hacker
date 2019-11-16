@@ -80,10 +80,13 @@ function init() {
                 })
             }
         })
-        .then(() => {
-            Swal.fire({
-                title: 'Password Updated'
-            });
+        .then((res) => {
+            if (res.dismiss !== 'cancel') {
+                Swal.fire({
+                    title: 'Password Updated'
+                });
+            }
+
         })
     };
 }
