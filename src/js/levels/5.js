@@ -1,9 +1,21 @@
 import '../../scss/style.scss';
 import '../../scss/levels.scss';
-import {toggleProfile} from '../support/utils.js'
+import {Boid} from '../support/boid.js';
+import {toggleProfile} from '../support/utils.js';
 import { request } from 'https';
 
+
 document.onmousemove = outputMouse;
+
+function check(){
+    let links = document.querySelectorAll('.finish-link');
+
+    for( let link of links){
+        link.onclick = checkClick;
+    }
+}
+
+window.onclick = checkClick;
 
 function outputMouse(event){
     let x = event.clientX;
@@ -15,35 +27,61 @@ function outputMouse(event){
     }
 }
 
+function checkClick(event){
+    let x = event.clientX;
+    let y = event.clientY;
+    let links = document.querySelectorAll('.finish-link');
+    for(let link of links){
+        let rect = link.getBoundingClientRect();
+        let centerX = rect.x + (rect.width/2);
+        let centerY = rect.y + (rect.height/2);
+        
+        if(Math.abs(centerX - x) < 50){
+            winCondition();
+        } else if(Math.abs(centerY - y) < 10){
+            winCondition();
+        }
+    }
+}
+
 let boidArray = []; //array of beautiful boids
 let numLinks = 2;
+let numBoids = 150;
 let counter=0;
 let timeCounter = 0;
 
 function init() {
     document.querySelector('#profile-toggle').onclick = toggleProfile;
+    console.log("Let's see how well you remember your physics!");
+    console.log("Use print() to print out the current flock");
+    console.log("Use setvelocity(int) to set the flock's velocity");
+    console.log("Use setAcceleration(int) to set the flock's acceleration");
+    console.log("Use setSpeed(int) to set the flock's maximum speed");
+
+    setTimeout(makeFlock, 2000);
+}
+
+
+function winCondition(e){
+    console.log("HERE");
     const csrf = document.querySelector('#_csrf').value;
     const urlParams = new URLSearchParams(window.location.search);
     const levelNum = parseInt(urlParams.get('num'));
     const links = document.querySelectorAll(".finish-link");
-    for(let finish of links){
-        finish.onclick = e => {
-            e.preventDefault();
-            fetch(`/level?num=${levelNum}&_csrf=${csrf}`, {
-                method: 'POST',
-            })
-            .then(res => {
-                if (res.status === 200) {
-                    window.location.href = '/level-select';
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            });
-        };
-    }
 
-    setTimeout(makeFlock, 2000);
+    fetch(`/level?num=${levelNum}&_csrf=${csrf}`, {
+        method: 'POST',
+    })
+    .then(res => {
+        if (res.status === 200) {
+            window.location.href = '/level-select';
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
+    
 }
 
 function updateBoids(timestamp){
@@ -86,6 +124,7 @@ function makeBoids(){
         finalBoid.setAttribute("class", "finish-link linkBoid");
         finalBoid.innerHTML= "Click Here";
         document.body.appendChild(finalBoid);
+        check();
     }
 
     if(counter> 400){
@@ -115,162 +154,65 @@ function destroyBoids(){
 
 function makeFlock(){
 
-    for(let i=0; i<50; i++){
+    for(let i=0; i<numBoids; i++){
         let newBoid = new Boid();
         boidArray.push(newBoid);
+    }
+
+    for(let boid of boidArray){
+        boid.boids = boidArray;
     }
 
     requestAnimationFrame(updateBoids);
 }
 
-window.slow = slowBoids();
+window.print = () => {
+    console.log(boidArray);
+};
 
-function slowBoids(){
-
-}
-
-//credit to past Emily Turner for doing her IMD project good
-class Boid{
-    constructor(){ //sets random x and y coordinates from -100 to 100
-        this.x = Math.floor(Math.random() * screen.width)-50; //x position of the Boid
-        this.y = Math.floor(Math.random() * screen.height)-50; //y position of the Boid
-        this.position = {x: this.x, y:this.y}; //position of the Boid
-        this.direction = {x:0, y:0};
-        this.velocity = {x:0, y:0};
-        this.acceleration = {x:0, y:0};
-        this.maxSpeed = 50;
-        this.maxForce = 8;
-        this.centroid = {x: 0, y:0};
-        this.alignment = {x:0, y:0};
-        this.target = {x:(screen.width/2), y:(screen.height/2)};
-        this.neighbors= [];
-    }
-
-    ApplyForce(force){
-        this.acceleration.x += force.x;
-        this.acceleration.y += force.y;
-    }
-
-    Distance(vec1, vec2){ //https://stackoverflow.com/questions/20916953/get-distance-between-two-points-in-canvas
-        let a = vec1.x - vec2.y;
-        let b = vec1.y - vec2.y;
-
-        let c = Math.sqrt( a*a + b*b);
-
-        return c;
-    }
-
-    CalcNeighbors(){
-        this.neighbors=[];
-        for(let boid of boidArray){
-            if(this.Distance(boid.position, this.position) < 30){
-                let position = {x: boid.x, y: boid.y};
-                this.neighbors.push(position);
+window.setSpeed = (speed) => {
+    if(speed){
+        if(typeof speed === 'number'){
+            console.log("Setting Speed to: " + speed);
+            for(let boid of boidArray){
+                boid.maxSpeed = speed*10;
             }
+        } else{
+            console.log("please enter in a valid number");
         }
-    }
+    }    
+    
+};
 
-    Normalize(vec2){
-        let newVec = {x:0, y:0};
-        newVec.x = vec2.x / this.Distance({x:0, y:0}, vec2);
-        newVec.y = vec2.y / this.Distance({x:0, y:0}, vec2);
+window.setVelocity = (vel) => {
+    if(vel){
+        if(typeof vel === 'number'){
+            console.log("Setting Velocity to: " + vel);
+            for(let boid of boidArray){
+                boid.velocity.x = vel;
+                boid.velocity.y = vel;
+            }
+        } else{
+            console.log("please enter in a valid number");
+        }
         
-        return newVec;
     }
+    
+};
 
-    //returns seeking force towards a given target vector
-    Seek(aim){
-        let desiredVelocity = {x:aim.x-this.position.x, y:aim.y-this.position.y};
-
-        desiredVelocity = this.Normalize(desiredVelocity);
-
-        desiredVelocity.x *= this.maxSpeed;
-        desiredVelocity.y *= this.maxSpeed;
-
-        let seekingForce = {x:desiredVelocity.x-this.velocity.x, y:desiredVelocity.y-this.velocity.y};
-
-        return seekingForce;
-    }
-
-    //returns fleeing force towards a given target vector
-    Flee(aim){
-        let desiredVelocity = {x:this.position.x-aim.x, y:this.position.y-aim.y};
-
-        desiredVelocity = this.Normalize(desiredVelocity);
-
-        desiredVelocity.x *= this.maxSpeed;
-        desiredVelocity.y *= this.maxSpeed;
-
-        let seekingForce = {x:desiredVelocity.x-this.velocity.x, y:desiredVelocity.y-this.velocity.y};
-
-        return seekingForce;
-
-    }
-
-    ClampVector(vec2, max){
-        //if it needs to be clamped
-        if(this.Distance(vec2, {x:0, y:0})>max){
-            let newVec2 = this.Normalize(vec2);
-            newVec2.x *= max;
-            newVec2.y *= max;
-
-            return newVec2;
-        }
-
-        return vec2;
-
-    }
-
-    CalcSteeringForce(){
-        let ultForce = {x:0, y:0};
-
-        let seekForce = this.Seek(this.target);
-
-
-        this.CalcNeighbors();
-
-        if(this.neighbors.length>0){
-            for(let i=0; i<this.neighbors.length; i++){
-                let flee = this.Flee({x:this.neighbors[i].x, y:this.neighbors[i].y});
-                seekForce.x += flee.x;
-                seekForce.y += flee.y;
+window.setAcceleration = (speed) => {
+    if(speed){
+        if(typeof speed === 'number'){
+            console.log("Setting Acceleration to: " + speed);
+            for(let boid of boidArray){
+                boid.acceleration.x = speed;
+                boid.acceleration.y = speed;
             }
+        } else{
+            console.log("please enter in a valid number");
         }
-
-        ultForce.x += seekForce.x;
-        ultForce.y += seekForce.y;
-
-        let clampedForce = this.ClampVector(ultForce, this.maxForce);
-
-        this.ApplyForce(clampedForce);
     }
-
-    UpdatePosition(et){
-
-        et /=1000;
-
-        //adds acceleration to velocity
-        this.velocity.x += this.acceleration.x * et;
-        this.velocity.y += this.acceleration.y *et;
-
-        //adds velocity to position
-        this.position.x += this.velocity.x * et;
-        this.position.y += this.velocity.y * et;
-
-
-        //normalizes the direction
-        this.direction = this.Normalize(this.velocity);
-
-        //reseta acceleration to zero for the next frame
-        this.acceleration.x = 0;
-        this.acceleration.y = 0;
-
-    }
-
-    Update(et){
-        this.CalcSteeringForce();
-        this.UpdatePosition(et);
-    }
+    
 }
 
 window.onload = init;
