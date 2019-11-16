@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Level Select: Hyper Hacker</title>
     <script src="assets/js/level-select.js"></script>
+    <script src="assets/js/imageUpload.js"></script>
 </head>
 
 <body>
@@ -18,12 +19,14 @@
             <div id="buttons">
                 <button id="change-username">Change Username</button>
                 <button id="change-password">Change Password</button>
-                <button>Change Picture</button>
+                <button id="picture">Change Picture</button>
+                <button><a href="/logout">Log Out</a></button>
             </div>
 
             {{#unless isPremium}}
                 <button id="upgrade">Upgrade To Hacker Status</button>
             {{/unless}}
+
         </div>
     </div>
 
@@ -33,7 +36,6 @@
     <nav>
         <div>
             <h2>Welcome Back, {{username}}</h2>
-            <a href='/logout'>Logout</a>
         </div>
         <img id="profile-toggle" src="assets/media/defaultProfile.png" alt="profile picture">
     </nav>

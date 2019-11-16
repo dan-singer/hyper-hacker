@@ -154,7 +154,7 @@ h3{
 }
 
 .levelSelect{
-  margin: 0 10% 150px 20%;
+  margin: 0px 10% 70px 20%;
   border: 4px solid $defaultColor;
   border-radius: 20px;
   text-align: center;
@@ -244,6 +244,8 @@ nav{
     margin-top:5px;
     font-size: 2rem;
     font-weight: normal;
+    width: 99%;
+    margin: 5px auto 0px auto;
   }
 }
 
@@ -315,6 +317,30 @@ nav{
 /* Change username, change password, change picture */
 #buttons{
   margin: 40px 0px;
+  a{
+    text-decoration: none;
+    color: $defaultColor;
+  }
+  form{
+    width:80%;
+    margin: auto;
+    input{
+      width:100%;
+      background-color: $defaultBackground;
+      color: $defaultColor;
+      border-radius: 20px;
+      border: 2px solid $defaultColor;
+      font-size: 3rem;
+      margin-bottom: 10px;
+      font-family: $defaultFont;
+
+    }
+
+    #fileSelect{
+      color: $defaultColor;
+      font-size: 1rem;
+    }
+  }
 }
 
 /* Tutorial Handlebars Stylings */
