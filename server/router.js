@@ -31,6 +31,10 @@ const router = (app) => {
   app.post('/upgrade', mid.requiresSecure, mid.redirectHomeIfLoggedOut,
     controllers.Account.upgrade);
 
+  app.post('/upload', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.upload);
+
+  app.get('/retrieve', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.retrieveImage);
+
   app.get('/', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);
 
   app.get('*', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);

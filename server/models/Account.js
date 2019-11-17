@@ -48,6 +48,30 @@ const AccountSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+   name: { //The file name
+    type: String
+  },
+  data: { //The actual image data
+    type: Buffer,
+  },
+  size: { //The size of the image in bytes
+    type: Number,
+  },
+  encoding: { //The type of encoding used in the image
+    type: String,
+  },
+  tempFilePath: { //The temporary file path
+    type: String,
+  },
+  truncated: { //If the image was cutoff at all
+    type: Boolean,
+  },
+  mimetype: { //The type of image it is
+    type: String,
+  },
+  md5: { //The hash for the image
+    type: String,
+  }
 });
 
 AccountSchema.statics.toAPI = doc => ({
