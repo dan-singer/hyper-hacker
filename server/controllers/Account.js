@@ -93,6 +93,14 @@ const levelSelectPage = (request, response) => {
           levels,
           dateJoined,
           isPremium: user.isPremium,
+          pictureName: user.name,
+          pictureData: user.data,
+          pictureSize: user.size,
+          pictureEncoding: user.encoding,
+          pictureFilePath: user.tempFilePath,
+          picturetrunc: user.truncated,
+          picturemime: user.mimetype,
+          picturemd5: user.md5,
         };
         response.render('level-select', levelDetails);
       });

@@ -113,27 +113,37 @@ function init() {
     document.querySelector('#picture').onclick = () =>{
         let buttonDiv = document.querySelector('#buttons');
 
-        let newForm = document.createElement('form');
-        newForm.setAttribute('ref', '/uploadForm');
-        newForm.setAttribute('id', 'uploadForm');
-        newForm.setAttribute('action', '/upload');
-        newForm.setAttribute('method', 'post');
-        newForm.setAttribute('encType', 'multipart/form-data');
-
-        let input = document.createElement('input');
-        input.setAttribute('type', 'file');
-        input.setAttribute('id', 'fileSelect');
-        input.setAttribute('name', 'sampleFile');
-
-
-        let sub = document.createElement('input');
-        sub.setAttribute('type', 'submit');  
-        sub.setAttribute('value', 'Submit');
-
-        newForm.appendChild(input);
-        newForm.appendChild(sub);
-
-        buttonDiv.appendChild(newForm);
+        if(document.querySelector('#uploadForm')===null){
+            let newForm = document.createElement('form');
+            newForm.setAttribute('ref', '/uploadForm');
+            newForm.setAttribute('id', 'uploadForm');
+            newForm.setAttribute('action', '/upload');
+            newForm.setAttribute('method', 'post');
+            newForm.setAttribute('encType', 'multipart/form-data');
+    
+            let input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('id', 'fileSelect');
+            input.setAttribute('name', 'sampleFile');
+    
+            //<input id="_csrf" type="hidden" name="_csrf" value={{csrfToken}} />
+            let inputCSRF = document.createElement('input');
+            inputCSRF.setAttribute('id', '_csrf');
+            inputCSRF.setAttribute('type', 'hidden');
+            inputCSRF.setAttribute('name', '_csrf');
+            inputCSRF.setAttribute('value', '{{csrfToken}}');
+    
+            let sub = document.createElement('input');
+            sub.setAttribute('type', 'submit');  
+            sub.setAttribute('value', 'Submit');
+    
+            newForm.appendChild(input);
+            newForm.appendChild(inputCSRF);
+            newForm.appendChild(sub);
+    
+            buttonDiv.appendChild(newForm);
+        }
+        
         
     };
 

@@ -12,6 +12,7 @@ class Boid{
         this.centroid = {x: 0, y:0};
         this.alignment = {x:0, y:0};
         this.target = {x:(screen.width/2), y:(screen.height/2)};
+        this.center = {x:(screen.width/2), y:(screen.height/2)};
         this.neighbors= [];
         this.boids =[];
     }
@@ -96,6 +97,7 @@ class Boid{
 
         let seekForce = this.Seek(this.target);
 
+        let seekCenter = this.Seek(this.center);
 
         this.CalcNeighbors();
 

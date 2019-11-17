@@ -5,6 +5,7 @@ const compression = require('compression');
 // const favicon = require('serve-favicon');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
 const session = require('express-session');
@@ -37,6 +38,9 @@ const app = express();
 app.use('/assets', express.static(path.resolve(`${__dirname}/../dist/`)));
 // TODO get a favicon image
 // app.use(favicon(`${__dirname}/../dist/img/favicon.png`));
+
+// Add the file upload package. This will place all uploaded files into req.files
+app.use(fileUpload());
 app.disable('x-powered-by');
 app.use(compression());
 app.use(bodyParser.urlencoded({
