@@ -63,7 +63,7 @@ const lookAround = () => {
     for (let neighbor of curLocation.neighbors) {
         locations += neighbor.room.name + ' | ';
     }
-    console.log(`%c${locations}`, 'color: yellow');
+    console.log(`%c${locations}`, 'color: orange');
 };
 
 
