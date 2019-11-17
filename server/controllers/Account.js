@@ -4,6 +4,8 @@ const fs = require('fs');
 
 const Account = models.Account;
 
+const filestore = models.filestore;
+
 const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
@@ -291,7 +293,7 @@ const upload = (req, res) => {
 // Our retrieval controller
 const retrieveImage = (req, res) => {
   // Find the file by name in the database if it exists
-  filestore.FileModel.findOne({ name: req.query.name }, (error, doc) => {
+  Account.AccountSchema.findOne({ name: req.query.name }, (error, doc) => {
     // If there is an error let the user know
     if (error) {
       return res.status(400).json({ error });
