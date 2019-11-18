@@ -28,4 +28,4 @@ function toggleProfile() {
     }
 }
 
-export { toggleProfile };
+export { toggleProfile, arrayBufferToBase64 };

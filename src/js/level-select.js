@@ -1,5 +1,5 @@
 import '../scss/style.scss';
-import {toggleProfile} from './support/utils.js'
+import {toggleProfile, arrayBufferToBase64} from './support/utils.js'
 import Swal from "sweetalert2";
 
 function init() {
@@ -189,7 +189,17 @@ function init() {
             e.preventDefault();
             Swal.fire('This level is locked. Upgrade to Hacker Status to access it!');
         };
-    })
+    });
+
+
+    fetch('/retrieve')
+    .then(res => res.text())
+    .then(data => {
+        document.querySelectorAll('.profile-img').forEach(el => {
+            el.src = data;
+        });
+    });
+
 }
 
 window.onload = init;

@@ -49,56 +49,7 @@ const AccountSchema = new mongoose.Schema({
     default: false,
   },
   // https://github.com/richardgirges/express-fileupload/tree/master/example
-  name: {
-    type: String,
-    default: 'defaultProfile',
-  },
   data: {
-    type: Buffer,
-    default: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAA4CAY' +
-    'AAACYCio/AAAB9UlEQVRYR+2Z4VXDMAyEP08AG8AGtBMAEwAblA3YgLABG8AG' +
-    'lAloJ4BuABMAE5h3dtKkadIkdVv8w30vv2op55Os6CzDkJ9lBFwDF8' +
-    'B5i+kcmAFTDB993ZteCy0T4A4467W+XLQAHjE8d9ltBmI5Beekbfdd/' +
-    'ov/xdIEw2ebQTsQ60IgEEd939ax7jcHM21a1wzEh+JpRwDqbm6bQrUOxDPxsicQhdsbD' +
-    'CvMrALxOaFM31U42vajMI2qOVMHomMXmph9yZxjXBlwvxLIfvOiDdwyX6pAFJKhda' +
-    'Lv7tvWLTCuSOaM+Ir5Hup1S/uxKrBnxJIB91s6CjV7wJAVQA6ZpHXgLmk' +
-    'LIDZ0W0H2BhMREMsx8B20o1Bjx0g0QPypSTmS1/dlskZzfKMpaJGUeJ+wEXz0PJBDdGb1irPs1CJsjDwrkbSKhwtRR/' +
-    'NcRHC/bWNPOVGCiUBglWAikJxl8ibtq2OctK9Pz2gKmnVXTv+ufSP56EXRBiTt645I' +
-    '0r7rujBp3zonufbVhdpbqI4OtB9LhMcA5DIBqYUyMVLP7cRIlRE3VNKpkWRQQ3QSWAuGmn8B' +
-    'WTG7qd7Fq55obnc11OPA9a9uMrZxXlP2rerW1MnvakigIaP0kSafjXO9ruGi7' +
-    'mDFlG6U9CiMXeD0Ur1MFz96Zhh+ulj7A9IVrgHwkue8AAAAAElFTkSuQmCC',
-  },
-  size: {
-    type: Number,
-    default: '445',
-  },
-  encoding: {
-    type: String,
-  },
-  tempFilePath: {
-    type: String,
-    default: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAA4CAY' +
-    'AAACYCio/AAAB9UlEQVRYR+2Z4VXDMAyEP08AG8AGtBMAEwAblA3YgLABG8AG' +
-    'lAloJ4BuABMAE5h3dtKkadIkdVv8w30vv2op55Os6CzDkJ9lBFwDF8' +
-    'B5i+kcmAFTDB993ZteCy0T4A4467W+XLQAHjE8d9ltBmI5Beekbfdd/' +
-    'ov/xdIEw2ebQTsQ60IgEEd939ax7jcHM21a1wzEh+JpRwDqbm6bQrUOxDPxsicQhdsbD' +
-    'CvMrALxOaFM31U42vajMI2qOVMHomMXmph9yZxjXBlwvxLIfvOiDdwyX6pAFJKhda' +
-    'Lv7tvWLTCuSOaM+Ir5Hup1S/uxKrBnxJIB91s6CjV7wJAVQA6ZpHXgLmk' +
-    'LIDZ0W0H2BhMREMsx8B20o1Bjx0g0QPypSTmS1/dlskZzfKMpaJGUeJ+wEXz0PJBDdGb1irPs1CJsjDwrkbSKhwtRR/' +
-    'NcRHC/bWNPOVGCiUBglWAikJxl8ibtq2OctK9Pz2gKmnVXTv+ufSP56EXRBiTt645I' +
-    '0r7rujBp3zonufbVhdpbqI4OtB9LhMcA5DIBqYUyMVLP7cRIlRE3VNKpkWRQQ3QSWAuGmn8B' +
-    'WTG7qd7Fq55obnc11OPA9a9uMrZxXlP2rerW1MnvakigIaP0kSafjXO9ruGi7' +
-    'mDFlG6U9CiMXeD0Ur1MFz96Zhh+ulj7A9IVrgHwkue8AAAAAElFTkSuQmCC',
-  },
-  truncated: {
-    type: Boolean,
-    default: false,
-  },
-  mimetype: {
-    type: String,
-    default: 'image/png',
-  },
-  md5: {
     type: String,
   },
 });

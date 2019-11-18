@@ -34,7 +34,7 @@ const router = (app) => {
   app.post('/upload', mid.requiresSecure, mid.redirectHomeIfLoggedOut,
     controllers.Account.upload);
 
-  app.get('/retrieve', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.retrieveImage);
+  app.get('/retrieve', mid.requiresSecure, mid.redirectHomeIfLoggedOut, controllers.Account.retrieveImage);
 
   app.get('/', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);
 

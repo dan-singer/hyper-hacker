@@ -606,11 +606,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /*!*********************************!*\
   !*** ./src/js/support/utils.js ***!
   \*********************************/
-/*! exports provided: toggleProfile */
+/*! exports provided: toggleProfile, arrayBufferToBase64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"toggleProfile\", function() { return toggleProfile; });\n/**\r\n * Various utility functions used for the front end of hyper-hacker\r\n */\nvar test = function test() {\n  console.log('test');\n};\n\nfunction toggleProfile() {\n  var navBar = document.querySelector('nav');\n  var profile = document.querySelector('#profile');\n  var container = document.querySelector('#levelContainer');\n\n  if (profile.style.width == \"0px\" || profile.style.width == \"\") {\n    profile.style.width = \"300px\";\n    container.style.marginLeft = \"300px\";\n    container.style.transition = \"0.2s\";\n    navBar.style.width = \"81vw\";\n    navBar.style.left = \"350px\";\n    container.style.borderColor = \"#33ff00\";\n  } else {\n    profile.style.width = \"0px\";\n    container.style.marginLeft = \"0px\";\n    container.style.transition = \"0.3s\";\n    navBar.style.width = \"100vw\";\n    navBar.style.left = \"0px\";\n    container.style.borderColor = \"#111\";\n  }\n}\n\n\n\n//# sourceURL=webpack:///./src/js/support/utils.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"toggleProfile\", function() { return toggleProfile; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"arrayBufferToBase64\", function() { return arrayBufferToBase64; });\n/**\r\n * Various utility functions used for the front end of hyper-hacker\r\n */\nvar test = function test() {\n  console.log('test');\n};\n\nfunction toggleProfile() {\n  var navBar = document.querySelector('nav');\n  var profile = document.querySelector('#profile');\n  var container = document.querySelector('#levelContainer');\n\n  if (profile.style.width == \"0px\" || profile.style.width == \"\") {\n    profile.style.width = \"300px\";\n    container.style.marginLeft = \"300px\";\n    container.style.transition = \"0.2s\";\n    navBar.style.width = \"81vw\";\n    navBar.style.left = \"350px\";\n    container.style.borderColor = \"#33ff00\";\n  } else {\n    profile.style.width = \"0px\";\n    container.style.marginLeft = \"0px\";\n    container.style.transition = \"0.3s\";\n    navBar.style.width = \"100vw\";\n    navBar.style.left = \"0px\";\n    container.style.borderColor = \"#111\";\n  }\n} // @see https://medium.com/@colinrlly/send-store-and-show-images-with-react-express-and-mongodb-592bc38a9ed\n\n\nvar arrayBufferToBase64 = function arrayBufferToBase64(buffer) {\n  var binary = '';\n  var bytes = [].slice.call(new Uint8Array(buffer));\n  bytes.forEach(function (b) {\n    return binary += String.fromCharCode(b);\n  });\n  return btoa(binary);\n};\n\n\n\n//# sourceURL=webpack:///./src/js/support/utils.js?");
 
 /***/ }),
 
@@ -643,7 +643,7 @@ eval("var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! D:\\Profiles\\ekt6170\\Desktop\\hyper-hacker\\src\\js\\levels\\5.js */\"./src/js/levels/5.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/levels/5.js?");
+eval("module.exports = __webpack_require__(/*! C:\\Users\\dsing\\source\\repos\\430\\hyper-hacker\\src\\js\\levels\\5.js */\"./src/js/levels/5.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/levels/5.js?");
 
 /***/ }),
 

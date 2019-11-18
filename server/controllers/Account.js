@@ -1,5 +1,6 @@
 const models = require('../models');
 const fs = require('fs');
+const btoa = require('btoa');
 // const path = require('path');
 
 const Account = models.Account;
@@ -272,34 +273,16 @@ const upload = (request, response) => {
 
   Account.AccountModel.findByUsername(request.session.account.username)
   .then(user => {
-    let urlPath = `assets/media/profile/${request.session.account.username}/${sampleFile.name}`;
-    sampleFile.mv(urlPath, function(err){
-      if(err){
-        return res.status(500).send(err);
-      }
-
-      res.send('File uploaded!');
-    });
     const userCopy = user;
-    userCopy.name = sampleFile.name;
-    userCopy.data = sampleFile.data;
-    userCopy.size = sampleFile.size;
-    userCopy.encoding = sampleFile.encoding;
-    userCopy.tempFilePath = sampleFile.tempFilePath;
-    userCopy.truncated = sampleFile.truncated;
-    userCopy.mimetype = sampleFile.mimetype;
-    userCopy.md5 = sampleFile.md5;
-
+    userCopy.data = `data:${sampleFile.mimetype};base64,${arrayBufferToBase64(sampleFile.data)}`;
     return userCopy.save();
   })
   .then(() => {
     response.status(200).send();
-    
+    return Promise.resolve();
   })
   .catch((err) => {
-    if (err !== 0) {
-      response.status(400).json({ error: err });
-    }
+    response.status(400).json({ error: err });
   });
 
 };
@@ -308,7 +291,7 @@ const upload = (request, response) => {
 // Our retrieval controller
 const retrieveImage = (req, res) => {
   // Find the file by name in the database if it exists
-  Account.AccountSchema.findOne({ name: req.query.name }, (error, doc) => {
+  Account.AccountModel.findOne({ name: req.session.account.name }, (error, doc) => {
     // If there is an error let the user know
     if (error) {
       return res.status(400).json({ error });
@@ -320,14 +303,18 @@ const retrieveImage = (req, res) => {
     }
 
     // If there is a doc, setup the mimetype and file size
-    res.writeHead(200, {
-      'Content-Type': doc.mimetype,
-      'Content-Length': doc.size,
-    });
-
+    res.contentType('json');
     // Finally send back the image data
-    return res.end(doc.data);
+    return res.send(doc);
   });
+};
+
+// @see https://medium.com/@colinrlly/send-store-and-show-images-with-react-express-and-mongodb-592bc38a9ed
+const arrayBufferToBase64 = (buffer) => {
+  let binary = '';
+  let bytes = [].slice.call(new Uint8Array(buffer));
+  bytes.forEach((b) => binary += String.fromCharCode(b));
+  return btoa(binary);
 };
 
 module.exports = {
