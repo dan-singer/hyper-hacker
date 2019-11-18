@@ -117,7 +117,7 @@ function init() {
             let newForm = document.createElement('form');
             newForm.setAttribute('ref', '/uploadForm');
             newForm.setAttribute('id', 'uploadForm');
-            newForm.setAttribute('action', '/upload');
+            newForm.setAttribute('action', `/upload`);
             newForm.setAttribute('method', 'post');
             newForm.setAttribute('encType', 'multipart/form-data');
     
@@ -131,17 +131,43 @@ function init() {
             inputCSRF.setAttribute('id', '_csrf');
             inputCSRF.setAttribute('type', 'hidden');
             inputCSRF.setAttribute('name', '_csrf');
-            inputCSRF.setAttribute('value', '{{csrfToken}}');
+            inputCSRF.setAttribute('value', `{{csrfToken}}`);
     
-            let sub = document.createElement('input');
+            let sub = document.createElement('p');
             sub.setAttribute('type', 'submit');  
             sub.setAttribute('value', 'Submit');
+            sub.innerHTML="Submit";
+
+            sub.style.fontSize = '2rem';
+            sub.style.borderRadius = '20px';
+            sub.style.border = '2px solid #33ff00';
     
             newForm.appendChild(input);
             newForm.appendChild(inputCSRF);
             newForm.appendChild(sub);
     
             buttonDiv.appendChild(newForm);
+
+            sub.onclick = e => {
+                e.preventDefault();
+                fetch(`/upload?_csrf=${csrf}`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        input
+                    })
+                })
+                .then(res => {
+                    if (res.status === 200) {
+                        Swal.fire('Profile Picture Updated')
+                        .then(() => {
+                            window.location.href = '/level-select';
+                        });
+                        
+                    } else {
+                        Swal.fire('Sorry, something went wrong');
+                    }
+                });
+            }
         }
         
         

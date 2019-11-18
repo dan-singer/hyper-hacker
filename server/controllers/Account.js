@@ -260,6 +260,7 @@ const upgrade = (request, response) => {
 
 // Our upload controller
 const upload = (req, res) => {
+  console.log(req.body);
   // If there are no files, return an error
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({ error: 'No files were uploaded' });
