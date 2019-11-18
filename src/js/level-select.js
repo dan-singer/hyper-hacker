@@ -115,10 +115,32 @@ function init() {
 
         let newForm = document.querySelector('#uploadForm');
 
+        const fileUpload = (e) => {
+            e.preventDefault();
+            //https://stackoverflow.com/questions/5587973/javascript-upload-file
+            let formData = new FormData();
+            let picture = document.querySelector('#fileSelect').files[0];
+
+            formData.append("sampleFile", picture);
+            formData.append('_csrf', csrf);
+            fetch(`/upload`, {method: "POST", body: formData})
+            .then(
+                function(response){
+                    if(response.status === 200){
+                        response.json().then(function(data){
+                            window.location = data.redirect;
+                        });
+                    }
+                }
+            );
+            return false;
+        };
+
+
         if(document.querySelector('#fileSelect')===null){
             newForm.setAttribute('ref', '/uploadForm');
             newForm.setAttribute('id', 'uploadForm');
-            newForm.setAttribute('action', `/upload?_csrf=${csrf}`);
+            newForm.setAttribute('action', `/upload`);
             //only accepts pngs and jpegs bc if unsupported file types were uploaded it crashed
             newForm.setAttribute('accept', 'image/png, image/jpeg');
             newForm.setAttribute('method', 'post');
@@ -133,6 +155,7 @@ function init() {
             sub.setAttribute('type', 'submit');  
             sub.setAttribute('value', 'Submit');
             sub.innerHTML="Submit";
+            
 
             sub.style.fontSize = '2rem';
             sub.style.borderRadius = '20px';
@@ -141,45 +164,11 @@ function init() {
             newForm.appendChild(input);
             newForm.appendChild(sub);
 
-            // sub.onclick = (e) => {
-            //     const file = document.querySelector('#fileSelect').value;
-
-            //     let canvas = document.querySelector('#profPIC');
-
-            //     let ctx = canvas.getContext('2d');
-
-            //     let img = document.createElement('img');
-
-            //     img.setAttribute('src', file);
-
-            //     img.crossOrigin = "Anonymous";
-
-            //     ctx.drawImage(img, 0, 0);
-
-            // }
-
-            // sub.onclick = (e) => {
-            //     e.preventDefault();
-            //     const file = document.querySelector('#fileSelect').value;
-            //     fetch(`/upload?_csrf=${csrf}&file=${file}`, {
-            //         method: 'POST',
-            //         body: JSON.stringify({
-            //             file
-            //         })
-            //     })
-            //     .then(res => {
-            //         if (res.status === 200) {
-            //             Swal.fire('Profile Picture Updated')
-            //             .then(() => {
-            //                 window.location.href = '/level-select';
-            //             });
-                        
-            //         } else {
-            //             Swal.fire('Sorry, something went wrong');
-            //         }
-            //     });
-            // }
+            sub.onclick = fileUpload;
         }
+
+        
+        
         
         
     };

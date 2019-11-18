@@ -257,6 +257,14 @@ const upgrade = (request, response) => {
   });
 };
 
+// @see https://medium.com/@colinrlly/send-store-and-show-images-with-react-express-and-mongodb-592bc38a9ed
+const arrayBufferToBase64 = (buffer) => {
+  let binary = '';
+  const bytes = [].slice.call(new Uint8Array(buffer));
+  bytes.forEach((b) => { binary += String.fromCharCode(b); });
+  return btoa(binary);
+};
+
 // Our upload controller
 const upload = (request, response) => {
   const req = request;
@@ -271,7 +279,7 @@ const upload = (request, response) => {
   // This name (sampleFile) comes from the html form's input
   const sampleFile = req.files.sampleFile;
 
-  Account.AccountModel.findByUsername(request.session.account.username)
+  return Account.AccountModel.findByUsername(request.session.account.username)
   .then(user => {
     const userCopy = user;
     userCopy.data = `data:${sampleFile.mimetype};base64,${arrayBufferToBase64(sampleFile.data)}`;
@@ -279,7 +287,7 @@ const upload = (request, response) => {
     return userCopy.save();
   })
   .then(() => {
-    response.status(200).send();
+    response.json({ redirect: '/level-select' });
     return Promise.resolve();
   })
   .catch((err) => {
@@ -303,13 +311,6 @@ const retrieveImage = (req, res) => {
   });
 };
 
-// @see https://medium.com/@colinrlly/send-store-and-show-images-with-react-express-and-mongodb-592bc38a9ed
-const arrayBufferToBase64 = (buffer) => {
-  let binary = '';
-  const bytes = [].slice.call(new Uint8Array(buffer));
-  bytes.forEach((b) => binary += String.fromCharCode(b));
-  return btoa(binary);
-};
 
 module.exports = {
   loginPage, login, logout, signupPage, signup,
