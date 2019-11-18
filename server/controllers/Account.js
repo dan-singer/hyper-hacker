@@ -1,12 +1,8 @@
-const express = require('express');
-const fileUpload = require('express-fileupload');
 const models = require('../models');
 const fs = require('fs');
 // const path = require('path');
 
 const Account = models.Account;
-
-const filestore = models.filestore;
 
 const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
@@ -262,11 +258,9 @@ const upgrade = (request, response) => {
 
 // Our upload controller
 const upload = (request, response) => {
-  
   const req = request;
   const res = response;
 
-  console.log(request.files);
   // If there are no files, return an error
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({ error: 'No files were uploaded' });
@@ -276,25 +270,29 @@ const upload = (request, response) => {
   // This name (sampleFile) comes from the html form's input
   const sampleFile = req.files.sampleFile;
 
-  // Have the model create an image with this data
-  console.log(sampleFile);
-  //const imageModel = new filestore.FileModel(sampleFile);
+  Account.AccountModel.findByUsername(request.session.account.username)
+  .then(user => {
+    const userCopy = user;
+    userCopy.name = sampleFile.name;
+    userCopy.data = sampleFile.data;
+    userCopy.size = sampleFile.size;
+    userCopy.encoding = sampleFile.encoding;
+    userCopy.tempFilePath = sampleFile.tempFilePath;
+    userCopy.truncated = sampleFile.truncated;
+    userCopy.mimetype = sampleFile.mimetype;
+    userCopy.md5 = sampleFile.md5;
 
-  // Save the image to mongo
-  const savePromise = imageModel.save();
-
-  // When it is finished saving, let the user know
-  savePromise.then(() => {
-    res.json({ message: 'upload successful' });
+    return userCopy.save();
+  })
+  .then(() => {
+    response.status(200).send();
+  })
+  .catch((err) => {
+    if (err !== 0) {
+      response.status(400).json({ error: err });
+    }
   });
 
-  // If there is an error while saving, let the user know
-  savePromise.catch((error) => {
-    res.json({ error });
-  });
-
-  // Return out
-  return savePromise;
 };
 
 
