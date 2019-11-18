@@ -19,7 +19,7 @@ const init = () => {
                 return res.json()
             }
             else {
-                window.location.href = '/level-select';
+                window.location.href = '/tutorial';
             }
         })
         .then(data => {
