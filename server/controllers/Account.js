@@ -285,7 +285,6 @@ const upload = (request, response) => {
   .catch((err) => {
     response.status(400).json({ error: err });
   });
-
 };
 
 
@@ -300,14 +299,14 @@ const retrieveImage = (req, res) => {
     return res.send(user.data);
   })
   .catch(err => {
-    res.status(400).json({error: err});
-  })
+    res.status(400).json({ error: err });
+  });
 };
 
 // @see https://medium.com/@colinrlly/send-store-and-show-images-with-react-express-and-mongodb-592bc38a9ed
 const arrayBufferToBase64 = (buffer) => {
   let binary = '';
-  let bytes = [].slice.call(new Uint8Array(buffer));
+  const bytes = [].slice.call(new Uint8Array(buffer));
   bytes.forEach((b) => binary += String.fromCharCode(b));
   return btoa(binary);
 };
