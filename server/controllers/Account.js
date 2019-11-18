@@ -272,6 +272,14 @@ const upload = (request, response) => {
 
   Account.AccountModel.findByUsername(request.session.account.username)
   .then(user => {
+    let urlPath = `assets/media/profile/${request.session.account.username}/${sampleFile.name}`;
+    sampleFile.mv(urlPath, function(err){
+      if(err){
+        return res.status(500).send(err);
+      }
+
+      res.send('File uploaded!');
+    });
     const userCopy = user;
     userCopy.name = sampleFile.name;
     userCopy.data = sampleFile.data;
@@ -286,6 +294,7 @@ const upload = (request, response) => {
   })
   .then(() => {
     response.status(200).send();
+    
   })
   .catch((err) => {
     if (err !== 0) {
