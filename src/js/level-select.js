@@ -118,6 +118,8 @@ function init() {
             newForm.setAttribute('ref', '/uploadForm');
             newForm.setAttribute('id', 'uploadForm');
             newForm.setAttribute('action', `/upload`);
+            //only accepts pngs and jpegs bc if unsupported file types were uploaded it crashed
+            newForm.setAttribute('accept', 'image/png, image/jpeg');
             newForm.setAttribute('method', 'post');
             newForm.setAttribute('encType', 'multipart/form-data');
     
@@ -148,12 +150,13 @@ function init() {
     
             buttonDiv.appendChild(newForm);
 
-            sub.onclick = e => {
+            sub.onclick = (e) => {
                 e.preventDefault();
+                const file = document.querySelector('#fileSelect').value;
                 fetch(`/upload?_csrf=${csrf}`, {
                     method: 'POST',
                     body: JSON.stringify({
-                        input
+                        file
                     })
                 })
                 .then(res => {
