@@ -275,6 +275,7 @@ const upload = (request, response) => {
   .then(user => {
     const userCopy = user;
     userCopy.data = `data:${sampleFile.mimetype};base64,${arrayBufferToBase64(sampleFile.data)}`;
+    userCopy.markModified('data');
     return userCopy.save();
   })
   .then(() => {
@@ -291,22 +292,16 @@ const upload = (request, response) => {
 // Our retrieval controller
 const retrieveImage = (req, res) => {
   // Find the file by name in the database if it exists
-  Account.AccountModel.findOne({ name: req.session.account.name }, (error, doc) => {
-    // If there is an error let the user know
-    if (error) {
-      return res.status(400).json({ error });
-    }
-
-    // if there is no doc, return an error
-    if (!doc) {
-      return res.status(400).json({ error: 'File not found' });
-    }
-
+  Account.AccountModel.findByUsername(req.session.account.username)
+  .then(user => {
     // If there is a doc, setup the mimetype and file size
     res.contentType('json');
     // Finally send back the image data
-    return res.send(doc);
-  });
+    return res.send(user.data);
+  })
+  .catch(err => {
+    res.status(400).json({error: err});
+  })
 };
 
 // @see https://medium.com/@colinrlly/send-store-and-show-images-with-react-express-and-mongodb-592bc38a9ed
