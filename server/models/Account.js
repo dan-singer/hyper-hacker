@@ -48,28 +48,34 @@ const AccountSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  name: { // The file name
+  //https://github.com/richardgirges/express-fileupload/tree/master/example
+  name: {
     type: String,
+    default: "defaultProfile",
   },
-  data: { // The actual image data
+  data: {
     type: Buffer,
+    default: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAA4CAYAAACYCio/AAAB9UlEQVRYR+2Z4VXDMAyEP08AG8AGtBMAEwAblA3YgLABG8AGlAloJ4BuABMAE5h3dtKkadIkdVv8w30vv2op55Os6CzDkJ9lBFwDF8B5i+kcmAFTDB993ZteCy0T4A4467W+XLQAHjE8d9ltBmI5Beekbfdd/ov/xdIEw2ebQTsQ60IgEEd939ax7jcHM21a1wzEh+JpRwDqbm6bQrUOxDPxsicQhdsbDCvMrALxOaFM31U42vajMI2qOVMHomMXmph9yZxjXBlwvxLIfvOiDdwyX6pAFJKhdaLv7tvWLTCuSOaM+Ir5Hup1S/uxKrBnxJIB91s6CjV7wJAVQA6ZpHXgLmkLIDZ0W0H2BhMREMsx8B20o1Bjx0g0QPypSTmS1/dlskZzfKMpaJGUeJ+wEXz0PJBDdGb1irPs1CJsjDwrkbSKhwtRR/NcRHC/bWNPOVGCiUBglWAikJxl8ibtq2OctK9Pz2gKmnVXTv+ufSP56EXRBiTt645I0r7rujBp3zonufbVhdpbqI4OtB9LhMcA5DIBqYUyMVLP7cRIlRE3VNKpkWRQQ3QSWAuGmn8BWTG7qd7Fq55obnc11OPA9a9uMrZxXlP2rerW1MnvakigIaP0kSafjXO9ruGi7mDFlG6U9CiMXeD0Ur1MFz96Zhh+ulj7A9IVrgHwkue8AAAAAElFTkSuQmCC'
   },
-  size: { // The size of the image in bytes
+  size: {
     type: Number,
+    default: "445",
   },
-  encoding: { // The type of encoding used in the image
+  encoding: {
     type: String,
   },
-  tempFilePath: { // The temporary file path
+  tempFilePath: {
     type: String,
   },
-  truncated: { // If the image was cutoff at all
+  truncated: {
     type: Boolean,
+    default: false,
   },
-  mimetype: { // The type of image it is
+  mimetype: {
     type: String,
+    default: 'image/png'
   },
-  md5: { // The hash for the image
+  md5: {
     type: String,
   },
 });

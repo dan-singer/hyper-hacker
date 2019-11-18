@@ -117,7 +117,7 @@ function init() {
             let newForm = document.createElement('form');
             newForm.setAttribute('ref', '/uploadForm');
             newForm.setAttribute('id', 'uploadForm');
-            newForm.setAttribute('action', `/upload`);
+            newForm.setAttribute('action', `/upload?_csrf=${csrf}`);
             //only accepts pngs and jpegs bc if unsupported file types were uploaded it crashed
             newForm.setAttribute('accept', 'image/png, image/jpeg');
             newForm.setAttribute('method', 'post');
@@ -135,7 +135,7 @@ function init() {
             inputCSRF.setAttribute('name', '_csrf');
             inputCSRF.setAttribute('value', `{{csrfToken}}`);
     
-            let sub = document.createElement('p');
+            let sub = document.createElement('input');
             sub.setAttribute('type', 'submit');  
             sub.setAttribute('value', 'Submit');
             sub.innerHTML="Submit";
@@ -150,27 +150,44 @@ function init() {
     
             buttonDiv.appendChild(newForm);
 
-            sub.onclick = (e) => {
-                e.preventDefault();
-                const file = document.querySelector('#fileSelect').value;
-                fetch(`/upload?_csrf=${csrf}`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        file
-                    })
-                })
-                .then(res => {
-                    if (res.status === 200) {
-                        Swal.fire('Profile Picture Updated')
-                        .then(() => {
-                            window.location.href = '/level-select';
-                        });
+            // sub.onclick = (e) => {
+            //     const file = document.querySelector('#fileSelect').value;
+
+            //     let canvas = document.querySelector('#profPIC');
+
+            //     let ctx = canvas.getContext('2d');
+
+            //     let img = document.createElement('img');
+
+            //     img.setAttribute('src', file);
+
+            //     img.crossOrigin = "Anonymous";
+
+            //     ctx.drawImage(img, 0, 0);
+
+            // }
+
+            // sub.onclick = (e) => {
+            //     e.preventDefault();
+            //     const file = document.querySelector('#fileSelect').value;
+            //     fetch(`/upload?_csrf=${csrf}&file=${file}`, {
+            //         method: 'POST',
+            //         body: JSON.stringify({
+            //             file
+            //         })
+            //     })
+            //     .then(res => {
+            //         if (res.status === 200) {
+            //             Swal.fire('Profile Picture Updated')
+            //             .then(() => {
+            //                 window.location.href = '/level-select';
+            //             });
                         
-                    } else {
-                        Swal.fire('Sorry, something went wrong');
-                    }
-                });
-            }
+            //         } else {
+            //             Swal.fire('Sorry, something went wrong');
+            //         }
+            //     });
+            // }
         }
         
         

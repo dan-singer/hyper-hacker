@@ -1,3 +1,5 @@
+const express = require('express');
+const fileUpload = require('express-fileupload');
 const models = require('../models');
 const fs = require('fs');
 // const path = require('path');
@@ -260,39 +262,23 @@ const upgrade = (request, response) => {
 
 // Our upload controller
 const upload = (request, response) => {
+  
   const req = request;
   const res = response;
 
-  console.log(req.body);
+  console.log(request.files);
   // If there are no files, return an error
-  if (!req.body.file || Object.keys(req.body.file).length === 0) {
+  if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({ error: 'No files were uploaded' });
   }
 
   // Otherwise, grab the file we are looking for
   // This name (sampleFile) comes from the html form's input
-  const sampleFile = req.body.file.sampleFile;
-
-  Account.AccountModel.authenticate(request.session.account.username,
-    request.session.account.password, (err, account) => {
-      if (err || !account) {
-        response.status(401).json({ error: 'invalid-credentials' });
-        return;
-      }
-      const accountCopy = account;
-      // set new image data
-      accountCopy.save()
-    .then(() => {
-      req.session.account = Account.AccountModel.toAPI(accountCopy);
-      response.redirect('/level-select');
-    })
-    .catch(error => {
-      response.status(400).json({ error });
-    });
-    });
+  const sampleFile = req.files.sampleFile;
 
   // Have the model create an image with this data
-  const imageModel = new filestore.FileModel(sampleFile);
+  console.log(sampleFile);
+  //const imageModel = new filestore.FileModel(sampleFile);
 
   // Save the image to mongo
   const savePromise = imageModel.save();
