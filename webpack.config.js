@@ -15,20 +15,20 @@ module.exports = {
                     'sass-loader',
                 ],
             },
-            // Babel
+            // Babel + React
             {
-                test: /\.m?js$/,
+                test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
                 use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
+                    loader: 'babel-loader'
                 }
             }
         ],
     },
-
+    // https://www.robinwieruch.de/minimal-react-webpack-babel-setup
+    resolve: {
+        extensions: ['*', '.js', '.jsx']
+    },
     mode: 'development',
     output: {
         path: path.resolve(__dirname, 'dist/js')
