@@ -1,10 +1,20 @@
 import '../scss/style.scss';
 import {toggleProfile, arrayBufferToBase64} from './support/utils.js'
 import Swal from "sweetalert2";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Profile from './support/profile.jsx';
+import Navbar from './support/navbar';
 
 function init() {
+
+    ReactDOM.render(
+        <section>
+            <Profile />
+            <Navbar />
+        </section>, document.querySelector('#app'));
+
     const csrf = document.querySelector('#_csrf').value;
-    document.querySelector('#profile-toggle').onclick = toggleProfile;
     document.querySelector('#change-username').onclick = e => {
         e.preventDefault();
         Swal.fire({
@@ -166,11 +176,6 @@ function init() {
 
             sub.onclick = fileUpload;
         }
-
-        
-        
-        
-        
     };
 
     document.querySelectorAll('.locked-level').forEach(el => {

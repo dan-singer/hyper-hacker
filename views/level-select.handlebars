@@ -10,33 +10,9 @@
 </head>
 
 <body>
-    <div id="profile">
-        <div id="profileContent">
-            <img class='profile-img' alt="">
-            <h1>{{Username}}</h1>
-            <h3>Joined On: {{dateJoined}}</h3>
+    <section id='app'></section>
 
-            <div id="buttons">
-                <button id="change-username">Change Username</button>
-                <button id="change-password">Change Password</button>
-                <button id="picture">Change Picture</button>
-                <button><a href="/logout">Log Out</a></button>
-
-                <form id="uploadForm" ref='/uploadForm' action="/upload?_csrf={{csrfToken}}" method="POST" enctype="multipart/form-data">
-                    <input id="_csrf" type="hidden" name="_csrf" value={{csrfToken}} />
-                </form>
-            </div>
-
-            {{#unless isPremium}}
-                <button id="upgrade">Upgrade To Hacker Status</button>
-            {{/unless}}
-
-        </div>
-    </div>
-
-    <input id="_csrf" type="hidden" name="_csrf" value={{csrfToken}} />
-
-
+    <!--
     <nav>
         <div>
             <h2>Welcome Back, {{username}}</h2>
@@ -71,7 +47,7 @@
                 </a>
             {{/each}}
         </div>
-    </div>
+    </div>-->
 </body>
 
 </html>
