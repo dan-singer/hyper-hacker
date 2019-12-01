@@ -1,18 +1,38 @@
 import "../../scss/style.scss";
 import "../../scss/levels.scss";
+import React from 'react';
+import ReactDOM from 'react-dom';
 const THREE = require('three');
 const ObjLoader = require('three-obj-loader');
+
 
 let scene, camera, renderer, cube;
 let levelNum, csrf;
 
-const main = () => {
+const init = () => {
+    fetch('/csrf')
+    .then(res => res.json())
+    .then(data => {
+        main(data.csrfToken);
+    });
+}
+
+const main = (csrf) => {
+
+
+    ReactDOM.render(
+        <div id="overhead">
+            <h1 className="tight">Level 1: No Context</h1>
+            <h2>There are at least <a href="https://threejs.org/">Three</a> ways of solving this.</h2>
+            <canvas id="three-canvas" width="640" height="480"></canvas>
+        </div>,
+        document.querySelector('#app')
+    );
+
     console.log('Welcome to Level 1! You are in the right place! Start typing \"set\" and see what options are available to you...');
 
     const urlParams = new URLSearchParams(window.location.search);
     levelNum = parseInt(urlParams.get('num'));
-    csrf = document.querySelector('#_csrf').value;
-
 
     const canvas = document.querySelector('#three-canvas');
     renderer = new THREE.WebGLRenderer({canvas});
@@ -108,4 +128,4 @@ const render = (time) => {
     requestAnimationFrame(render);
 };
 
-window.onload = main;
+window.onload = init;

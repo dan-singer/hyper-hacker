@@ -9,38 +9,7 @@
 </head>
 
 <body>
-    <div id="profile">
-        <div id="profileContent">
-            <img src="assets/media/defaultProfile.png" alt="profile">
-            <h1>{{username}}</h1>
-            <h3>Joined On: {{dateJoined}}</h3>
-
-            <div id="buttons">
-                <button>Change Username</button>
-                <button>Change Password</button>
-                <button>Change Picture</button>
-            </div>
-
-            <div id="subscription">
-                <h3>Upgrade To Hacker Status</h3>
-                <p></p>
-            </div>
-        </div>
-    </div>
-
-    <nav>
-        <h2></h2>
-        <img id="profile-toggle" src="assets/media/defaultProfile.png" alt="profile picture">
-    </nav>
-
-    <input id="_csrf" type="hidden" name="_csrf" value={{csrfToken}} />
-
-    <div id="overhead">
-        <h1 class="tight">Level 1: No Context</h1>
-        <h2>There are at least <a href="https://threejs.org/">Three</a> ways of solving this.</h2>
-        <canvas id="three-canvas" width="640" height="480"></canvas>
-    </div>
-    
+    <section id="app"></section>  
 </body>
 
 </html>

@@ -24,8 +24,7 @@ function init() {
                 isPremium={data.isPremium}
                 highscores={data.highscores} 
             />
-        </React.Fragment>
-,
+        </React.Fragment>,
         document.querySelector('#app'));
     });
 }
