@@ -175,7 +175,8 @@ const getLevelSelectDetails = (request, response) => {
           levels,
           dateJoined,
           isPremium: user.isPremium,
-          profilePic: user.data
+          profilePic: user.data,
+          visitedHelp: user.visitedHelp
         };
         response.json(levelDetails);
       });
