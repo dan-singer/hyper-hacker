@@ -9,6 +9,17 @@ const ObjLoader = require('three-obj-loader');
 let scene, camera, renderer, cube;
 let levelNum, csrf;
 
+const Level1 = (props) => {
+    return (
+        <div id="overhead">
+            <h1 className="tight">Level 1: No Context</h1>
+            <h2>There are at least <a href="https://threejs.org/">Three</a> ways of solving this.</h2>
+            <canvas id="three-canvas" width="640" height="480"></canvas>
+        </div>
+    );
+}
+
+
 const init = () => {
     fetch('/csrf')
     .then(res => res.json())
@@ -21,11 +32,7 @@ const main = (csrf) => {
 
 
     ReactDOM.render(
-        <div id="overhead">
-            <h1 className="tight">Level 1: No Context</h1>
-            <h2>There are at least <a href="https://threejs.org/">Three</a> ways of solving this.</h2>
-            <canvas id="three-canvas" width="640" height="480"></canvas>
-        </div>,
+        <Level1 />,
         document.querySelector('#app')
     );
 

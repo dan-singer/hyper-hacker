@@ -2,6 +2,17 @@ import '../../scss/style.scss';
 import '../../scss/levels.scss';
 import {toggleProfile} from '../support/utils.js'
 import {Node, Graph} from '../support/graph.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const Level4 = (props) => {
+    return (
+        <div id="overhead">
+            <h1>Level 4: <em>Console</em> Text Adventure</h1>
+            <h2>You'll wanna be on the console for this...</h2>
+        </div>
+    );
+}
 
 let curLocation;
 const inventory = new Set();
@@ -44,9 +55,14 @@ const init = () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     levelNum = parseInt(urlParams.get('num'));
-    csrf = document.querySelector('#_csrf').value;
 
-    document.querySelector('#profile-toggle').onclick = e => toggleProfile();
+    fetch('/csrf')
+    .then(res => res.json())
+    .then(data => {
+        csrf = data.csrfToken;
+        ReactDOM.render(<Level4 />, document.querySelector('#app'));
+    });
+
     fetch('/assets/data/rooms.json')
     .then(res => res.json())
     .then(data => {
