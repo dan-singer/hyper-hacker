@@ -15,7 +15,7 @@ class Navbar extends React.Component {
                 <div>
                     <h2>Welcome Back, {this.props.username}</h2>
                 </div>
-                <img id="profile-toggle" onClick={this.props.onClick} className='profile-img' src={this.props.profileImg} alt="" />
+                <img id="profile-toggle" onClick={this.props.onClick} className='profile-img' src={this.props.profilePic} alt="" />
             </nav>
         );
     }

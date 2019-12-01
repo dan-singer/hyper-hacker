@@ -265,7 +265,7 @@ nav{
   background-color: $defaultBackground;
   z-index: 3;
   transition:0.1s;
-  overflow: hidden;
+  overflow: scroll;
 
   h1{
     margin-bottom: 0px;

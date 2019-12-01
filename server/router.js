@@ -37,6 +37,10 @@ const router = (app) => {
   app.get('/retrieve', mid.requiresSecure,
     mid.redirectHomeIfLoggedOut, controllers.Account.retrieveImage);
 
+  app.get('/csrf', mid.requiresSecure, controllers.Account.getCsrf);
+  app.get('/level-select-details', mid.requiresSecure,
+    mid.redirectHomeIfLoggedOut, controllers.Account.getLevelSelectDetails);
+
   app.get('/', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);
 
   app.get('*', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);

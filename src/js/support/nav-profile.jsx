@@ -46,8 +46,19 @@ class NavProfile extends React.Component {
         }
         return (
             <section>
-                <Profile style={profileStyle} />
-                <Navbar style={navbarStyle} onClick={this.toggleProfile.bind(this)} />
+                <Profile 
+                    style={profileStyle} 
+                    csrf={this.props.csrf} 
+                    username={this.props.username} 
+                    dateJoined={this.props.dateJoined} 
+                    isPremium={this.props.isPremium}
+                    profilePic={this.props.profilePic}/>
+                <Navbar 
+                    style={navbarStyle}
+                    onClick={this.toggleProfile.bind(this)} 
+                    csrf={this.props.csrf} 
+                    username={this.props.username}
+                    profilePic={this.props.profilePic} />
             </section>
         );
     }

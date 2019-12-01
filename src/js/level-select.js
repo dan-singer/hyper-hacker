@@ -4,27 +4,30 @@ import Swal from "sweetalert2";
 import React from 'react';
 import ReactDOM from 'react-dom';
 import NavProfile from './support/nav-profile.jsx';
+import LevelContainer from './support/level-container.jsx'
 
 function init() {
 
-    ReactDOM.render( <NavProfile /> , document.querySelector('#app'));
-
-    document.querySelectorAll('.locked-level').forEach(el => {
-        el.onclick = e => {
-            e.preventDefault();
-            Swal.fire('This level is locked. Upgrade to Hacker Status to access it!');
-        };
-    });
-
-
-    fetch('/retrieve')
-    .then(res => res.text())
+    fetch('/level-select-details')
+    .then(res => res.json())
     .then(data => {
-        document.querySelectorAll('.profile-img').forEach(el => {
-            el.src = data;
-        });
+        ReactDOM.render( 
+        <React.Fragment>
+            <NavProfile 
+                csrf={data.csrfToken}
+                username={data.username}
+                dateJoined={data.dateJoined}
+                isPremium={data.isPremium}
+                profilePic={data.profilePic}  />
+            <LevelContainer
+                levels={data.levels}
+                isPremium={data.isPremium}
+                highscores={data.highscores} 
+            />
+        </React.Fragment>
+,
+        document.querySelector('#app'));
     });
-
 }
 
 window.onload = init;

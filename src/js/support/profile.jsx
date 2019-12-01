@@ -3,6 +3,13 @@ import Swal from 'sweetalert2'
 
 class Profile extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            acceptingImages: false
+        };
+    }
+
     changeUsername() {
         Swal.fire({
             title: 'Change Username',
@@ -103,84 +110,61 @@ class Profile extends React.Component {
         });
     }
 
-    uploadProfilePicture() {
-        let buttonDiv = document.querySelector('#buttons');
+    togglePictureForm() {
+        let newAcceptState = !this.state.acceptingImages;
+        this.setState({
+            acceptingImages: newAcceptState
+        });
+    }
 
-        let newForm = document.querySelector('#uploadForm');
-
-        const fileUpload = (e) => {
-            e.preventDefault();
-            //https://stackoverflow.com/questions/5587973/javascript-upload-file
-            let formData = new FormData();
-            let picture = document.querySelector('#fileSelect').files[0];
-
-            formData.append("sampleFile", picture);
-            formData.append('_csrf', csrf);
-            fetch(`/upload`, {method: "POST", body: formData})
-            .then(
-                function(response){
-                    if(response.status === 200){
-                        response.json().then(function(data){
-                            window.location = data.redirect;
-                        });
-                    }
+    uploadProfilePicture(e) {
+        e.preventDefault();
+        //https://stackoverflow.com/questions/5587973/javascript-upload-file
+        let formData = new FormData(e.target);
+        console.log(this.props.csrf);
+        fetch(`/upload`, {method: "POST", body: formData})
+        .then(
+            function(response){
+                if(response.status === 200){
+                    response.json().then(function(data){
+                        window.location = data.redirect;
+                    });
                 }
-            );
-            return false;
-        };
-
-
-        if(document.querySelector('#fileSelect')===null){
-            newForm.setAttribute('ref', '/uploadForm');
-            newForm.setAttribute('id', 'uploadForm');
-            newForm.setAttribute('action', `/upload`);
-            //only accepts pngs and jpegs bc if unsupported file types were uploaded it crashed
-            newForm.setAttribute('accept', 'image/png, image/jpeg');
-            newForm.setAttribute('method', 'post');
-            newForm.setAttribute('encType', 'multipart/form-data');
-    
-            let input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('id', 'fileSelect');
-            input.setAttribute('name', 'sampleFile');
-    
-            let sub = document.createElement('input');
-            sub.setAttribute('type', 'submit');  
-            sub.setAttribute('value', 'Submit');
-            sub.innerHTML="Submit";
-            
-
-            sub.style.fontSize = '2rem';
-            sub.style.borderRadius = '20px';
-            sub.style.border = '2px solid #33ff00';
-    
-            newForm.appendChild(input);
-            newForm.appendChild(sub);
-
-            sub.onclick = fileUpload;
-        }
+            }
+        );
+        return false;
     }
 
     render() {
         return (
             <div id="profile" style={this.props.style}>
                 <div id="profileContent">
-                    <img className='profile-img' alt="" />
+                    <img className='profile-img' alt="" src={this.props.profilePic}/>
                     <h1>{this.props.username}</h1>
                     <h3>Joined On: {this.props.dateJoined}</h3>
 
                     <div id="buttons">
                         <button id="change-username" onClick={this.changeUsername.bind(this)}>Change Username</button>
                         <button id="change-password" onClick={this.changePassword.bind(this)}>Change Password</button>
-                        <button id="picture">Change Picture</button>
+                        <button id="picture" onClick={this.togglePictureForm.bind(this)}>Change Picture</button>
                         <button><a href="/logout">Log Out</a></button>
 
-                        <form id="uploadForm" ref='/uploadForm' action={`/upload?_csrf=${this.props.csrf}`} method="POST" encType="multipart/form-data">
+                        <form id="uploadForm" ref='/uploadForm' onSubmit={e => this.uploadProfilePicture(e)} method="POST" encType="multipart/form-data">
                             <input id="_csrf" type="hidden" name="_csrf" value={this.props.csrf} />
+                            {this.state.acceptingImages && 
+                            <React.Fragment>
+                                <input type="file" id="fileSelect" name="sampleFile" />
+                                <input type="submit" value="Submit" style={{
+                                    fontSize: '2rem', 
+                                    borderRadius: '20px',
+                                    border: '2px solid #33ff00'}}
+                                />
+                            </React.Fragment>
+                            }
                         </form>
                     </div>
 
-                    {!this.props.premium && 
+                    {!this.props.isPremium && 
                         <button id="upgrade" onClick={this.upgrade.bind(this)}>Upgrade To Hacker Status</button>
                     }
                 </div>

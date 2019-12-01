@@ -5,6 +5,10 @@ const btoa = require('btoa');
 
 const Account = models.Account;
 
+const getCsrf = (req, res) => {
+  res.json({csrfToken: req.csrfToken()});
+}
+
 const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
@@ -156,6 +160,27 @@ const getLevel = (request, response) => {
     }
   });
 };
+
+const getLevelSelectDetails = (request, response) => {
+  fs.readFile(`${__dirname}/../../data/levels.json`, (err, data) => {
+    const levels = JSON.parse(data);
+    Account.AccountModel.findByUsername(request.session.account.username)
+      .then((user) => {
+        const date = new Date(user.createdDate);
+        const dateJoined = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+        const levelDetails = {
+          username: user.username,
+          highscores: user.completionTimes,
+          csrfToken: request.csrfToken(),
+          levels,
+          dateJoined,
+          isPremium: user.isPremium,
+          profilePic: user.data
+        };
+        response.json(levelDetails);
+      });
+  });
+}
 
 const completeLevel = (request, response) => {
   Account.AccountModel.findByUsername(request.session.account.username)
@@ -317,5 +342,6 @@ module.exports = {
   levelSelectPage, tutorialPage, completeTutorial,
   getLevel, completeLevel, getHelp,
   changeUsername, changePassword,
-  upgrade, upload, retrieveImage,
+  upgrade, upload, retrieveImage, getCsrf,
+  getLevelSelectDetails
 };
