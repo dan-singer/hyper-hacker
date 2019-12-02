@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -264,15 +264,15 @@ eval("\n\nvar stylesInDom = {};\n\nvar isOldIE = function isOldIE() {\n  var mem
 
 /***/ }),
 
-/***/ "./src/js/levels/3.js":
+/***/ "./src/js/levels/7.js":
 /*!****************************!*\
-  !*** ./src/js/levels/3.js ***!
+  !*** ./src/js/levels/7.js ***!
   \****************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/levels.scss */ \"./src/scss/levels.scss\");\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);\n\n\n\n\n\nvar Level3 = function Level3(props) {\n  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"div\", {\n    id: \"overhead\"\n  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"h1\", null, \"Level 3: I get by with a little \", react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"em\", null, \"/help\"), \" from my friends.\"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"h2\", null, \"You might need to go somewhere else first.\"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"br\", null), props.visitedHelp && react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"a\", {\n    id: \"complete\",\n    onClick: function onClick() {\n      return completeLevel(props.csrf);\n    }\n  }, \"Click here!\"));\n};\n\nvar completeLevel = function completeLevel(csrf) {\n  var urlParams = new URLSearchParams(window.location.search);\n  var levelNum = parseInt(urlParams.get('num'));\n  fetch(\"/level?num=\".concat(levelNum, \"&_csrf=\").concat(csrf), {\n    method: 'POST'\n  }).then(function (res) {\n    if (res.status === 200) {\n      window.location.href = '/level-select';\n    }\n  })[\"catch\"](function (err) {\n    console.log(err);\n  });\n};\n\nvar init = function init() {\n  fetch('/level-select-details').then(function (res) {\n    return res.json();\n  }).then(function (data) {\n    react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.render(react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Level3, {\n      visitedHelp: data.visitedHelp,\n      csrf: data.csrfToken\n    }), document.querySelector('#app'));\n  });\n};\n\nwindow.onload = init;\n\n//# sourceURL=webpack:///./src/js/levels/3.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/levels.scss */ \"./src/scss/levels.scss\");\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);\n\n\n\n\nvar canvas, ctx, numShapes, freeDraw;\n\nvar Level7 = function Level7(props) {\n  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"div\", {\n    id: \"canvas\"\n  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"canvas\", {\n    width: \"100\",\n    height: \"100\"\n  }));\n};\n\nfunction init() {\n  react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.render(react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Level7, null), document.querySelector('#app')); //https://stackoverflow.com/questions/1664785/resize-html5-canvas-to-fit-window\n\n  canvas = document.querySelector(\"canvas\");\n  canvas.width = window.innerWidth;\n  canvas.height = window.innerHeight;\n  ctx = canvas.getContext('2d');\n  numShapes = 0;\n  freeDraw = false;\n  drawTitle();\n}\n\nfunction drawTitle() {\n  ctx.font = '72px VT323';\n  ctx.fillStyle = '#33ff00';\n  ctx.fillText('Level 7: Art Class', canvas.width / 2 - 250, canvas.height / 2 - 100);\n  ctx.font = '60px VT323';\n  ctx.fillText('Draw A Pretty Picture To Proceed', canvas.width / 2 - 390, canvas.height / 2);\n}\n\nwindow.setColor = function (color) {\n  ctx.fillStyle = color;\n  ctx.strokeStyle = color;\n};\n\nwindow.drawRect = function (x, y, width, height) {\n  if (typeof x === \"number\" && typeof y === \"number\" && typeof width === \"number\" && typeof height === \"number\") {\n    ctx.fillRect(x, y, width, height);\n    incrementShapes();\n  } else {\n    console.log(\"You need to enter in four numbers to draw a rectangle\");\n  }\n};\n\nwindow.drawCircle = function (x, y, radius) {\n  if (typeof x === \"number\" && typeof y === \"number\" && typeof radius === \"number\") {\n    ctx.beginPath();\n    ctx.arc(x, y, radius, 0, 2 * Math.PI);\n    ctx.fill();\n    incrementShapes();\n  } else {\n    console.log(\"You need to enter in three numbers to draw a circle\");\n  }\n};\n\nwindow.drawLine = function (x1, y1, x2, y2) {\n  if (typeof x1 === \"number\" && typeof y1 === \"number\" && typeof x2 === \"number\" && typeof y2 === \"number\") {\n    ctx.beginPath();\n    ctx.moveTo(x1, y1);\n    ctx.lineTo(x2, y2);\n    ctx.stroke();\n    incrementShapes();\n  } else {\n    console.log(\"You need to enter in four numbers to draw a line\");\n  }\n};\n\nwindow.freeDraw = function () {\n  freeDraw = !freeDraw;\n  incrementShapes();\n};\n\ndocument.onmousemove = outputMouse;\n\nfunction outputMouse(event) {\n  if (freeDraw) {\n    var x = event.clientX;\n    var y = event.clientY;\n    ctx.fillRect(x - 5, y - 5, 10, 10);\n  }\n}\n\nfunction incrementShapes() {\n  numShapes++;\n\n  if (numShapes > 10) {}\n}\n\nwindow.onload = init;\n\n//# sourceURL=webpack:///./src/js/levels/7.js?");
 
 /***/ }),
 
@@ -298,14 +298,14 @@ eval("var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/
 
 /***/ }),
 
-/***/ 3:
+/***/ 7:
 /*!**********************************!*\
-  !*** multi ./src/js/levels/3.js ***!
+  !*** multi ./src/js/levels/7.js ***!
   \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! D:\\Profiles\\ekt6170\\Desktop\\hyper-hacker\\src\\js\\levels\\3.js */\"./src/js/levels/3.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/levels/3.js?");
+eval("module.exports = __webpack_require__(/*! D:\\Profiles\\ekt6170\\Desktop\\hyper-hacker\\src\\js\\levels\\7.js */\"./src/js/levels/7.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/levels/7.js?");
 
 /***/ })
 

@@ -22,5 +22,14 @@
     {
         "name": "Gotta Go Fast",
         "isPremium": true
+    },
+    {
+        "name": "WebVR",
+        "isPremium":true
+    },
+    {
+        "name": "Art Class",
+        "isPremium":true
     }
+
 ]
