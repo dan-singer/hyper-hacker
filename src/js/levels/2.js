@@ -1,9 +1,23 @@
 import '../../scss/style.scss';
 import '../../scss/levels.scss';
-import {toggleProfile} from '../support/utils.js'
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const Level2 = (props) => {
+    return (
+        <div id="cheat">
+            <a className="finish-link">Click here!</a>
+        </div>        
+        )
+}
 
 function init() {
-    document.querySelector('#profile-toggle').onclick = toggleProfile;
+
+    ReactDOM.render(
+        <Level2 />,
+        document.querySelector('#app')
+    );
+
     const csrf = document.querySelector('#_csrf').value;
     const urlParams = new URLSearchParams(window.location.search);
     const levelNum = parseInt(urlParams.get('num'));

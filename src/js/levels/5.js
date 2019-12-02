@@ -2,17 +2,30 @@ import '../../scss/style.scss';
 import '../../scss/levels.scss';
 import {Boid} from '../support/boid.js';
 import {toggleProfile} from '../support/utils.js';
-import { request } from 'https';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
+const Level5 = (props) => {
+    return (
+        <div id="instructions">
+            <h1>Level 5: Gotta Go Fast</h1>
+
+            <h2>Oh wait, you wanted to be able to CLICK these elements?</h2>
+        </div>       
+    )
+}
 
 document.onmousemove = outputMouse;
 
 function check(){
     let links = document.querySelectorAll('.finish-link');
 
-    for( let link of links){
-        link.onclick = checkClick;
+    if(links.length > 0){
+        for( let link of links){
+            link.onclick = checkClick;
+        }
     }
+    
 }
 
 window.onclick = checkClick;
@@ -51,7 +64,11 @@ let counter=0;
 let timeCounter = 0;
 
 function init() {
-    document.querySelector('#profile-toggle').onclick = toggleProfile;
+    ReactDOM.render(
+        <Level5 />,
+        document.querySelector('#app')
+    );
+
     console.log("Let's see how well you remember your physics!");
     console.log("Use print() to print out the current flock");
     console.log("Use setvelocity(int) to set the flock's velocity");

@@ -1,9 +1,46 @@
 import '../../scss/style.scss';
 import '../../scss/levels.scss';
 import {toggleProfile} from '../support/utils.js'
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+const Level0 = (props) => {
+    return (
+        <div>
+            <div id="overhead">
+                <h1>Level 0: Overflowing with Secrets</h1>
+                <h2>There are six buttons hiding in the space outside of your reach. One of them completes the level. Find it.</h2>
+            </div>
+
+            <a className="finish-link button1">Click here!</a>
+
+            <a className="finish-link button2">Click here!</a>
+
+            <div id="float">
+                <a className="finish-link button3">Click here!</a>
+            </div>
+
+
+            <a className="finish-link button4">Click here!</a>
+
+            <div id="cheat">
+                <a className="finish-link button5">Click here!</a>
+            </div>
+
+            <a id="complete" className="finish-link button6">Click here!</a>
+        </div>
+
+        
+        )
+}
 
 function init() {
-    document.querySelector('#profile-toggle').onclick = toggleProfile;
+
+    ReactDOM.render(
+        <Level0 />,
+        document.querySelector('#app')
+    );
+
     const csrf = document.querySelector('#_csrf').value;
     const urlParams = new URLSearchParams(window.location.search);
     const levelNum = parseInt(urlParams.get('num'));
