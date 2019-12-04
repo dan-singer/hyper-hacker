@@ -52,6 +52,11 @@ Hyper Hacker is a puzzle-game web application which features HTML, CSS, and Java
         - You have my sword, and my bow, and my axe.
     - Level 5: Gotta Go Fast
         - Oh wait, you wanted to be able to CLICK these elements?
+    - Level 6: WebVR [Dan]
+    - Level 7: Art Class [Emily]
+    - Level 8:  [Emily]
+    - Level 9:  [Emily]
+    - Leaderboard: [Dan]
 
 ### React Conversion 
 - Because of the nature of levels 0, 2, 5, and tutorial, they will not be converted to React components.

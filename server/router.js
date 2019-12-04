@@ -41,6 +41,12 @@ const router = (app) => {
   app.get('/level-select-details', mid.requiresSecure,
     mid.redirectHomeIfLoggedOut, controllers.Account.getLevelSelectDetails);
 
+  app.get('/leaderboard', mid.requiresSecure,
+    mid.redirectHomeIfLoggedOut, controllers.Account.getLeaderboardPage);
+
+  app.get('/highscores', mid.requiresSecure,
+    mid.redirectHomeIfLoggedOut, controllers.Account.getHighScores);
+
   app.get('/', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);
 
   app.get('*', mid.requiresSecure, mid.bypassIfLoggedIn, controllers.Account.loginPage);

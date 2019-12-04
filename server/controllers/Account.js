@@ -337,6 +337,43 @@ const retrieveImage = (req, res) => {
   });
 };
 
+const getLeaderboardPage = (req, res) => {
+  res.render('leaderboard');
+};
+
+const getHighScores = (req, res) => {
+  const highscores = [];
+  // Find all account documents
+  Account.AccountModel.find()
+  .then(docs => {
+    // Determine the number of levels
+    let levelCount = docs[0].completionTimes.length;
+    for (let i = 0; i < levelCount; ++i) {
+      // Generate a report for each level
+      let levelScores = docs.map(doc => {
+        return {
+          username: doc.username,
+          score: doc.completionTimes[i]
+        };
+      });
+      levelScores.sort((a, b) => {
+        if (a.score == 0) {
+          return 1;
+        }
+        else if (b.score == 0) {
+          return -1;
+        }
+        else {
+          return a.score - b.score;
+        }
+      });
+      highscores.push(levelScores);
+    }
+
+    res.json(highscores);
+  });
+};
+
 
 module.exports = {
   loginPage, login, logout, signupPage, signup,
@@ -344,5 +381,6 @@ module.exports = {
   getLevel, completeLevel, getHelp,
   changeUsername, changePassword,
   upgrade, upload, retrieveImage, getCsrf,
-  getLevelSelectDetails
+  getLevelSelectDetails, getLeaderboardPage,
+  getHighScores
 };
