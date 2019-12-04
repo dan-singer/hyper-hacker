@@ -3,7 +3,7 @@ import '../../scss/levels.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-let canvas, ctx, numShapes, freeDraw;
+let canvas, ctx, numShapes, freeDraw, finalImage;
 
 const Level7 = (props) => {
     return (
@@ -14,23 +14,15 @@ const Level7 = (props) => {
     )
 }
 
-function init(){
-    ReactDOM.render(
-        <Level7 />,
-        document.querySelector('#app')
-    );
+const Level7Done = (props) => {
+    return (
+        <div id="instructions">
+            <h1>Level Complete!</h1>
 
-    //https://stackoverflow.com/questions/1664785/resize-html5-canvas-to-fit-window
-    canvas = document.querySelector("canvas");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    ctx = canvas.getContext('2d');
-
-    numShapes = 0;
-
-    freeDraw = false;
-
-    drawTitle();
+            <a className="finish-link">Click here!</a>
+        </div>   
+           
+    )
 }
 
 function drawTitle(){
@@ -78,12 +70,19 @@ window.drawLine = (x1, y1, x2, y2) => {
     }
 };
 
-window.freeDraw = () => {
-    freeDraw = !freeDraw;
-    incrementShapes();
-};
+function setTrue(){
+    freeDraw = true;
+}
+
+function setTruent(){
+    freeDraw = false;
+}
 
 document.onmousemove = outputMouse;
+
+document.onmousedown = setTrue;
+
+document.onmouseup = setTruent;
 
 function outputMouse(event){
     if(freeDraw){
@@ -95,10 +94,102 @@ function outputMouse(event){
 
 function incrementShapes(){
     numShapes++;
+}
 
-    if(numShapes > 10){
+function checkComplete(){
+    console.log("HERE");
+    if(numShapes > 1){
+        //https://www.html5canvastutorials.com/advanced/html5-canvas-get-image-data-tutorial/
+        let image = ctx.getImageData(0,0,window.innerWidth, window.innerHeight);
+        let imageData = image.data;
 
+        let numFilled = 0;
+
+        for(let i = 0, n = imageData.length; i<n; i+=4){
+            numFilled += imageData[i+3];
+        }
+
+        let percentage = numFilled / (window.innerWidth * window.innerHeight);
+        if(percentage > 80){
+            completeLevel();
+        }else{ 
+            setTimeout(checkComplete, 1000);
+        }
+    }else{
+        setTimeout(checkComplete, 1000);
+    }   
+}
+
+function completeLevel(){
+
+    ReactDOM.render(
+        <Level7Done />,
+        document.querySelector('#app')
+    );
+
+    let finalData = canvas.toDataURL();
+    
+    finalImage = new Image();
+
+    finalImage.setAttribute('src', finalData);
+    finalImage.setAttribute('id', 'finalImage');
+
+    let overhead = document.querySelector('#instructions');
+
+    overhead.appendChild(finalImage);
+
+    const csrf = document.querySelector('#_csrf').value;
+    const urlParams = new URLSearchParams(window.location.search);
+    const levelNum = parseInt(urlParams.get('num'));
+    const links = document.querySelectorAll(".finish-link");
+    for(let finish of links){
+        finish.onclick = e => {
+            e.preventDefault();
+            fetch(`/level?num=${levelNum}&_csrf=${csrf}`, {
+                method: 'POST',
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    window.location.href = '/level-select';
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        };
     }
+}
+
+function init(){
+    ReactDOM.render(
+        <Level7 />,
+        document.querySelector('#app')
+    );
+
+    console.log("Welcome to the Canvas Level ie the level equal in shittiness to every water level ever.");
+    console.log("Use drawRect, drawCircle, and drawLine to draw shapes on screen");
+    console.log("You can also free draw using your mouse");
+    console.log("Change colors using setColor");
+    console.log("Draw me a beautiful picture to proceed");
+    
+    setTimeout(drawCanvas, 500);
+    
+}
+
+function drawCanvas(){
+    //https://stackoverflow.com/questions/1664785/resize-html5-canvas-to-fit-window
+    canvas = document.querySelector("canvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx = canvas.getContext('2d');
+
+    numShapes = 0;
+
+    freeDraw = false;
+
+    drawTitle();
+
+    setTimeout(checkComplete, 4000);
 }
 
 window.onload = init;
