@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -264,39 +264,15 @@ eval("\n\nvar stylesInDom = {};\n\nvar isOldIE = function isOldIE() {\n  var mem
 
 /***/ }),
 
-/***/ "./src/js/levels/4.js":
+/***/ "./src/js/levels/8.js":
 /*!****************************!*\
-  !*** ./src/js/levels/4.js ***!
+  !*** ./src/js/levels/8.js ***!
   \****************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/levels.scss */ \"./src/scss/levels.scss\");\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _support_utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../support/utils.js */ \"./src/js/support/utils.js\");\n/* harmony import */ var _support_graph_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../support/graph.js */ \"./src/js/support/graph.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_5__);\n\n\n\n\n\n\n\nvar Level4 = function Level4(props) {\n  return react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(\"div\", {\n    id: \"overhead\"\n  }, react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(\"h1\", null, \"Level 4: \", react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(\"em\", null, \"Console\"), \" Text Adventure\"), react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(\"h2\", null, \"You'll wanna be on the console for this...\"));\n};\n\nvar curLocation;\nvar inventory = new Set();\nvar levelNum, csrf;\n\nvar buildGraph = function buildGraph(data) {\n  var graph = new _support_graph_js__WEBPACK_IMPORTED_MODULE_3__[\"Graph\"]();\n\n  for (var i = 0; i < data.rooms.length; ++i) {\n    // Build the individual nodes. Link them below\n    var node = new _support_graph_js__WEBPACK_IMPORTED_MODULE_3__[\"Node\"](data.rooms[i], null);\n    graph.nodes.push(node);\n  }\n\n  for (var _i = 0; _i < data.adjacencyList.length; ++_i) {\n    // Convert the index-based adjacency list into Node pointers\n    var neighbors = [];\n\n    for (var j = 0; j < data.adjacencyList[_i].length; ++j) {\n      var nodeIndex = data.adjacencyList[_i][j];\n      var neighborNode = graph.nodes[nodeIndex];\n      neighbors.push(neighborNode);\n    }\n\n    graph.nodes[_i].neighbors = neighbors;\n  }\n\n  return graph;\n};\n\nvar startGame = function startGame(graph) {\n  curLocation = graph.nodes[0];\n  console.log('Welcome to Level 4: Console Text Adventure!');\n  console.log('To view the available commands at any time, type \\\"help()\\\"');\n  console.log('-----------------------------------------------------------');\n  printNode(curLocation);\n};\n\nvar printNode = function printNode(node) {\n  console.log(node.room.description);\n  lookAround();\n};\n\nvar init = function init() {\n  var urlParams = new URLSearchParams(window.location.search);\n  levelNum = parseInt(urlParams.get('num'));\n  fetch('/csrf').then(function (res) {\n    return res.json();\n  }).then(function (data) {\n    csrf = data.csrfToken;\n    react_dom__WEBPACK_IMPORTED_MODULE_5___default.a.render(react__WEBPACK_IMPORTED_MODULE_4___default.a.createElement(Level4, null), document.querySelector('#app'));\n  });\n  fetch('/assets/data/rooms.json').then(function (res) {\n    return res.json();\n  }).then(function (data) {\n    var graph = buildGraph(data);\n    startGame(graph);\n  })[\"catch\"](function (err) {\n    console.log(err);\n  });\n};\n\nvar lookAround = function lookAround() {\n  var locations = 'Adjacent Locations: ';\n  var _iteratorNormalCompletion = true;\n  var _didIteratorError = false;\n  var _iteratorError = undefined;\n\n  try {\n    for (var _iterator = curLocation.neighbors[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {\n      var neighbor = _step.value;\n      locations += neighbor.room.name + ' | ';\n    }\n  } catch (err) {\n    _didIteratorError = true;\n    _iteratorError = err;\n  } finally {\n    try {\n      if (!_iteratorNormalCompletion && _iterator[\"return\"] != null) {\n        _iterator[\"return\"]();\n      }\n    } finally {\n      if (_didIteratorError) {\n        throw _iteratorError;\n      }\n    }\n  }\n\n  console.log(\"%c\".concat(locations), 'color: orange');\n}; // Hacker functions\n\n\nwindow[\"goto\"] = function (destination) {\n  var _iteratorNormalCompletion2 = true;\n  var _didIteratorError2 = false;\n  var _iteratorError2 = undefined;\n\n  try {\n    for (var _iterator2 = curLocation.neighbors[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {\n      var neighbor = _step2.value;\n\n      if (neighbor.room.name === destination) {\n        // Hard code a check for the key if this is the treasure room\n        if (destination === 'Treasure Room') {\n          if (inventory.has('key')) {\n            curLocation = neighbor;\n            printNode(curLocation);\n            return;\n          }\n\n          console.error('The Treasure Room requires a key!');\n          return;\n        }\n\n        curLocation = neighbor;\n        printNode(curLocation);\n        return;\n      }\n    }\n  } catch (err) {\n    _didIteratorError2 = true;\n    _iteratorError2 = err;\n  } finally {\n    try {\n      if (!_iteratorNormalCompletion2 && _iterator2[\"return\"] != null) {\n        _iterator2[\"return\"]();\n      }\n    } finally {\n      if (_didIteratorError2) {\n        throw _iteratorError2;\n      }\n    }\n  }\n\n  console.error(\"The destination \".concat(destination, \" is not adjacent to you or does not exist!\"));\n};\n\nwindow.whereAmI = function () {\n  console.log(\"%c\".concat(curLocation.room.name), 'color: green');\n};\n\nwindow.pickup = function (target) {\n  if (curLocation.room.pickups.includes(target)) {\n    inventory.add(target);\n    console.log(\"Picked up \".concat(target));\n  } else {\n    console.error(\"There is no \".concat(target, \" to pick up!\"));\n  }\n};\n\nwindow.help = function () {\n  console.log('Commands available:');\n  console.log('%cwhereAmI() - Displays your current location', 'font-style: italic; color: orange');\n  console.log('%cgoto(\\\"destination\\\") - Lets you go to a different location if you are near it', 'font-style: italic; color: orange');\n  console.log('%cpickup(\\\"target\\\") - Picks up the target item', 'font-style: italic; color: orange');\n};\n\nwindow.win = function (key) {\n  if (key !== 8675309) {\n    console.error('The key you provided is incorrect! Keep looking around!');\n    return;\n  }\n\n  fetch(\"/level?num=\".concat(levelNum, \"&_csrf=\").concat(csrf), {\n    method: 'POST'\n  }).then(function (res) {\n    if (res.status === 200) {\n      window.location.href = '/level-select';\n    }\n  })[\"catch\"](function (err) {\n    console.log(err);\n  });\n};\n\nwindow.onload = init;\n\n//# sourceURL=webpack:///./src/js/levels/4.js?");
-
-/***/ }),
-
-/***/ "./src/js/support/graph.js":
-/*!*********************************!*\
-  !*** ./src/js/support/graph.js ***!
-  \*********************************/
-/*! exports provided: Node, Graph */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"Node\", function() { return Node; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"Graph\", function() { return Graph; });\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nvar Node = function Node(room, neighbors) {\n  _classCallCheck(this, Node);\n\n  this.room = room;\n  this.neighbors = neighbors;\n};\n\nvar Graph = function Graph() {\n  _classCallCheck(this, Graph);\n\n  this.nodes = [];\n};\n\n\n\n//# sourceURL=webpack:///./src/js/support/graph.js?");
-
-/***/ }),
-
-/***/ "./src/js/support/utils.js":
-/*!*********************************!*\
-  !*** ./src/js/support/utils.js ***!
-  \*********************************/
-/*! exports provided: toggleProfile */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"toggleProfile\", function() { return toggleProfile; });\n/**\r\n * Various utility functions used for the front end of hyper-hacker\r\n */\nfunction toggleProfile() {\n  var navBar = document.querySelector('nav');\n  var profile = document.querySelector('#profile');\n  var container = document.querySelector('#levelContainer');\n\n  if (profile.style.width == \"0px\" || profile.style.width == \"\") {\n    profile.style.width = \"300px\";\n    container.style.marginLeft = \"300px\";\n    container.style.transition = \"0.2s\";\n    navBar.style.width = \"81vw\";\n    navBar.style.left = \"350px\";\n    container.style.borderColor = \"#33ff00\";\n  } else {\n    profile.style.width = \"0px\";\n    container.style.marginLeft = \"0px\";\n    container.style.transition = \"0.3s\";\n    navBar.style.width = \"100vw\";\n    navBar.style.left = \"0px\";\n    container.style.borderColor = \"#111\";\n  }\n}\n\n\n\n//# sourceURL=webpack:///./src/js/support/utils.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/levels.scss */ \"./src/scss/levels.scss\");\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);\n\n\n\n\n\nvar Level8 = function Level8(props) {\n  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"div\", {\n    id: \"instructions\"\n  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"h1\", null, \"Level 8: Graceless Degradation\"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"h2\", null, \"Looks like you've got to mobilize.\"));\n};\n\nfunction init() {\n  react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.render(react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Level8, null), document.querySelector('#app'));\n}\n\nwindow.onload = init;\n\n//# sourceURL=webpack:///./src/js/levels/8.js?");
 
 /***/ }),
 
@@ -322,14 +298,14 @@ eval("var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/
 
 /***/ }),
 
-/***/ 4:
+/***/ 8:
 /*!**********************************!*\
-  !*** multi ./src/js/levels/4.js ***!
+  !*** multi ./src/js/levels/8.js ***!
   \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! D:\\Profiles\\ekt6170\\Desktop\\hyper-hacker\\src\\js\\levels\\4.js */\"./src/js/levels/4.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/levels/4.js?");
+eval("module.exports = __webpack_require__(/*! D:\\Profiles\\ekt6170\\Desktop\\hyper-hacker\\src\\js\\levels\\8.js */\"./src/js/levels/8.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/levels/8.js?");
 
 /***/ })
 

@@ -30,6 +30,14 @@
     {
         "name": "Art Class",
         "isPremium":true
+    },
+    {
+        "name": "Graceless Degradation",
+        "isPremium":true
+    },
+    {
+        "name": "Crash the Browser",
+        "isPremium":true
     }
 
 ]

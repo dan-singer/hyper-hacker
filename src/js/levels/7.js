@@ -97,7 +97,6 @@ function incrementShapes(){
 }
 
 function checkComplete(){
-    console.log("HERE");
     if(numShapes > 1){
         //https://www.html5canvastutorials.com/advanced/html5-canvas-get-image-data-tutorial/
         let image = ctx.getImageData(0,0,window.innerWidth, window.innerHeight);
