@@ -420,3 +420,15 @@ nav{
   }
 }
 
+#home {
+  text-decoration: none;
+  color: $defaultColor;
+}
+
+#home:hover {
+  text-decoration: underline;
+}
+
+#home:visited {
+  text-decoration: none;
+}

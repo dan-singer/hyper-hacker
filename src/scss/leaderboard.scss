@@ -1,0 +1,38 @@
+/* SASS Variables */
+$defaultColor: #33ff00;
+$defaultColorTransparent: rgba(51,255,0,0.5);
+$defaultBackground: #111;
+
+body {
+    overflow: scroll;
+}
+
+#leaderboard-container {
+    width: 90vw;
+    margin: auto;
+    h1 {
+        font-size: 4rem;
+        text-align: center;
+    }
+    #leaderboard {
+        display: flex;
+        flex-wrap: wrap;
+        .highscore-box {
+            flex: 1 1 40vw;
+            border: 3px solid $defaultColor;
+            margin: 10px;
+
+            h2 {
+                text-align: center;
+                font-size: 3rem;
+                border-bottom: 3px solid $defaultColor;
+            }
+
+            p {
+                font-size: 1.5rem;
+                border-bottom: 1px solid $defaultColor;
+                text-align: center;
+            }
+        }
+    }
+}

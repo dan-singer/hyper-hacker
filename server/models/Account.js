@@ -34,7 +34,7 @@ const AccountSchema = new mongoose.Schema({
   },
   completionTimes: {
     type: [Number],
-    default: [0, 0, 0, 0, 0, 0],
+    default: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   },
   startTime: {
     type: Number,

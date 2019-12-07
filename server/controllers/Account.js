@@ -6,8 +6,8 @@ const btoa = require('btoa');
 const Account = models.Account;
 
 const getCsrf = (req, res) => {
-  res.json({csrfToken: req.csrfToken()});
-}
+  res.json({ csrfToken: req.csrfToken() });
+};
 
 const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
@@ -176,12 +176,12 @@ const getLevelSelectDetails = (request, response) => {
           dateJoined,
           isPremium: user.isPremium,
           profilePic: user.data,
-          visitedHelp: user.visitedHelp
+          visitedHelp: user.visitedHelp,
         };
         response.json(levelDetails);
       });
   });
-}
+};
 
 const completeLevel = (request, response) => {
   Account.AccountModel.findByUsername(request.session.account.username)
@@ -343,34 +343,31 @@ const getLeaderboardPage = (req, res) => {
 
 const getHighScores = (req, res) => {
   const highscores = [];
-  // Find all account documents
-  Account.AccountModel.find()
-  .then(docs => {
-    // Determine the number of levels
-    let levelCount = docs[0].completionTimes.length;
-    for (let i = 0; i < levelCount; ++i) {
-      // Generate a report for each level
-      let levelScores = docs.map(doc => {
-        return {
-          username: doc.username,
-          score: doc.completionTimes[i]
-        };
-      });
-      levelScores.sort((a, b) => {
-        if (a.score == 0) {
-          return 1;
-        }
-        else if (b.score == 0) {
-          return -1;
-        }
-        else {
-          return a.score - b.score;
-        }
-      });
-      highscores.push(levelScores);
-    }
 
-    res.json(highscores);
+  fs.readFile(`${__dirname}/../../data/levels.json`, (err, data) => {
+    const levels = JSON.parse(data);
+    // Find all account documents
+    Account.AccountModel.find()
+    .then(docs => {
+      // Determine the number of levels
+      for (let i = 0; i < levels.length; ++i) {
+        const filteredDocs = docs.filter(
+          doc => doc.completionTimes[i] && doc.completionTimes[i] !== 0
+        );
+        // Generate a report for each level
+        const levelScores = filteredDocs.map(doc => ({
+          username: doc.username,
+          score: doc.completionTimes[i],
+        }));
+        levelScores.sort((a, b) => a.score - b.score);
+        highscores.push({
+          levelName: levels[i].name,
+          scores: levelScores,
+        });
+      }
+
+      res.json(highscores);
+    });
   });
 };
 
@@ -382,5 +379,5 @@ module.exports = {
   changeUsername, changePassword,
   upgrade, upload, retrieveImage, getCsrf,
   getLevelSelectDetails, getLeaderboardPage,
-  getHighScores
+  getHighScores,
 };

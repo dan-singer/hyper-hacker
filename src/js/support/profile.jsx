@@ -162,6 +162,7 @@ class Profile extends React.Component {
                             </React.Fragment>
                             }
                         </form>
+                        <button><a href="/leaderboard">Leaderboard</a></button>
                     </div>
 
                     {!this.props.isPremium && 

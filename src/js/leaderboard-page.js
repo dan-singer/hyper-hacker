@@ -1,13 +1,20 @@
 import '../scss/style.scss';
-import '../scss/levels.scss';
+import '../scss/leaderboard.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Leaderboard from './support/leaderboard.jsx';
 
 const LeaderboardPage = (props) => {
     return (
-        <div id="overhead">
-            <h1 class="tight">Leaderboard</h1>
-        </div>
+        <React.Fragment>
+            <nav>
+                <a id="home" href='/level-select'>Hyper Hacker</a>
+            </nav>
+            <section id="leaderboard-container">
+                <h1>Leaderboard</h1>
+                <Leaderboard />
+            </section>
+        </React.Fragment>
     );
 };
 
