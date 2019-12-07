@@ -351,9 +351,12 @@ const getHighScores = (req, res) => {
     .then(docs => {
       // Determine the number of levels
       for (let i = 0; i < levels.length; ++i) {
-        const filteredDocs = docs.filter(
+        let filteredDocs = docs.filter(
           doc => doc.completionTimes[i] && doc.completionTimes[i] !== 0
         );
+        if (filteredDocs.length > 5) {
+          filteredDocs = filteredDocs.slice(0, 5);
+        }
         // Generate a report for each level
         const levelScores = filteredDocs.map(doc => ({
           username: doc.username,
