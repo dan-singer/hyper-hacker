@@ -8,7 +8,7 @@ const Level2 = (props) => {
         <div id="cheat">
             <a className="finish-link">Click here!</a>
         </div>        
-        )
+    )
 }
 
 function init() {
