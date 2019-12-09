@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -322,7 +322,7 @@ eval("var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/
 
 /***/ }),
 
-/***/ 11:
+/***/ 12:
 /*!******************************************!*\
   !*** multi ./src/js/leaderboard-page.js ***!
   \******************************************/

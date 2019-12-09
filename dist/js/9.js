@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -264,15 +264,15 @@ eval("\n\nvar stylesInDom = {};\n\nvar isOldIE = function isOldIE() {\n  var mem
 
 /***/ }),
 
-/***/ "./src/js/help.js":
-/*!************************!*\
-  !*** ./src/js/help.js ***!
-  \************************/
+/***/ "./src/js/levels/9.js":
+/*!****************************!*\
+  !*** ./src/js/levels/9.js ***!
+  \****************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../scss/levels.scss */ \"./src/scss/levels.scss\");\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);\n\n\n\n\n\nvar Help = function Help(props) {\n  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"div\", {\n    id: \"overhead\"\n  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"h1\", null, \"Help?\"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"h2\", null, \"This isn't really a help page. But maybe it saved something for use in a different level...\"));\n};\n\nvar init = function init() {\n  react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.render(react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Help, null), document.querySelector('#app'));\n};\n\nwindow.onload = init;\n\n//# sourceURL=webpack:///./src/js/help.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../scss/style.scss */ \"./src/scss/style.scss\");\n/* harmony import */ var _scss_style_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss_style_scss__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/levels.scss */ \"./src/scss/levels.scss\");\n/* harmony import */ var _scss_levels_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_scss_levels_scss__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ \"./node_modules/react/index.js\");\n/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ \"./node_modules/react-dom/index.js\");\n/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);\n\n\n\n\nvar counter = 0;\n\nvar Level9 = function Level9(props) {\n  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"div\", {\n    id: \"instructions\"\n  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"h1\", null, \"Level 9: Clickr\"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"h2\", null, \"Click the button ten thousand times to complete the level.\"));\n};\n\nvar Level9Complete = function Level9Complete(props) {\n  return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"div\", {\n    id: \"instructions\"\n  }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"h1\", null, \"Level 9: Clickr\"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"h2\", null, \"You win! Well done.\"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(\"a\", {\n    className: \"finish-link\"\n  }, \"Click here!\"));\n};\n\nfunction checkComplete() {\n  react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.render(react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Level9Complete, null), document.querySelector('#app'));\n  var csrf = document.querySelector('#_csrf').value;\n  var urlParams = new URLSearchParams(window.location.search);\n  var levelNum = parseInt(urlParams.get('num'));\n  var links = document.querySelectorAll(\".finish-link\");\n  var _iteratorNormalCompletion = true;\n  var _didIteratorError = false;\n  var _iteratorError = undefined;\n\n  try {\n    for (var _iterator = links[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {\n      var finish = _step.value;\n\n      finish.onclick = function (e) {\n        e.preventDefault();\n        fetch(\"/level?num=\".concat(levelNum, \"&_csrf=\").concat(csrf), {\n          method: 'POST'\n        }).then(function (res) {\n          if (res.status === 200) {\n            window.location.href = '/level-select';\n          }\n        })[\"catch\"](function (err) {\n          console.log(err);\n        });\n      };\n    }\n  } catch (err) {\n    _didIteratorError = true;\n    _iteratorError = err;\n  } finally {\n    try {\n      if (!_iteratorNormalCompletion && _iterator[\"return\"] != null) {\n        _iterator[\"return\"]();\n      }\n    } finally {\n      if (_didIteratorError) {\n        throw _iteratorError;\n      }\n    }\n  }\n}\n\nfunction increment() {\n  if (counter > 9999) {\n    checkComplete();\n  } else {\n    counter++;\n\n    if (counter == 69) {\n      console.log('Nice');\n    }\n\n    if (counter == 420) {\n      console.log(\"Weed. Blaze.\");\n    }\n\n    if (counter == 6969) {\n      console.log('Double Nice!');\n    }\n\n    console.log(\"You have clicked the button \" + counter + \" times\");\n  }\n}\n\nfunction init() {\n  react_dom__WEBPACK_IMPORTED_MODULE_3___default.a.render(react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Level9, null), document.querySelector('#app'));\n  counter = 0;\n  var intro = document.querySelector('#instructions');\n  var clickButton = document.createElement('button');\n  clickButton.innerHTML = \"KEEP ON CLICKING\";\n  clickButton.style.fontFamily = 'VT323';\n  clickButton.style.color = '#33ff00';\n  clickButton.style.backgroundColor = '#111';\n  clickButton.style.fontSize = '5rem';\n  clickButton.style.borderRadius = '20px';\n  clickButton.style.border = '3px #33ff00 solid';\n  clickButton.style.padding = '2%';\n  clickButton.setAttribute('id', 'clicker');\n  clickButton.addEventListener(\"click\", increment);\n  intro.appendChild(clickButton);\n}\n\nwindow.onload = init;\n\n//# sourceURL=webpack:///./src/js/levels/9.js?");
 
 /***/ }),
 
@@ -298,14 +298,14 @@ eval("var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/
 
 /***/ }),
 
-/***/ 10:
-/*!******************************!*\
-  !*** multi ./src/js/help.js ***!
-  \******************************/
+/***/ 9:
+/*!**********************************!*\
+  !*** multi ./src/js/levels/9.js ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("module.exports = __webpack_require__(/*! D:\\Profiles\\ekt6170\\Desktop\\hyper-hacker\\src\\js\\help.js */\"./src/js/help.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/help.js?");
+eval("module.exports = __webpack_require__(/*! D:\\Profiles\\ekt6170\\Desktop\\hyper-hacker\\src\\js\\levels\\9.js */\"./src/js/levels/9.js\");\n\n\n//# sourceURL=webpack:///multi_./src/js/levels/9.js?");
 
 /***/ })
 

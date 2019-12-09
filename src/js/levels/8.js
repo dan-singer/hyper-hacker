@@ -30,17 +30,38 @@ const Level8Small = (props) => {
     )
 }
 
+function checkComplete(){
+    const csrf = document.querySelector('#_csrf').value;
+    const urlParams = new URLSearchParams(window.location.search);
+    const levelNum = parseInt(urlParams.get('num'));
+    const links = document.querySelectorAll(".finish-link");
+    for(let finish of links){
+        finish.onclick = e => {
+            e.preventDefault();
+            fetch(`/level?num=${levelNum}&_csrf=${csrf}`, {
+                method: 'POST',
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    window.location.href = '/level-select';
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        };
+    }
+}
 
 function init(){
     let windowWidth = window.innerWidth;
-
-    console.log(windowWidth);
 
     if(windowWidth < 500){
         ReactDOM.render(
             <Level8Small />,
             document.querySelector('#app')
         );
+        checkComplete();
     } else if(windowWidth < 910){
         ReactDOM.render(
             <Level8Medium />,
@@ -52,8 +73,6 @@ function init(){
             document.querySelector('#app')
         );
     }
-    
-    
 }
 
 
