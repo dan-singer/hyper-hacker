@@ -100,7 +100,7 @@ class Profile extends React.Component {
         })
         .then(res => {
             if (res.status === 200) {
-                Swal.fire('Congrats, you now have Hacker Status and can access levels 4 & 5')
+                Swal.fire('Congrats, you now have Hacker Status and can access additional levels')
                 .then(() => {
                     window.location.href = '/level-select';
                 });
