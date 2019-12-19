@@ -7,17 +7,7 @@
     <script src="assets/js/login.js"></script>
 </head>
 <body>  
-    <div id="login">
-        <div id="loginDiv">
-            <h1>Hyper Hacker</h1>
-            <form id="loginForm" name="loginForm" action="/login" method="POST" class="mainForm">
-                <input id="user" type="text" name="username" placeholder="username"/>
-                <input id="pass" type="password" name="pass" placeholder="password"/>
-                <input type="hidden" name="_csrf" value={{csrfToken}} />
-                <input class="formSubmit" type="image" value="Sign In" src="assets/media/submit.png" />
-            </form>
-            <p>New? Sign up <a href="signup">here</a></p>
-        </div>
-    </div>
+    <section id="app"></section>
+    <input id="_csrf" type="hidden" name="_csrf" value={{csrfToken}} />
 </body>
 </html>

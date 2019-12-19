@@ -4,6 +4,7 @@
 $defaultColor: #33ff00;
 $defaultColorTransparent: rgba(51,255,0,0.5);
 $defaultBackground: #111;
+$defaultFont: 'VT323', Arial, Helvetica, sans-serif;
 
 #overhead{
   position: fixed;
@@ -119,4 +120,8 @@ a:hover{
     width:30vw;
     margin:2% auto;
     border: 3px solid white;
+}
+
+#clicker:hover{
+    cursor: pointer;
 }
