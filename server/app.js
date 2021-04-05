@@ -16,7 +16,7 @@ const csrf = require('csurf');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/hyper-hacker';
-mongoose.connect(dbURL, (err) => {
+mongoose.connect(dbURL, { useMongoClient: true }, (err) => {
   if (err) {
     // console.log('Could not connect to database');
     throw err;
@@ -24,10 +24,10 @@ mongoose.connect(dbURL, (err) => {
 });
 
 let redisURL = {
-  hostname: 'redis-18766.c10.us-east-1-2.ec2.cloud.redislabs.com',
-  port: 18766,
+  hostname: 'redis-11328.c17.us-east-1-4.ec2.cloud.redislabs.com',
+  port: 11328,
 };
-let redisPASS = 'redis4thewin';
+let redisPASS = 'trpzdTsnawxzJB9QQv5LzZUctmDSTJKl';
 if (process.env.REDISCLOUD_URL) {
   redisURL = url.parse(process.env.REDISCLOUD_URL);
   redisPASS = redisURL.auth.split(':')[1];
