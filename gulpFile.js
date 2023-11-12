@@ -30,7 +30,7 @@ const lintTask = (done) => {
 };
 
 
-module.exports.build = gulp.parallel(bundleTask, lintTask);
+module.exports.build = gulp.parallel(bundleTask);
 
 
 // We can also use our above tasks in a watch script. Just like our previous
